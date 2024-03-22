@@ -42,7 +42,7 @@ a{
 }
 .body-container{
     flex: 1;
-    padding: 50px 0 20px;
+    padding: 10px 0 20px;
 }
 .footer {
     flex-shrink: 0;

@@ -1,6 +1,6 @@
-.form-wrapper{
+.form-wrapper {
     background-color: #f5f5f5;
-    padding: 50px 20px;
+    padding: 0 20px;
 }
 
 .form-wrapper button {
@@ -29,16 +29,120 @@
     margin-top: -5px !important;
 }
 
-.react-select__menu{
+.react-select__menu {
     z-index: 99999;
 }
 
-.assigned-task{
+.assigned-task {
     background-color: #f5f5f5;
     padding: 50px 20px;
     margin: 50px 0;
 }
 
-.ck.ck-dropdown .ck-button.ck-dropdown__button{
+.ck.ck-dropdown .ck-button.ck-dropdown__button {
     z-index: 0;
+}
+
+/*form styles*/
+#msform {
+    text-align: center;
+    position: relative;
+}
+
+#msform fieldset .form-card {
+    padding: 20px 40px 30px 40px;
+    box-sizing: border-box;
+    width: 94%;
+    margin: 0 3% 20px 3%;
+    position: relative;
+}
+
+#msform fieldset {
+    width: 100%;
+    margin: 0;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+/*Hide all except first fieldset*/
+#msform fieldset:not(:first-of-type) {
+    display: none;
+}
+
+#msform fieldset .form-card {
+    text-align: left;
+    color: #9E9E9E;
+}
+
+/*The background card*/
+.card {
+    z-index: 0;
+    border: none;
+    border-radius: 0.5rem;
+    position: relative;
+    background-color: transparent;
+}
+
+/*FieldSet headings*/
+.fs-title {
+    font-size: 25px;
+    color: #2C3E50;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: left;
+}
+
+/*progressbar*/
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: lightgrey;
+}
+
+#progressbar .active {
+    color: #000000;
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 12px;
+    width: 25%;
+    float: left;
+    position: relative;
+}
+
+/*Icons in the ProgressBar*/
+#progressbar #land:before, #progressbar #product:before, #progressbar #status:before, #progressbar #finish:before {
+    content: "";
+}
+
+/*ProgressBar before any progress*/
+#progressbar li:before {
+    width: 50px;
+    height: 50px;
+    line-height: 45px;
+    display: block;
+    font-size: 18px;
+    color: #ffffff;
+    background: lightgray;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    padding: 2px;
+}
+
+/*ProgressBar connectors*/
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: lightgray;
+    position: absolute;
+    left: 0;
+    top: 25px;
+    z-index: -1;
+}
+
+/*Color number of the step and the connector before it*/
+#progressbar li.active:before, #progressbar li.active:after {
+    background: skyblue;
 }
