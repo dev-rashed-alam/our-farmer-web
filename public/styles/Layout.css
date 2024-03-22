@@ -1,0 +1,53 @@
+.App, a, p, span, td, .custom-btn, .btn {
+    font-size: 17px !important;
+    font-weight: 400 !important;
+    font-family: 'Fira Sans', sans-serif !important;
+}
+p{
+    margin-bottom: 0 !important;
+}
+h3, h4{
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    font-family: 'Fira Sans', sans-serif !important;
+}
+a{
+    color: #000000 !important;
+    text-decoration: none !important;
+}
+.card-link{
+    color: #ffffff !important;
+    text-decoration: none !important;
+    font-weight: bold !important;
+}
+.custom-btn{
+    color: #ffffff !important;
+    text-decoration: none !important;
+}
+
+.active{
+    color: dodgerblue !important;
+}
+
+.App ._loading_overlay_wrapper{
+    min-height:100%;
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+.body-wrapper{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.body-container{
+    flex: 1;
+    padding: 50px 0 20px;
+}
+.footer {
+    flex-shrink: 0;
+    height: 60px;
+    line-height: 60px;
+    background-color: #f5f5f5;
+    text-align: center;
+}
