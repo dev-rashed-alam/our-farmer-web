@@ -28,7 +28,7 @@ const Page = () => {
                     <div className="button-content">
                         <FiUsers/>
                         <br/>
-                        Shop
+                        TNA
                     </div>
                 </li>
             </ul>

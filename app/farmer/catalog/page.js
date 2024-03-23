@@ -5,7 +5,43 @@ import Link from "next/link"
 
 const Page = () => {
 
-    const [tasks, setTasks] = useState([])
+    const [tasks, setTasks] = useState([
+        {
+            "id": 1,
+            "cropName": "Rice",
+            "cropDescription": "Rice is a staple food for a large part of the world's human population, particularly in Asia. It is the most widely consumed staple food for a large part of the world's human population.",
+            "superVisorName": "Alice Smith",
+            "date": "2024-03-23"
+        },
+        {
+            "id": 2,
+            "cropName": "Wheat",
+            "cropDescription": "Wheat is one of the most important cereal crops, providing a significant portion of the calories consumed by humans globally.",
+            "superVisorName": "Bob Johnson",
+            "date": "2024-03-23"
+        },
+        {
+            "id": 3,
+            "cropName": "Maize (Corn)",
+            "cropDescription": "Maize, also known as corn, is a cereal grain first domesticated by indigenous peoples in southern Mexico about 10,000 years ago.",
+            "superVisorName": "Emma Brown",
+            "date": "2024-03-23"
+        },
+        {
+            "id": 4,
+            "cropName": "Soybeans",
+            "cropDescription": "Soybeans are a major crop worldwide, providing oil and protein. They are used in various food products and as animal feed.",
+            "superVisorName": "Michael Williams",
+            "date": "2024-03-23"
+        },
+        {
+            "id": 5,
+            "cropName": "Potatoes",
+            "cropDescription": "Potatoes are a versatile and widely consumed tuber crop, rich in carbohydrates and various nutrients.",
+            "superVisorName": "Sarah Davis",
+            "date": "2024-03-23"
+        }
+    ])
 
     const handleTaskDelete = async (id) => {
 
@@ -17,12 +53,12 @@ const Page = () => {
                 <tr className="crud-table__row" key={`task_${task.id}`}>
                     <td className="crud-table__cell">
                         <Link href={`/tasks/${task.id}`} className="clickable">
-                            {task.title}
+                            {task.cropName}
                         </Link>
                     </td>
-                    <td className="crud-table__cell" dangerouslySetInnerHTML={{__html: task.description}}/>
-                    <td className="crud-table__cell">Date</td>
-                    <td className="crud-table__cell">{task.assignTo?.label}</td>
+                    <td className="crud-table__cell">{task.cropDescription}</td>
+                    <td className="crud-table__cell">{task.date}</td>
+                    <td className="crud-table__cell">{task.superVisorName}</td>
                     <td className="crud-table__cell">
                         <button
                             className="crud-button crud-button--negative"
@@ -62,7 +98,6 @@ const Page = () => {
                 </thead>
                 <tbody className="crud-table__body">
                 {renderTasks()}
-                {/*{tasks.length === 0 && <p className="pt-2 pb-2 text-muted">No task found!</p>}*/}
                 </tbody>
             </table>
         </>

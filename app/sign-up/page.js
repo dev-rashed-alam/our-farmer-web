@@ -137,6 +137,9 @@ const Registration = () => {
                             Submit
                         </button>
                     </div>
+                    <div className="d-grid mt-2">
+                        <p className="peragraph">Already have an account? Sign In</p>
+                    </div>
                 </form>
             </div>
         </div>

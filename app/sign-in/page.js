@@ -77,6 +77,9 @@ const Login = () => {
                             Submit
                         </button>
                     </div>
+                    <div className="d-grid mt-2">
+                        <p className="peragraph">Don&apos;t have an account? Sign up</p>
+                    </div>
                 </form>
             </div>
         </div>

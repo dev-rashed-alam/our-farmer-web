@@ -40,6 +40,13 @@ body, html, .App, #root, .auth-wrapper {
     transition: all .3s;
 }
 
+.form-control{
+    border-radius: 0;
+    font-size: 14px;
+    height: 40px;
+    font-weight: normal;
+}
+
 .auth-wrapper .form-control:focus {
     border-color: #167bff;
     box-shadow: none;
@@ -67,4 +74,8 @@ body, html, .App, #root, .auth-wrapper {
 .clickable {
     color: red;
     cursor: pointer;
+}
+.peragraph{
+    font-size: 14px;
+    color: #000;
 }
