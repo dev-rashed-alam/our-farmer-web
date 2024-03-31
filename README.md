@@ -3,8 +3,8 @@
 ## Installation Process
 ```bash
 1. git clone https://github.com/dev-rashed-alam/our-farmer-web.git
-2. npm install
-3. npm run dev
+2. yarn install
+3. yarn run dev
 ```
 
 ## Motivation
