@@ -4,7 +4,7 @@
 }
 
 .form-wrapper button {
-    width: 100px;
+    width: auto;
     border-radius: 0;
     background-color: dodgerblue;
     border: none;

@@ -78,7 +78,9 @@ const Login = () => {
                         </button>
                     </div>
                     <div className="d-grid mt-2">
-                        <p className="peragraph">Don&apos;t have an account? Sign up</p>
+                        <p onClick={() => router.push("/sign-up")} className="paragraph cursor-pointer">Don&apos;t have
+                            an account?
+                            Sign up</p>
                     </div>
                 </form>
             </div>

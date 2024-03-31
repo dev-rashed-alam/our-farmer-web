@@ -2,10 +2,12 @@
 
 import React, {useState} from "react";
 import "@/public/styles/Login.css"
+import {useRouter} from "next/navigation";
 
 const Registration = () => {
     const [inputData, setInputData] = useState({});
     const [errors, setErrors] = useState({});
+    const router = useRouter();
 
     const handleInputChange = (e) => {
         e.preventDefault();
@@ -133,12 +135,13 @@ const Registration = () => {
                         <p className="field-error">{errors.password}</p>
                     </div>
                     <div className="d-grid">
-                        <button type="submit" className="btn btn-primary">
+                        <button type="submit" className="btn btn-primary" onClick={() => router.push("/farmer")}>
                             Submit
                         </button>
                     </div>
                     <div className="d-grid mt-2">
-                        <p className="peragraph">Already have an account? Sign In</p>
+                        <p onClick={() => router.push("/sign-in")} className="paragraph cursor-pointer">Already have an
+                            account? Sign In</p>
                     </div>
                 </form>
             </div>

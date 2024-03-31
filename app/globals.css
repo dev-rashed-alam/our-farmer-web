@@ -1,0 +1,17 @@
+
+.star {
+    color: red;
+}
+
+.field-error {
+    color: red;
+}
+
+.clickable {
+    color: red;
+    cursor: pointer;
+}
+.paragraph{
+    font-size: 14px;
+    color: #000;
+}

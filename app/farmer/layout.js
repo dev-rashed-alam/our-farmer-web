@@ -16,7 +16,7 @@ const Layout = ({children}) => {
         <div className="body-wrapper">
             <Navbar bg="light" expand="lg">
                 <Container>
-                    <Link className="navbar-brand" href="/">
+                    <Link className="navbar-brand" href="/farmer">
                         <Image
                             src="/images/logo.png"
                             alt="Vercel Logo"
