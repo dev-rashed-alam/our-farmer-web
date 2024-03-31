@@ -34,7 +34,7 @@ const Layout = ({children}) => {
                             <Link href="/farmer/catalog" className="nav-link">
                                 Catalog
                             </Link>
-                            <Link href="/" className="nav-link">
+                            <Link href="/farmer/service" className="nav-link">
                                 Services
                             </Link>
                         </Nav>
