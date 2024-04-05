@@ -18,18 +18,22 @@ const Page = () => {
                     </Link>
                 </li>
                 <li>
-                    <div className="button-content">
-                        <FiUsers/>
-                        <br/>
-                        Services
-                    </div>
+                    <Link href="/farmer/service" className="card-link">
+                        <div className="button-content">
+                            <FiUsers/>
+                            <br/>
+                            Services
+                        </div>
+                    </Link>
                 </li>
                 <li>
-                    <div className="button-content">
-                        <FiUsers/>
-                        <br/>
-                        TNA
-                    </div>
+                    <Link href="/farmer/tna" className="card-link">
+                        <div className="button-content">
+                            <FiUsers/>
+                            <br/>
+                            TNA
+                        </div>
+                    </Link>
                 </li>
             </ul>
         </section>

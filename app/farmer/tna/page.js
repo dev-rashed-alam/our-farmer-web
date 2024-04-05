@@ -5,48 +5,58 @@ import Link from "next/link"
 
 const Page = () => {
 
-    const [services, setServices] = useState([
+    const [tasks, setTasks] = useState([
         {
             "id": 1,
-            "serviceType": "Financial Support",
+            "cropName": "Rice",
             "superVisorName": "Alice Smith",
-            "catalogName": "Rice",
-            "status": "Pending",
-            "requestDate": "2024-03-23"
+            "status": "Approved",
+            "date": "2024-03-23"
         },
         {
             "id": 2,
-            "serviceType": "Binimoy Management",
-            "catalogName": "Wheat",
-            "superVisorName": "Jhone Smith",
-            "status": "Under verification",
-            "requestDate": "2024-03-23"
+            "cropName": "Wheat",
+            "superVisorName": "Bob Johnson",
+            "status": "Approved",
+            "date": "2024-03-23"
         },
         {
             "id": 3,
-            "serviceType": "Expert Support",
-            "catalogName": "Potatoes",
-            "superVisorName": "Rashed Alam",
-            "status": "Approved",
-            "requestDate": "2024-03-23"
+            "cropName": "Maize (Corn)",
+            "superVisorName": "Emma Brown",
+            "status": "Under Verification",
+            "date": "2024-03-23"
         },
+        {
+            "id": 4,
+            "cropName": "Soybeans",
+            "superVisorName": "Michael Williams",
+            "status": "Rejected",
+            "date": "2024-03-23"
+        },
+        {
+            "id": 5,
+            "cropName": "Potatoes",
+            "superVisorName": "Sarah Davis",
+            "status": "Approved",
+            "date": "2024-03-23"
+        }
     ])
 
     const handleTaskDelete = async (id) => {
 
     };
 
-    const renderServices = () => {
-        return services?.map((task) => {
+    const renderTnaList = () => {
+        return tasks?.map((task) => {
             return (
                 <tr className="crud-table__row" key={`task_${task.id}`}>
                     <td className="crud-table__cell">
                         <Link href={`/tasks/${task.id}`} className="clickable">
-                            {task.serviceType}
+                            {task.cropName}
                         </Link>
                     </td>
-                    <td className="crud-table__cell">{task.catalogName}</td>
-                    <td className="crud-table__cell">{task.requestDate}</td>
+                    <td className="crud-table__cell">{task.date}</td>
                     <td className="crud-table__cell">{task.superVisorName}</td>
                     <td className="crud-table__cell">{task.status}</td>
                     <td className="crud-table__cell">
@@ -54,7 +64,7 @@ const Page = () => {
                             className="crud-button crud-button--negative"
                             type="button"
                             onClick={() => handleTaskDelete(task.id)}>
-                            Delete
+                            Update TNA
                         </button>
                     </td>
                 </tr>
@@ -66,29 +76,21 @@ const Page = () => {
         <>
             <div className="page-heading mb-2">
                 <div className="title">
-                    <h3>Service page</h3>
-                </div>
-                <div className="button-wrapper">
-                    <Link
-                        href="/farmer/service/create"
-                        className="btn btn-primary custom-btn">
-                        Take a new service
-                    </Link>
+                    <h3>Time and action page</h3>
                 </div>
             </div>
             <table className="crud-table">
                 <thead className="crud-table__header">
                 <tr className="crud-table__row">
-                    <th className="crud-table__header-cell">Service Type</th>
-                    <th className="crud-table__header-cell">Catalog Name</th>
-                    <th className="crud-table__header-cell">Request Date</th>
-                    <th className="crud-table__header-cell">Supervisor Name</th>
+                    <th className="crud-table__header-cell">Title</th>
+                    <th className="crud-table__header-cell">Creation date</th>
+                    <th className="crud-table__header-cell">Assign to</th>
                     <th className="crud-table__header-cell">Status</th>
                     <th className="crud-table__header-cell">Actions</th>
                 </tr>
                 </thead>
                 <tbody className="crud-table__body">
-                {renderServices()}
+                {renderTnaList()}
                 </tbody>
             </table>
         </>
