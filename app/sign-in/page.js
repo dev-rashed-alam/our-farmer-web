@@ -40,13 +40,14 @@ const Login = () => {
     return (
         <div className="auth-wrapper">
             <div className="auth-inner">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} autoComplete="off">
                     <h3>Sign In</h3>
                     <div className="mb-3">
                         <label htmlFor="email">
                             Email <span className="star">*</span>
                         </label>
                         <input
+                            autoComplete="off"
                             type="text"
                             id="email"
                             className="form-control"
@@ -62,6 +63,7 @@ const Login = () => {
                             Password <span className="star">*</span>
                         </label>
                         <input
+                            autoComplete="off"
                             type="password"
                             id="password"
                             className="form-control"

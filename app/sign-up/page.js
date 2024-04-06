@@ -40,7 +40,7 @@ const Registration = () => {
     return (
         <div className="auth-wrapper">
             <div className="auth-inner">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} autoComplete="off">
                     <h3>Sign Up</h3>
                     <div className="row">
                         <div className="col">

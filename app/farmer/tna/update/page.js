@@ -4,6 +4,7 @@ import '@/public/styles/Table.css';
 import Link from "next/link"
 
 const Page = () => {
+
     const [tasks, setTasks] = useState([
         {
             "id": 1,
@@ -50,19 +51,6 @@ const Page = () => {
         return tasks?.map((task) => {
             return (
                 <tr className="crud-table__row" key={`task_${task.id}`}>
-                    <td className="crud-table__cell">
-                        <Link href={`/tasks/${task.id}`} className="clickable">
-                            {task.cropName}
-                        </Link>
-                    </td>
-                    <td className="crud-table__cell">{task.date}</td>
-                    <td className="crud-table__cell">{task.superVisorName}</td>
-                    <td className="crud-table__cell">{task.status}</td>
-                    <td className="crud-table__cell">
-                        <Link href={`/farmer/tna/update`} className="clickable crud-button crud-button--negative">
-                            Update TNA
-                        </Link>
-                    </td>
                 </tr>
             );
         });
@@ -78,11 +66,18 @@ const Page = () => {
             <table className="crud-table">
                 <thead className="crud-table__header">
                 <tr className="crud-table__row">
-                    <th className="crud-table__header-cell">Title</th>
-                    <th className="crud-table__header-cell">Creation date</th>
-                    <th className="crud-table__header-cell">Assign to</th>
-                    <th className="crud-table__header-cell">Status</th>
-                    <th className="crud-table__header-cell">Actions</th>
+                    <th className="crud-table__header-cell">Land Preparation</th>
+                    <th className="crud-table__header-cell">Seed Selection and Treatment</th>
+                    <th className="crud-table__header-cell">Equipment Check</th>
+                    <th className="crud-table__header-cell">Planting</th>
+                    <th className="crud-table__header-cell">Irrigation</th>
+                    <th className="crud-table__header-cell">Weed Control</th>
+                    <th className="crud-table__header-cell">Fertilization</th>
+                    <th className="crud-table__header-cell">Pest and Disease Management</th>
+                    <th className="crud-table__header-cell">Growth Monitoring</th>
+                    <th className="crud-table__header-cell">Harvesting</th>
+                    <th className="crud-table__header-cell">Post-Harvest Processing</th>
+                    <th className="crud-table__header-cell">Production</th>
                 </tr>
                 </thead>
                 <tbody className="crud-table__body">
