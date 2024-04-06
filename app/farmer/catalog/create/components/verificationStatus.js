@@ -1,5 +1,5 @@
 import React from "react";
-import "@/public/styles/VerificationCard.css"
+import "@/public/styles/farmer/VerificationCard.css"
 
 const VerificationStatus = ({handleNext}) => {
     return (

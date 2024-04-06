@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import '@/public/styles/Form.css';
+import '@/public/styles/farmer/Form.css';
 import ServiceInformation from "@/app/farmer/service/create/components/serviceInformation";
 
 const Page = () => {

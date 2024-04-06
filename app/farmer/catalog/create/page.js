@@ -3,7 +3,7 @@
 import React, {useEffect, useState} from 'react';
 import EditorComponent from '@/app/ui/common/EditorComponent';
 import Select from 'react-select';
-import '@/public/styles/Form.css';
+import '@/public/styles/farmer/Form.css';
 import LandInformation from "@/app/farmer/catalog/create/components/landInformation";
 import ProductInformation from "@/app/farmer/catalog/create/components/productInformation";
 import VerificationStatus from "@/app/farmer/catalog/create/components/verificationStatus";

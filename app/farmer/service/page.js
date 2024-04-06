@@ -1,6 +1,6 @@
 'use client'
 import React, {useState} from 'react';
-import '@/public/styles/Table.css';
+import '@/public/styles/farmer/Table.css';
 import Link from "next/link"
 
 const Page = () => {

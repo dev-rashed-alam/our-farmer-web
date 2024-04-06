@@ -1,8 +1,9 @@
 import React from "react";
-import '@/public/styles/Dashboard.css';
-import {FaTasks} from 'react-icons/fa';
-import {FiUsers} from 'react-icons/fi';
+import '@/public/styles/farmer/Dashboard.css';
+import { SiTvtime } from "react-icons/si";
 import Link from "next/link";
+import {BsFillChatSquareQuoteFill} from "react-icons/bs";
+import {FaServicestack} from "react-icons/fa";
 
 const Page = () => {
     return (
@@ -11,7 +12,7 @@ const Page = () => {
                 <li>
                     <Link href="/farmer/catalog" className="card-link">
                         <div className="button-content">
-                            <FaTasks/>
+                            <BsFillChatSquareQuoteFill/>
                             <br/>
                             Catalog
                         </div>
@@ -20,7 +21,7 @@ const Page = () => {
                 <li>
                     <Link href="/farmer/service" className="card-link">
                         <div className="button-content">
-                            <FiUsers/>
+                            <FaServicestack/>
                             <br/>
                             Services
                         </div>
@@ -29,7 +30,7 @@ const Page = () => {
                 <li>
                     <Link href="/farmer/tna" className="card-link">
                         <div className="button-content">
-                            <FiUsers/>
+                            <SiTvtime/>
                             <br/>
                             TNA
                         </div>

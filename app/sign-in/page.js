@@ -1,7 +1,7 @@
 "use client"
 
 import React, {useState} from "react";
-import "@/public/styles/Login.css"
+import "@/public/styles/farmer/Login.css"
 import {useRouter} from "next/navigation";
 
 const Login = () => {

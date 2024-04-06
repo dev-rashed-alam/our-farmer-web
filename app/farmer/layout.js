@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 import {Navbar, Nav, Container} from 'react-bootstrap';
-import '@/public/styles/Layout.css';
+import '@/public/styles/farmer/Layout.css';
 import Link from 'next/link';
 import Image from "next/image";
 import { useRouter } from 'next/navigation'

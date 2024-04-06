@@ -1,6 +1,6 @@
 'use client'
 import React from "react";
-import "@/public/styles/Confirmation.css"
+import "@/public/styles/farmer/Confirmation.css"
 import {useRouter} from "next/navigation";
 
 const Confirmation = () => {
