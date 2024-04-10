@@ -3,6 +3,9 @@
 import React, {useState} from "react";
 import "@/public/styles/farmer/Login.css"
 import {useRouter} from "next/navigation";
+import {doRegistration} from "@/app/service/authService";
+import {toast} from "react-toastify";
+import {getInputFieldError} from "@/app/config/utils";
 
 const Registration = () => {
     const [inputData, setInputData] = useState({});
@@ -22,11 +25,23 @@ const Registration = () => {
 
     const isValidForm = () => {
         const errorsObj = {};
+        if (!inputData.firstName) {
+            errorsObj['firstName'] = 'First name is required';
+        }
+        if (!inputData.lastName) {
+            errorsObj['lastName'] = 'Last name is required';
+        }
         if (!inputData.email) {
-            errorsObj['email'] = 'User name is required';
+            errorsObj['email'] = 'Email is required';
+        }
+        if (!inputData.phoneNumber) {
+            errorsObj['phoneNumber'] = 'Phone number is required';
         }
         if (!inputData.password) {
             errorsObj['password'] = 'Password is required';
+        }
+        if (!inputData.confirmPassword) {
+            errorsObj['confirmPassword'] = 'Password does not matched!';
         }
         setErrors(errorsObj);
         return Object.keys(errorsObj).length === 0;
@@ -34,8 +49,23 @@ const Registration = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        if (isValidForm()) {
+            try {
+                const data = await doRegistration(inputData);
+                if (data) {
+                    toast.success("Registration Successful!");
+                    router.push("/sign-in");
+                }
+            } catch (e) {
+                if (e.errors) {
+                    let errorObj = getInputFieldError(e.errors);
+                    setErrors(prev => ({...prev, ...errorObj}))
+                }
+            }
+        }
     };
+
+    console.log(errors)
 
     return (
         <div className="auth-wrapper">
@@ -52,11 +82,11 @@ const Registration = () => {
                                 id="firstName"
                                 className="form-control"
                                 placeholder="Enter first name"
-                                value={inputData.email || ''}
+                                value={inputData.firstName || ''}
                                 name="firstName"
                                 onChange={handleInputChange}
                             />
-                            <p className="field-error">{errors.email}</p>
+                            <p className="field-error">{errors.firstName}</p>
                         </div>
                         <div className="col">
                             <label htmlFor="lastName">
@@ -67,11 +97,11 @@ const Registration = () => {
                                 id="lastName"
                                 className="form-control"
                                 placeholder="Enter last name"
-                                value={inputData.email || ''}
+                                value={inputData.lastName || ''}
                                 name="lastName"
                                 onChange={handleInputChange}
                             />
-                            <p className="field-error">{errors.email}</p>
+                            <p className="field-error">{errors.lastName}</p>
                         </div>
                     </div>
                     <div className="mb-3">
@@ -98,11 +128,11 @@ const Registration = () => {
                             id="phoneNumber"
                             className="form-control"
                             placeholder="Enter phone number"
-                            value={inputData.email || ''}
+                            value={inputData.phoneNumber || ''}
                             name="phoneNumber"
                             onChange={handleInputChange}
                         />
-                        <p className="field-error">{errors.email}</p>
+                        <p className="field-error">{errors.phoneNumber}</p>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="password">
@@ -128,14 +158,14 @@ const Registration = () => {
                             id="confirmPassword"
                             className="form-control"
                             placeholder="Enter password"
-                            value={inputData.password || ''}
+                            value={inputData.confirmPassword || ''}
                             name="confirmPassword"
                             onChange={handleInputChange}
                         />
-                        <p className="field-error">{errors.password}</p>
+                        <p className="field-error">{errors.confirmPassword}</p>
                     </div>
                     <div className="d-grid">
-                        <button type="submit" className="btn btn-primary" onClick={() => router.push("/farmer")}>
+                        <button type="submit" className="btn btn-primary">
                             Submit
                         </button>
                     </div>

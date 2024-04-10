@@ -3,6 +3,9 @@
 import React, {useState} from "react";
 import "@/public/styles/farmer/Login.css"
 import {useRouter} from "next/navigation";
+import {doLogin} from "@/app/service/authService";
+import {toast} from "react-toastify";
+import {saveUserInfoInStorage} from "@/app/config/utils";
 
 const Login = () => {
     const [inputData, setInputData] = useState({});
@@ -22,8 +25,8 @@ const Login = () => {
 
     const isValidForm = () => {
         const errorsObj = {};
-        if (!inputData.email) {
-            errorsObj['email'] = 'User name is required';
+        if (!inputData.phoneNumber) {
+            errorsObj['phoneNumber'] = 'Phone number is required';
         }
         if (!inputData.password) {
             errorsObj['password'] = 'Password is required';
@@ -34,7 +37,23 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        router.push('/farmer')
+        if (isValidForm()) {
+            try {
+                const data = await doLogin(inputData)
+                saveUserInfoInStorage(data)
+                let userInfo = data.data;
+                if (userInfo.id) {
+                    toast.success("Login successful!")
+                    if (userInfo.userType === "FARMER") {
+                        router.push("/farmer")
+                    } else if (userInfo.userType === "ADMIN") {
+                        router.push("/admin")
+                    }
+                }
+            } catch (e) {
+                console.log(e)
+            }
+        }
     };
 
     return (
@@ -43,20 +62,20 @@ const Login = () => {
                 <form onSubmit={handleSubmit} autoComplete="off">
                     <h3>Sign In</h3>
                     <div className="mb-3">
-                        <label htmlFor="email">
-                            Email <span className="star">*</span>
+                        <label htmlFor="phoneNumber">
+                            Phone Number <span className="star">*</span>
                         </label>
                         <input
                             autoComplete="off"
                             type="text"
-                            id="email"
+                            id="phoneNumber"
                             className="form-control"
-                            placeholder="Enter email"
-                            value={inputData.email || ''}
-                            name="email"
+                            placeholder="Enter phone number"
+                            value={inputData.phoneNumber || ''}
+                            name="phoneNumber"
                             onChange={handleInputChange}
                         />
-                        <p className="field-error">{errors.email}</p>
+                        <p className="field-error">{errors.phoneNumber}</p>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="password">
