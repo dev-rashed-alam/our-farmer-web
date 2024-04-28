@@ -16,6 +16,7 @@ const Page = () => {
     const [stepList, setStepList] = useState(["LAND", "PRODUCT", "STATUS", "FINISH"]);
     const [selectedStep, setSelectedStep] = useState("LAND");
     const [errors, setErrors] = useState({});
+    const [areaId, setAreaId] = useState(null)
 
     const handleNext = () => {
         const activeIndex = stepList.findIndex(item => item === selectedStep)
@@ -71,10 +72,10 @@ const Page = () => {
                                         <li className={selectedStep === "FINISH" ? 'active' : ''} id="finish">
                                             <strong>Finish</strong></li>
                                     </ul>
-                                    {selectedStep === "LAND" && <LandInformation handleNext={handleNext}/>}
-                                    {selectedStep === "PRODUCT" && <ProductInformation handleNext={handleNext}/>}
-                                    {selectedStep === "STATUS" && <VerificationStatus handleNext={handleNext} />}
-                                    {selectedStep === "FINISH" && <Confirmation />}
+                                    {selectedStep === "LAND" && <LandInformation handleNext={handleNext} setAreaId={setAreaId}/>}
+                                    {selectedStep === "PRODUCT" && <ProductInformation handleNext={handleNext} areaId={areaId}/>}
+                                    {selectedStep === "STATUS" && <VerificationStatus handleNext={handleNext}/>}
+                                    {selectedStep === "FINISH" && <Confirmation/>}
                                 </form>
                             </div>
                         </div>

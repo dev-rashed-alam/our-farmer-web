@@ -1,14 +1,32 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Select from "react-select";
 import EditorComponent from "@/app/ui/common/editorComponent";
+import {findAllCategories, saveCatalogByStage} from "@/app/service/CatalogService";
 
-const ProductInformation = ({handleNext}) => {
+const productionUnits = [
+    {value: "KG", label: "Kilogram"},
+    {value: "TONN", label: "Tonns"},
+    {value: "BUSHELS", label: "Bushels"},
+]
+
+const ProductInformation = ({handleNext, areaId}) => {
     const [inputData, setInputData] = useState({});
-    const [userList, setUserList] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [errors, setErrors] = useState({});
 
-    const handleUserSelect = (user) => {
-        setInputData((prev) => ({...prev, user: user}));
+    useEffect(() => {
+        (async () => {
+            try {
+                const {data} = await findAllCategories()
+                setCategories(data?.map(item => ({value: item.id, label: item.name})))
+            } catch (e) {
+                console.log(e)
+            }
+        })()
+    }, [])
+
+    const handleSelect = (data, fieldName) => {
+        setInputData((prev) => ({...prev, [fieldName]: data}));
     };
 
     const handleInputChange = (e) => {
@@ -21,131 +39,174 @@ const ProductInformation = ({handleNext}) => {
         setInputData((prev) => ({...prev, description: data}));
     };
 
+    const isValid = () => {
+        let errors = {}
+        if (!inputData.productTitle) {
+            errors["productTitle"] = "Product title is required"
+        }
+        if (!inputData.productCategory?.value) {
+            errors["productCategory"] = "Product category is required"
+        }
+        if (!inputData.farmingStartDate) {
+            errors["farmingStartDate"] = "Farming start date is required"
+        }
+        if (!inputData.farmingEndDate) {
+            errors["farmingEndDate"] = "Farming end date is required"
+        }
+        if (!inputData.unitType) {
+            errors["unitType"] = "Unit type is required"
+        }
+        if (!inputData.totalProduction) {
+            errors["totalProduction"] = "Total production is required"
+        }
+        if (!inputData.totalCost) {
+            errors["totalCost"] = "Total cost is required"
+        }
+        if (!inputData.moq) {
+            errors["moq"] = "MOQ is required"
+        }
+        if (!inputData.unitCost) {
+            errors["unitCost"] = "Unit cost is required"
+        }
+        setErrors(errors)
+        return !Object.keys(errors).length > 0
+    }
+
+    const handleSubmit = async () => {
+        if (isValid()) {
+            try {
+                const data = await saveCatalogByStage({...inputData, areaInfo: areaId, productCategory: [inputData.productCategory.value]}, 'PRODUCT_INFO');
+                handleNext()
+            } catch (e) {
+                console.log(e)
+            }
+        }
+    }
+
     return (
         <fieldset>
             <div className="form-card">
                 <h2 className="fs-title">Provide Your Product Information</h2>
                 <div className="row">
                     <div className="mb-3 col-md-4">
-                        <label htmlFor="title">
+                        <label htmlFor="productTitle">
                             Product Title<span className="star">*</span>
                         </label>
                         <input
                             type="text"
-                            id="title"
+                            id="productTitle"
                             className="form-control"
-                            name="title"
-                            value={inputData.title || ''}
+                            name="productTitle"
+                            value={inputData.productTitle || ''}
                             onChange={handleInputChange}
                         />
-                        <p className="field-error">{errors.title}</p>
+                        <p className="field-error">{errors.productTitle}</p>
                     </div>
                     <div className="mb-3 col-md-4">
-                        <label htmlFor="assignUser">Product Category</label>
+                        <label htmlFor="productCategory">Product Category</label>
                         <Select
-                            options={userList}
+                            options={categories}
                             isMulti={false}
                             classNamePrefix="react-select"
-                            onChange={handleUserSelect}
-                            value={inputData.user || {}}
+                            onChange={(e) => handleSelect(e, 'productCategory')}
+                            value={inputData.productCategory || {}}
                         />
-                        <p className="field-error">{errors.permissions}</p>
+                        <p className="field-error">{errors.productCategory}</p>
                     </div>
                     <div className="mb-3 col-md-4">
                         <label htmlFor="title">
                             Approximate Farming Start Date<span className="star">*</span>
                         </label>
                         <input
-                            type="text"
-                            id="title"
+                            type="date"
+                            id="farmingStartDate"
                             className="form-control"
-                            name="title"
-                            value={inputData.title || ''}
+                            name="farmingStartDate"
+                            value={inputData.farmingStartDate || ''}
                             onChange={handleInputChange}
                         />
-                        <p className="field-error">{errors.title}</p>
+                        <p className="field-error">{errors.farmingStartDate}</p>
                     </div>
                     <div className="mb-3 col-md-4">
                         <label htmlFor="title">
                             Approximate Farming End Date<span className="star">*</span>
                         </label>
                         <input
-                            type="text"
-                            id="title"
+                            type="date"
+                            id="farmingEndDate"
                             className="form-control"
-                            name="title"
-                            value={inputData.title || ''}
+                            name="farmingEndDate"
+                            value={inputData.farmingEndDate || ''}
                             onChange={handleInputChange}
                         />
-                        <p className="field-error">{errors.title}</p>
+                        <p className="field-error">{errors.farmingEndDate}</p>
                     </div>
                     <div className="mb-3 col-md-4">
-                        <label htmlFor="assignUser">Production Unit</label>
+                        <label htmlFor="unitType">Production Unit</label>
                         <Select
-                            options={userList}
+                            options={productionUnits}
                             isMulti={false}
                             classNamePrefix="react-select"
-                            onChange={handleUserSelect}
-                            value={inputData.user || {}}
+                            onChange={(e) => handleSelect(e, 'unitType')}
+                            value={inputData.unitType || {}}
                         />
-                        <p className="field-error">{errors.permissions}</p>
+                        <p className="field-error">{errors.unitType}</p>
                     </div>
                     <div className="mb-3 col-md-4">
-                        <label htmlFor="title">
+                        <label htmlFor="totalProduction">
                             Approximate Total Production<span className="star">*</span>
                         </label>
                         <input
                             type="text"
-                            id="title"
+                            id="totalProduction"
                             className="form-control"
-                            name="title"
-                            value={inputData.title || ''}
+                            name="totalProduction"
+                            value={inputData.totalProduction || ''}
                             onChange={handleInputChange}
                         />
-                        <p className="field-error">{errors.title}</p>
+                        <p className="field-error">{errors.totalProduction}</p>
                     </div>
                     <div className="mb-3 col-md-4">
-                        <label htmlFor="title">
+                        <label htmlFor="totalCost">
                             Approximate Total Cost<span className="star">*</span>
                         </label>
                         <input
                             type="text"
-                            id="title"
+                            id="totalCost"
                             className="form-control"
-                            name="title"
-                            value={inputData.title || ''}
+                            name="totalCost"
+                            value={inputData.totalCost || ''}
                             onChange={handleInputChange}
                         />
-                        <p className="field-error">{errors.title}</p>
+                        <p className="field-error">{errors.totalCost}</p>
                     </div>
                     <div className="mb-3 col-md-4">
-                        <label htmlFor="title">
+                        <label htmlFor="moq">
                             MOQ<span className="star">*</span>
                         </label>
                         <input
                             type="text"
-                            id="title"
+                            id="moq"
                             className="form-control"
-                            name="title"
-                            value={inputData.title || ''}
+                            name="moq"
+                            value={inputData.moq || ''}
                             onChange={handleInputChange}
                         />
-                        <p className="field-error">{errors.title}</p>
+                        <p className="field-error">{errors.moq}</p>
                     </div>
                     <div className="mb-3 col-md-4">
-                        <label htmlFor="title">
+                        <label htmlFor="unitCost">
                             Approximate Per Unit Cost<span className="star">*</span>
                         </label>
                         <input
                             type="text"
-                            id="title"
+                            id="unitCost"
                             className="form-control"
-                            name="title"
-                            value={inputData.title || ''}
+                            name="unitCost"
+                            value={inputData.unitCost || ''}
                             onChange={handleInputChange}
-                            readOnly={true}
                         />
-                        <p className="field-error">{errors.title}</p>
+                        <p className="field-error">{errors.unitCost}</p>
                     </div>
 
                     <div className="mb-3 col-md-12">
@@ -157,7 +218,7 @@ const ProductInformation = ({handleNext}) => {
                     </div>
                 </div>
             </div>
-            <button onClick={handleNext} type="button" name="next"
+            <button onClick={handleSubmit} type="button" name="next"
                     className="next btn btn-primary">Next Step
             </button>
         </fieldset>
