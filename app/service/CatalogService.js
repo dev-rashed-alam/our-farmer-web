@@ -11,6 +11,15 @@ export const findAllCatalogs = async () => {
     return res.json()
 }
 
+export const findCatalogById = async (id) => {
+    const res = await fetch(`${API_BASE_URL}/farmer/catalog/${id}`, {cache: 'no-store'})
+    if (!res.ok) {
+        throw new Error('Failed to fetch data')
+    }
+
+    return res.json()
+}
+
 export const findAllCountryData = async () => {
     try {
         const {data} = await axios.get(`${API_BASE_URL}/master-data/country`);
@@ -32,6 +41,15 @@ export const findAllCategories = async () => {
 export const saveCatalogByStage = async (inputData, stage) => {
     try {
         const {data} = await axios.post(`${API_BASE_URL}/farmer/catalog/save/${stage}`, inputData);
+        return data
+    } catch (e) {
+        printApiErrors(e)
+    }
+}
+
+export const updateCatalogByStage = async (inputData, stage, id) => {
+    try {
+        const {data} = await axios.put(`${API_BASE_URL}/farmer/catalog/update/${stage}/${id}`, inputData);
         return data
     } catch (e) {
         printApiErrors(e)

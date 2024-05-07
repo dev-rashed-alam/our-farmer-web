@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Select from "react-select";
 import EditorComponent from "@/app/ui/common/editorComponent";
-import {findAllCountryData, saveCatalogByStage} from "@/app/service/CatalogService";
+import {findAllCountryData, saveCatalogByStage, updateCatalogByStage} from "@/app/service/CatalogService";
 
 const landAcquisitionTypes = [{
     value: 6, label: "Six Months"
@@ -25,12 +25,17 @@ const legalAffairs = [{
     value: 'NO', label: "No"
 }]
 
-const LandInformation = ({handleNext, setAreaId}) => {
+const LandInformation = ({handleNext, setAreaId, landInfo}) => {
     const [inputData, setInputData] = useState({});
-    const [userList, setUserList] = useState([]);
     const [errors, setErrors] = useState({});
     const [divisions, setDivisions] = useState([])
     const [masterData, setMasterData] = useState([])
+
+    useEffect(() => {
+        if (landInfo) {
+            setInputData(landInfo)
+        }
+    }, [landInfo])
 
     useEffect(() => {
         (async () => {
@@ -150,9 +155,13 @@ const LandInformation = ({handleNext, setAreaId}) => {
     const handleSubmit = async () => {
         if (isValid()) {
             try {
-                const {data} = await saveCatalogByStage(inputData, 'AREA_INFO');
-                console.log(data.id)
-                setAreaId(data.id)
+                if (landInfo?.id) {
+                    const {data} = await updateCatalogByStage(inputData, 'AREA_INFO', landInfo.id);
+                    setAreaId(data.id)
+                } else {
+                    const {data} = await saveCatalogByStage(inputData, 'AREA_INFO');
+                    setAreaId(data.id)
+                }
                 handleNext()
             } catch (e) {
                 console.log(e)
@@ -171,7 +180,7 @@ const LandInformation = ({handleNext, setAreaId}) => {
                         isMulti={false}
                         classNamePrefix="react-select"
                         onChange={(data) => handleSelect(data, 'division')}
-                        value={inputData.division || {}}
+                        value={inputData?.division || {}}
                     />
                     <p className="field-error">{errors.division}</p>
                 </div>

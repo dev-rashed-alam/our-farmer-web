@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
 import Select from "react-select";
 import EditorComponent from "@/app/ui/common/editorComponent";
-import {findAllCategories, saveCatalogByStage} from "@/app/service/CatalogService";
+import {findAllCategories, saveCatalogByStage, updateCatalogByStage} from "@/app/service/CatalogService";
+import {changeDateFormat} from "@/app/config/utils";
 
 const productionUnits = [
     {value: "KG", label: "Kilogram"},
@@ -9,10 +10,22 @@ const productionUnits = [
     {value: "BUSHELS", label: "Bushels"},
 ]
 
-const ProductInformation = ({handleNext, areaId}) => {
+const ProductInformation = ({handleNext, areaId, productInfo, setCatalogResponse}) => {
     const [inputData, setInputData] = useState({});
     const [categories, setCategories] = useState([]);
     const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        if (productInfo) {
+            let tmpInput = {
+                ...productInfo,
+                productCategory: {label: productInfo.productCategory[0].name, value: productInfo.productCategory[0].id},
+                farmingStartDate: productInfo.farmingStartDate.split("T")[0],
+                farmingEndDate: productInfo.farmingEndDate.split("T")[0],
+            }
+            setInputData(tmpInput)
+        }
+    }, [productInfo])
 
     useEffect(() => {
         (async () => {
@@ -75,7 +88,21 @@ const ProductInformation = ({handleNext, areaId}) => {
     const handleSubmit = async () => {
         if (isValid()) {
             try {
-                const data = await saveCatalogByStage({...inputData, areaInfo: areaId, productCategory: [inputData.productCategory.value]}, 'PRODUCT_INFO');
+                if (productInfo?.id) {
+                    const {data} = await updateCatalogByStage({
+                        ...inputData,
+                        areaInfo: undefined,
+                        superVisor: undefined,
+                        productCategory: [inputData.productCategory.value]
+                    }, 'PRODUCT_INFO', productInfo.id);
+                    setCatalogResponse(data)
+                } else {
+                    const data = await saveCatalogByStage({
+                        ...inputData,
+                        areaInfo: areaId,
+                        productCategory: [inputData.productCategory.value]
+                    }, 'PRODUCT_INFO');
+                }
                 handleNext()
             } catch (e) {
                 console.log(e)

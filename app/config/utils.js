@@ -1,4 +1,5 @@
 import {toast} from "react-toastify";
+import moment from "moment";
 
 export const printApiErrors = (error) => {
     if (error?.response?.data?.message) {
@@ -45,3 +46,8 @@ export const getInputFieldError = (errorObj) => {
     }
     return errors
 }
+
+export const changeDateFormat = (date, currentFormat = 'DD/MM/YYYY', newFormat = 'Do MMM, YY') => {
+    if (date === undefined) return;
+    return moment(date, currentFormat).format(newFormat);
+};

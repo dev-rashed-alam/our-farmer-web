@@ -3,31 +3,35 @@ import React from 'react';
 import '@/public/styles/farmer/Table.css';
 import Link from "next/link"
 import {findAllCatalogs} from "@/app/service/CatalogService";
+import {changeDateFormat} from "@/app/config/utils";
 
 const Page = async () => {
-    const tasksResponse = await findAllCatalogs()
+    const catalogResponse = await findAllCatalogs()
 
-    const handleTaskDelete = async (id) => {
+    const handleCatalogDelete = async (id) => {
 
     };
 
-    const renderTasks = () => {
-        return tasksResponse?.data?.map((task) => {
+    const renderCatalogs = () => {
+        return catalogResponse?.data?.map((catalog) => {
+            console.log(catalog)
             return (
-                <tr className="crud-table__row" key={`task_${task.id}`}>
+                <tr className="crud-table__row" key={`catalog_${catalog.id}`}>
                     <td className="crud-table__cell">
-                        <Link href={`/tasks/${task.id}`} className="clickable">
-                            {task.productTitle}
+                        <Link href={`/farmer/catalog/${catalog.id}`} className="clickable">
+                            {catalog.productTitle}
                         </Link>
                     </td>
-                    <td className="crud-table__cell">{task.description}</td>
-                    <td className="crud-table__cell">{task.createdAt}</td>
-                    <td className="crud-table__cell">{task.superVisorName}</td>
+                    <td className="crud-table__cell">
+                        <div dangerouslySetInnerHTML={{__html: catalog.description}}></div>
+                    </td>
+                    <td className="crud-table__cell">{changeDateFormat(catalog.createdAt, "YYYY-MM-DD", "DD, MMM YYYY")}</td>
+                    <td className="crud-table__cell">{catalog.superVisor?.firstName + " " + catalog.superVisor?.lastName}</td>
                     <td className="crud-table__cell">
                         {/*<button*/}
                         {/*    className="crud-button crud-button--negative"*/}
                         {/*    type="button"*/}
-                        {/*    onClick={() => handleTaskDelete(task.id)}>*/}
+                        {/*    onClick={() => handleCatalogDelete(catalog.id)}>*/}
                         {/*    Delete*/}
                         {/*</button>*/}
                     </td>
@@ -61,7 +65,7 @@ const Page = async () => {
                 </tr>
                 </thead>
                 <tbody className="crud-table__body">
-                {renderTasks()}
+                {renderCatalogs()}
                 </tbody>
             </table>
         </>
