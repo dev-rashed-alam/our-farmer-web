@@ -1,0 +1,57 @@
+body, .product-card {
+    font-family: Inter;
+}
+.single-product-card {
+    margin-top: 15px;
+    position: relative;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+    border: none;
+    min-height: 350px !important;
+    box-sizing: border-box;
+}
+.single-product-card img {
+    height: 196px !important;
+}
+.single-product-card .discounted {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.product-card .types {
+    margin-left: 20px;
+}
+.add-to-cart {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #634C9F;
+    margin: 0;
+}
+.add-to-cart:hover {
+    background: #634C9F;
+    color: white
+}
+.ads-card {
+
+}
+.ads-card {
+    font-family: Inter;
+     position: relative;
+     background-image: url("/images/ads.png");
+     background-size: cover;
+     background-position: inherit;
+     color: #000;
+     padding: 10px 10px;
+     border-radius: 0;
+     border: none;
+     text-align: left;
+     min-height: 382px !important;
+     max-height: 382px !important;
+ }
+
+.ads-card .title {
+    font-family: Inter;
+    background: white;
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 100px;
+}

@@ -1,0 +1,31 @@
+.nav-mega-menu {
+    background-color: #fff; /* White background */
+    color: black; /* Black color */
+    margin-top: 15px;
+    font-size: 15px;
+    font-family: Inter;
+    border-bottom: 1px solid #f3f3f3;
+    padding: 20px;
+
+}
+.nav-mega-menu .navbar-nav .nav-link {
+    color: #6b6b6b;
+    padding: 0 20px;
+}
+
+.nav-mega-menu .navbar-nav .dropdown-menu .nav-link {
+    color: #333;
+    padding: 0 30px;
+}
+
+.nav-mega-menu .trending, .sales {
+    color: #f00;
+}
+
+.nav-mega-menu .sales {
+    color: #fff;
+    background: red !important;
+    border-radius: 8%;
+    margin-left: 2px;
+    padding: 2px 10px !important;
+}
