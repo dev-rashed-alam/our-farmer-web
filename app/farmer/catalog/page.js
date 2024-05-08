@@ -4,6 +4,9 @@ import '@/public/styles/farmer/Table.css';
 import Link from "next/link"
 import {findAllCatalogs} from "@/app/service/CatalogService";
 import {changeDateFormat} from "@/app/config/utils";
+import {FaEye} from "react-icons/fa";
+import {CiEdit} from "react-icons/ci";
+import {MdDelete} from "react-icons/md";
 
 const Page = async () => {
     const catalogResponse = await findAllCatalogs()
@@ -15,10 +18,12 @@ const Page = async () => {
     const renderCatalogs = () => {
         return catalogResponse?.data?.map((catalog) => {
             console.log(catalog)
-            return (
-                <tr className="crud-table__row" key={`catalog_${catalog.id}`}>
+            return (<tr className="crud-table__row" key={`catalog_${catalog.id}`}>
                     <td className="crud-table__cell">
-                        <Link href={`/farmer/catalog/${catalog.id}`} className="clickable">
+                        <Link
+                            href={`/farmer/catalog/${catalog.id}?type=view`}
+                            className="clickable"
+                        >
                             {catalog.productTitle}
                         </Link>
                     </td>
@@ -28,6 +33,24 @@ const Page = async () => {
                     <td className="crud-table__cell">{changeDateFormat(catalog.createdAt, "YYYY-MM-DD", "DD, MMM YYYY")}</td>
                     <td className="crud-table__cell">{catalog.superVisor?.firstName + " " + catalog.superVisor?.lastName}</td>
                     <td className="crud-table__cell">
+                        <span>
+                             <Link
+                                 href={`/farmer/catalog/${catalog.id}?type=view`} className="clickable"
+                             >
+                                <FaEye/>
+                             </Link>
+                        </span>
+                        <span>
+                            <Link
+                                href={`/farmer/catalog/${catalog.id}?type=edit`}
+                                className="clickable"
+                            >
+                            <CiEdit/>
+                            </Link>
+                        </span>
+                        <span>
+                            <MdDelete/>
+                        </span>
                         {/*<button*/}
                         {/*    className="crud-button crud-button--negative"*/}
                         {/*    type="button"*/}
@@ -35,13 +58,11 @@ const Page = async () => {
                         {/*    Delete*/}
                         {/*</button>*/}
                     </td>
-                </tr>
-            );
+                </tr>);
         });
     };
 
-    return (
-        <>
+    return (<>
             <div className="page-heading mb-2">
                 <div className="title">
                     <h3>Catalog page</h3>
@@ -68,8 +89,7 @@ const Page = async () => {
                 {renderCatalogs()}
                 </tbody>
             </table>
-        </>
-    );
+        </>);
 };
 
 export default Page;

@@ -3,6 +3,7 @@ import Select from "react-select";
 import EditorComponent from "@/app/ui/common/editorComponent";
 import {findAllCategories, saveCatalogByStage, updateCatalogByStage} from "@/app/service/CatalogService";
 import {changeDateFormat} from "@/app/config/utils";
+import {useSearchParams} from "next/navigation";
 
 const productionUnits = [
     {value: "KG", label: "Kilogram"},
@@ -14,6 +15,13 @@ const ProductInformation = ({handleNext, areaId, productInfo, setCatalogResponse
     const [inputData, setInputData] = useState({});
     const [categories, setCategories] = useState([]);
     const [errors, setErrors] = useState({});
+    const [readOnly, setReadOnly] = useState(false);
+    const searchParams = useSearchParams()
+    const pageType = searchParams.get('type')
+
+    useEffect(() => {
+        setReadOnly(pageType === "view")
+    }, [pageType])
 
     useEffect(() => {
         if (productInfo) {
@@ -88,20 +96,23 @@ const ProductInformation = ({handleNext, areaId, productInfo, setCatalogResponse
     const handleSubmit = async () => {
         if (isValid()) {
             try {
-                if (productInfo?.id) {
-                    const {data} = await updateCatalogByStage({
-                        ...inputData,
-                        areaInfo: undefined,
-                        superVisor: undefined,
-                        productCategory: [inputData.productCategory.value]
-                    }, 'PRODUCT_INFO', productInfo.id);
-                    setCatalogResponse(data)
-                } else {
-                    const data = await saveCatalogByStage({
-                        ...inputData,
-                        areaInfo: areaId,
-                        productCategory: [inputData.productCategory.value]
-                    }, 'PRODUCT_INFO');
+                if (!readOnly) {
+                    if (productInfo?.id) {
+                        const {data} = await updateCatalogByStage({
+                            ...inputData,
+                            areaInfo: undefined,
+                            superVisor: undefined,
+                            productCategory: [inputData.productCategory.value]
+                        }, 'PRODUCT_INFO', productInfo.id);
+                        setCatalogResponse(data)
+                    } else {
+                        const {data} = await saveCatalogByStage({
+                            ...inputData,
+                            areaInfo: areaId,
+                            productCategory: [inputData.productCategory.value]
+                        }, 'PRODUCT_INFO');
+                        setCatalogResponse(data)
+                    }
                 }
                 handleNext()
             } catch (e) {
@@ -120,6 +131,7 @@ const ProductInformation = ({handleNext, areaId, productInfo, setCatalogResponse
                             Product Title<span className="star">*</span>
                         </label>
                         <input
+                            readOnly={readOnly}
                             type="text"
                             id="productTitle"
                             className="form-control"
@@ -132,6 +144,7 @@ const ProductInformation = ({handleNext, areaId, productInfo, setCatalogResponse
                     <div className="mb-3 col-md-4">
                         <label htmlFor="productCategory">Product Category</label>
                         <Select
+                            isDisabled={readOnly}
                             options={categories}
                             isMulti={false}
                             classNamePrefix="react-select"
@@ -145,6 +158,7 @@ const ProductInformation = ({handleNext, areaId, productInfo, setCatalogResponse
                             Approximate Farming Start Date<span className="star">*</span>
                         </label>
                         <input
+                            readOnly={readOnly}
                             type="date"
                             id="farmingStartDate"
                             className="form-control"
@@ -159,6 +173,7 @@ const ProductInformation = ({handleNext, areaId, productInfo, setCatalogResponse
                             Approximate Farming End Date<span className="star">*</span>
                         </label>
                         <input
+                            readOnly={readOnly}
                             type="date"
                             id="farmingEndDate"
                             className="form-control"
@@ -171,6 +186,7 @@ const ProductInformation = ({handleNext, areaId, productInfo, setCatalogResponse
                     <div className="mb-3 col-md-4">
                         <label htmlFor="unitType">Production Unit</label>
                         <Select
+                            isDisabled={readOnly}
                             options={productionUnits}
                             isMulti={false}
                             classNamePrefix="react-select"
@@ -184,6 +200,7 @@ const ProductInformation = ({handleNext, areaId, productInfo, setCatalogResponse
                             Approximate Total Production<span className="star">*</span>
                         </label>
                         <input
+                            readOnly={readOnly}
                             type="text"
                             id="totalProduction"
                             className="form-control"
@@ -198,6 +215,7 @@ const ProductInformation = ({handleNext, areaId, productInfo, setCatalogResponse
                             Approximate Total Cost<span className="star">*</span>
                         </label>
                         <input
+                            readOnly={readOnly}
                             type="text"
                             id="totalCost"
                             className="form-control"
@@ -212,6 +230,7 @@ const ProductInformation = ({handleNext, areaId, productInfo, setCatalogResponse
                             MOQ<span className="star">*</span>
                         </label>
                         <input
+                            readOnly={readOnly}
                             type="text"
                             id="moq"
                             className="form-control"
@@ -226,6 +245,7 @@ const ProductInformation = ({handleNext, areaId, productInfo, setCatalogResponse
                             Approximate Per Unit Cost<span className="star">*</span>
                         </label>
                         <input
+                            readOnly={readOnly}
                             type="text"
                             id="unitCost"
                             className="form-control"
@@ -238,6 +258,7 @@ const ProductInformation = ({handleNext, areaId, productInfo, setCatalogResponse
 
                     <div className="mb-3 col-md-12">
                         <EditorComponent
+                            disabled={readOnly}
                             label={'Description'}
                             value={inputData.description}
                             onChange={onChangeEditor}
@@ -245,8 +266,13 @@ const ProductInformation = ({handleNext, areaId, productInfo, setCatalogResponse
                     </div>
                 </div>
             </div>
-            <button onClick={handleSubmit} type="button" name="next"
-                    className="next btn btn-primary">Next Step
+            <button
+                onClick={handleSubmit}
+                type="button"
+                name="next"
+                className="next btn btn-primary"
+            >
+                Next Step
             </button>
         </fieldset>
     )

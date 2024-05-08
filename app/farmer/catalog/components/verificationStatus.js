@@ -2,7 +2,6 @@ import React from "react";
 import "@/public/styles/farmer/VerificationCard.css"
 
 const VerificationStatus = ({handleNext, supervisorInfo}) => {
-    console.log(supervisorInfo)
     return (
         <section className="verification">
             <div className="box1 box">

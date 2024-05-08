@@ -6,6 +6,7 @@ import LandInformation from "@/app/farmer/catalog/components/landInformation";
 import ProductInformation from "@/app/farmer/catalog/components/productInformation";
 import VerificationStatus from "@/app/farmer/catalog/components/verificationStatus";
 import Confirmation from "@/app/farmer/catalog/components/confirmation";
+import { useSearchParams } from 'next/navigation'
 
 const Form = ({catalogInfo}) => {
     const [catalogResponse, setCatalogResponse] = useState({})
@@ -33,22 +34,50 @@ const Form = ({catalogInfo}) => {
                             <div className="col-md-12 mx-0">
                                 <form id="msform">
                                     <ul id="progressbar">
-                                        <li className={selectedStep === "LAND" ? 'active' : ''} id="land">
+                                        <li
+                                            className={selectedStep === "LAND" ? 'active' : ''}
+                                            id="land"
+                                        >
                                             <strong>Land Information</strong>
                                         </li>
-                                        <li className={selectedStep === "PRODUCT" ? 'active' : ''} id="product"><strong>Product
-                                            Information</strong></li>
-                                        <li className={selectedStep === "STATUS" ? 'active' : ''} id="status"><strong>Catalog
-                                            Verification</strong></li>
-                                        <li className={selectedStep === "FINISH" ? 'active' : ''} id="finish">
-                                            <strong>Finish</strong></li>
+                                        <li
+                                            className={selectedStep === "PRODUCT" ? 'active' : ''}
+                                            id="product"
+                                        >
+                                            <strong>Product Information</strong>
+                                        </li>
+                                        <li
+                                            className={selectedStep === "STATUS" ? 'active' : ''}
+                                            id="status"
+                                        >
+                                            <strong>Catalog Verification</strong>
+                                        </li>
+                                        <li
+                                            className={selectedStep === "FINISH" ? 'active' : ''}
+                                            id="finish"
+                                        >
+                                            <strong>Finish</strong>
+                                        </li>
                                     </ul>
                                     {selectedStep === "LAND" &&
-                                        <LandInformation handleNext={handleNext} setAreaId={setAreaId}
-                                                         landInfo={catalogResponse?.areaInfo}/>}
+                                        <LandInformation
+                                            handleNext={handleNext}
+                                            setAreaId={setAreaId}
+                                            landInfo={catalogResponse?.areaInfo}
+                                            setCatalogResponse={setCatalogResponse}
+                                        />}
                                     {selectedStep === "PRODUCT" &&
-                                        <ProductInformation handleNext={handleNext} areaId={areaId} productInfo={catalogResponse} setCatalogResponse={setCatalogResponse}/>}
-                                    {selectedStep === "STATUS" && <VerificationStatus handleNext={handleNext} supervisorInfo={catalogResponse.superVisor}/>}
+                                        <ProductInformation
+                                            handleNext={handleNext}
+                                            areaId={areaId}
+                                            productInfo={catalogResponse}
+                                            setCatalogResponse={setCatalogResponse}
+                                        />}
+                                    {selectedStep === "STATUS" &&
+                                        <VerificationStatus
+                                            handleNext={handleNext}
+                                            supervisorInfo={catalogResponse?.superVisor}
+                                        />}
                                     {selectedStep === "FINISH" && <Confirmation/>}
                                 </form>
                             </div>

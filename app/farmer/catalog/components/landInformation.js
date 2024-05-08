@@ -2,34 +2,21 @@ import React, {useEffect, useState} from "react";
 import Select from "react-select";
 import EditorComponent from "@/app/ui/common/editorComponent";
 import {findAllCountryData, saveCatalogByStage, updateCatalogByStage} from "@/app/service/CatalogService";
+import {useSearchParams} from "next/navigation";
+import {landAcquisitionTypes, landSizeUnits, legalAffairs} from "@/app/config/utils";
 
-const landAcquisitionTypes = [{
-    value: 6, label: "Six Months"
-}, {
-    value: 3, label: "Three Months"
-}, {
-    value: 1, label: "One Year"
-}]
-const landSizeUnits = [{
-    value: "SQUARE_FEET", label: "Square Feet"
-}, {
-    value: 'BIGHA', label: "Bigha"
-}, {
-    value: 'HECTARES', label: "Hectares"
-}, {
-    value: 'ACRES', label: "Acres"
-}]
-const legalAffairs = [{
-    value: "YES", label: "Yes"
-}, {
-    value: 'NO', label: "No"
-}]
-
-const LandInformation = ({handleNext, setAreaId, landInfo}) => {
+const LandInformation = ({handleNext, setAreaId, landInfo, setCatalogResponse}) => {
     const [inputData, setInputData] = useState({});
     const [errors, setErrors] = useState({});
     const [divisions, setDivisions] = useState([])
     const [masterData, setMasterData] = useState([])
+    const [readOnly, setReadOnly] = useState(false);
+    const searchParams = useSearchParams()
+    const pageType = searchParams.get('type')
+
+    useEffect(() => {
+        setReadOnly(pageType === "view")
+    }, [pageType])
 
     useEffect(() => {
         if (landInfo) {
@@ -155,12 +142,16 @@ const LandInformation = ({handleNext, setAreaId, landInfo}) => {
     const handleSubmit = async () => {
         if (isValid()) {
             try {
-                if (landInfo?.id) {
-                    const {data} = await updateCatalogByStage(inputData, 'AREA_INFO', landInfo.id);
-                    setAreaId(data.id)
-                } else {
-                    const {data} = await saveCatalogByStage(inputData, 'AREA_INFO');
-                    setAreaId(data.id)
+                if (!readOnly) {
+                    if (landInfo?.id) {
+                        const {data} = await updateCatalogByStage(inputData, 'AREA_INFO', landInfo.id);
+                        setCatalogResponse = {data}
+                        setAreaId(data.id)
+                    } else {
+                        const {data} = await saveCatalogByStage(inputData, 'AREA_INFO');
+                        setCatalogResponse = {data}
+                        setAreaId(data.id)
+                    }
                 }
                 handleNext()
             } catch (e) {
@@ -176,6 +167,7 @@ const LandInformation = ({handleNext, setAreaId, landInfo}) => {
                 <div className="mb-3 col-md-4">
                     <label htmlFor="division">Division</label>
                     <Select
+                        isDisabled={readOnly}
                         options={divisions}
                         isMulti={false}
                         classNamePrefix="react-select"
@@ -187,6 +179,7 @@ const LandInformation = ({handleNext, setAreaId, landInfo}) => {
                 <div className="mb-3 col-md-4">
                     <label htmlFor="district">District</label>
                     <Select
+                        isDisabled={readOnly}
                         options={findAllMappedData('district', 'division')}
                         isMulti={false}
                         classNamePrefix="react-select"
@@ -198,6 +191,7 @@ const LandInformation = ({handleNext, setAreaId, landInfo}) => {
                 <div className="mb-3 col-md-4">
                     <label htmlFor="Upazila">Upazila</label>
                     <Select
+                        isDisabled={readOnly}
                         options={findAllMappedData('thana', 'district')}
                         isMulti={false}
                         classNamePrefix="react-select"
@@ -209,6 +203,7 @@ const LandInformation = ({handleNext, setAreaId, landInfo}) => {
                 <div className="mb-3 col-md-4">
                     <label htmlFor="mouza">Mouza</label>
                     <Select
+                        isDisabled={readOnly}
                         options={findAllMappedData('mouza', 'thana')}
                         isMulti={false}
                         classNamePrefix="react-select"
@@ -222,6 +217,7 @@ const LandInformation = ({handleNext, setAreaId, landInfo}) => {
                         khatian Number<span className="star">*</span>
                     </label>
                     <input
+                        readOnly={readOnly}
                         type="text"
                         id="khatianNumber"
                         className="form-control"
@@ -236,6 +232,7 @@ const LandInformation = ({handleNext, setAreaId, landInfo}) => {
                         Area Size<span className="star">*</span>
                     </label>
                     <input
+                        readOnly={readOnly}
                         type="text"
                         id="areaSize"
                         className="form-control"
@@ -248,6 +245,7 @@ const LandInformation = ({handleNext, setAreaId, landInfo}) => {
                 <div className="mb-3 col-md-4">
                     <label htmlFor="assignUser">Size Unit</label>
                     <Select
+                        isDisabled={readOnly}
                         options={landSizeUnits}
                         isMulti={false}
                         classNamePrefix="react-select"
@@ -259,6 +257,7 @@ const LandInformation = ({handleNext, setAreaId, landInfo}) => {
                 <div className="mb-3 col-md-4">
                     <label htmlFor="assignUser">Land Acquisition type</label>
                     <Select
+                        isDisabled={readOnly}
                         options={landAcquisitionTypes}
                         isMulti={false}
                         classNamePrefix="react-select"
@@ -270,6 +269,7 @@ const LandInformation = ({handleNext, setAreaId, landInfo}) => {
                 <div className="mb-3 col-md-4">
                     <label htmlFor="assignUser">Legal Affairs</label>
                     <Select
+                        isDisabled={readOnly}
                         options={legalAffairs}
                         isMulti={false}
                         classNamePrefix="react-select"
@@ -280,6 +280,7 @@ const LandInformation = ({handleNext, setAreaId, landInfo}) => {
                 </div>
                 <div className="mb-3 col-md-12">
                     <EditorComponent
+                        disabled={readOnly}
                         label={'Description'}
                         value={inputData.description}
                         onChange={onChangeEditor}
@@ -287,8 +288,13 @@ const LandInformation = ({handleNext, setAreaId, landInfo}) => {
                 </div>
             </div>
         </div>
-        <button onClick={handleSubmit} type="button" name="next"
-                className="btn btn-primary">Next Step
+        <button
+            onClick={handleSubmit}
+            type="button"
+            name="next"
+            className="btn btn-primary"
+        >
+            Next Step
         </button>
     </fieldset>)
 }

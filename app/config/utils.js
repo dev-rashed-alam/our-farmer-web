@@ -41,7 +41,7 @@ export const isConsumer = () => {
 
 export const getInputFieldError = (errorObj) => {
     let errors = {}
-    for(let item in errorObj){
+    for (let item in errorObj) {
         errors[item] = errorObj[item].msg
     }
     return errors
@@ -51,3 +51,37 @@ export const changeDateFormat = (date, currentFormat = 'DD/MM/YYYY', newFormat =
     if (date === undefined) return;
     return moment(date, currentFormat).format(newFormat);
 };
+
+export const landAcquisitionTypes = [
+    {
+        value: 6, label: "Six Months"
+    },
+    {
+        value: 3, label: "Three Months"
+    },
+    {
+        value: 1, label: "One Year"
+    }
+]
+export const landSizeUnits = [
+    {
+        value: "SQUARE_FEET", label: "Square Feet"
+    },
+    {
+        value: 'BIGHA', label: "Bigha"
+    },
+    {
+        value: 'HECTARES', label: "Hectares"
+    },
+    {
+        value: 'ACRES', label: "Acres"
+    }
+]
+export const legalAffairs = [
+    {
+        value: "YES", label: "Yes"
+    },
+    {
+        value: 'NO', label: "No"
+    }
+]
