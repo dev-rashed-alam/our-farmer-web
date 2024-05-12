@@ -3,7 +3,7 @@ import axios from "axios";
 import {printApiErrors} from "@/app/config/utils";
 
 export const findAllCatalogs = async () => {
-    const res = await fetch(`${API_BASE_URL}/farmer/catalogs`)
+    const res = await fetch(`${API_BASE_URL}/farmer/catalogs`, {cache: 'no-store'})
     if (!res.ok) {
         throw new Error('Failed to fetch data')
     }
@@ -50,6 +50,22 @@ export const saveCatalogByStage = async (inputData, stage) => {
 export const updateCatalogByStage = async (inputData, stage, id) => {
     try {
         const {data} = await axios.put(`${API_BASE_URL}/farmer/catalog/update/${stage}/${id}`, inputData);
+        return data
+    } catch (e) {
+        printApiErrors(e)
+    }
+}
+export const updateCatalogByStatus = async (status, id) => {
+    try {
+        const {data} = await axios.put(`${API_BASE_URL}/farmer/catalog/change/status/${status}/${id}`);
+        return data
+    } catch (e) {
+        printApiErrors(e)
+    }
+}
+export const deleteCatalogById = async (id) => {
+    try {
+        const {data} = await axios.delete(`${API_BASE_URL}/farmer/remove/catalog/${id}`);
         return data
     } catch (e) {
         printApiErrors(e)

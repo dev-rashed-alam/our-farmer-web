@@ -85,3 +85,9 @@ export const legalAffairs = [
         value: 'NO', label: "No"
     }
 ]
+
+export const capitalizeFirstLetter = (str) => {
+    if (str) {
+        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    }
+};

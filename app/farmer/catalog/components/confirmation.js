@@ -2,6 +2,7 @@
 import React from "react";
 import "@/public/styles/farmer/Confirmation.css"
 import {useRouter} from "next/navigation";
+import {isAdmin} from "@/app/config/utils";
 
 const Confirmation = () => {
 
@@ -14,7 +15,9 @@ const Confirmation = () => {
                     <h1>Thank you !</h1>
                     <p>Thanks for creating catalog to our platform. </p>
                     <p>you should receive a confirmation email soon </p>
-                    <button type="button" className="go-home" onClick={() => router.push('/farmer')}>
+                    <button type="button" className="go-home" onClick={() => {
+                        isAdmin() ? router.push('/admin/catalog') : router.push('/farmer')
+                    }}>
                         go home
                     </button>
                 </div>

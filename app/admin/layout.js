@@ -8,11 +8,12 @@ import {FaServicestack} from "react-icons/fa";
 import '@/public/styles/admin/layout.css';
 import {BsFillChatSquareQuoteFill, BsJournalBookmarkFill} from 'react-icons/bs';
 import {isAdmin} from "@/app/config/utils";
-import {useRouter} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 
 function AdminLayout({children}) {
     const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false)
     const router = useRouter();
+    const pathname = usePathname();
     const permissions = ["ALL"];
 
     useEffect(() => {
@@ -34,9 +35,9 @@ function AdminLayout({children}) {
                     <header>
                         <div className="top-bar float-end">
                             <Link href="/sign-in" className="nav_link top_nav_link" onClick={handleLogOut}>
-                        <span className="nav_icon">
-                            <MdLogout/>
-                        </span>
+                            <span className="nav_icon">
+                                <MdLogout/>
+                            </span>
                                 <span className="nav_name">Log Out</span>
                             </Link>
                         </div>
@@ -59,7 +60,8 @@ function AdminLayout({children}) {
                             <ul>
                                 {permissions.includes('ALL') && (
                                     <li>
-                                        <Link href="#" className="nav_link">
+                                        <Link href="/admin/user"
+                                              className={`nav_link ${pathname === "/admin/user" ? 'active' : ''}`}>
                                     <span className="nav_icon">
                                         <ImUsers/>
                                     </span>
@@ -69,10 +71,11 @@ function AdminLayout({children}) {
                                 )}
                                 {permissions.includes('ALL') && (
                                     <li>
-                                        <Link href="#" className="nav_link">
-                                    <span className="nav_icon">
-                                        <BsFillChatSquareQuoteFill/>
-                                    </span>
+                                        <Link href="/admin/catalog"
+                                              className={`nav_link ${pathname === "/admin/catalog" ? 'active' : ''}`}>
+                                            <span className="nav_icon">
+                                                <BsFillChatSquareQuoteFill/>
+                                            </span>
                                             <span className="nav_name">Manage Catalogs</span>
                                         </Link>
                                     </li>
@@ -80,9 +83,9 @@ function AdminLayout({children}) {
                                 {permissions.includes('ALL') && (
                                     <li>
                                         <Link href="#" className="nav_link">
-                                    <span className="nav_icon">
-                                        <FaServicestack/>
-                                    </span>
+                                            <span className="nav_icon">
+                                                <FaServicestack/>
+                                            </span>
                                             <span className="nav_name">Manage Services</span>
                                         </Link>
                                     </li>
@@ -90,18 +93,18 @@ function AdminLayout({children}) {
                                 {permissions.includes('ALL') && (
                                     <li>
                                         <Link href="#" className="nav_link">
-                                    <span className="nav_icon">
-                                        <BsJournalBookmarkFill/>
-                                    </span>
+                                            <span className="nav_icon">
+                                                <BsJournalBookmarkFill/>
+                                            </span>
                                             <span className="nav_name">Manage TNA</span>
                                         </Link>
                                     </li>
                                 )}
                             </ul>
                             <Link href="/sign-in" className="nav_link" onClick={handleLogOut}>
-                        <span className="nav_icon">
-                            <MdLogout/>
-                        </span>
+                                <span className="nav_icon">
+                                    <MdLogout/>
+                                </span>
                                 <span className="nav_name">Log Out</span>
                             </Link>
                         </nav>

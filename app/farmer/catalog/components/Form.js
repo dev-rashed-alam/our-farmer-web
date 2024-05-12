@@ -76,7 +76,7 @@ const Form = ({catalogInfo}) => {
                                     {selectedStep === "STATUS" &&
                                         <VerificationStatus
                                             handleNext={handleNext}
-                                            supervisorInfo={catalogResponse?.superVisor}
+                                            catalogResponse={catalogResponse}
                                         />}
                                     {selectedStep === "FINISH" && <Confirmation/>}
                                 </form>

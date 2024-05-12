@@ -5,7 +5,7 @@ import {findAllCatalogs} from "@/app/service/catalogService";
 import {capitalizeFirstLetter, changeDateFormat} from "@/app/config/utils";
 import {FaEye} from "react-icons/fa";
 import {CiEdit} from "react-icons/ci";
-import {MdDelete} from "react-icons/md";
+import DeleteCatalog from "@/app/admin/catalog/components/DeleteCatalog";
 
 const Page = async () => {
     const catalogResponse = await findAllCatalogs()
@@ -15,7 +15,7 @@ const Page = async () => {
             return (<tr className="crud-table__row" key={`catalog_${catalog.id}`}>
                 <td className="crud-table__cell">
                     <Link
-                        href={`/farmer/catalog/${catalog.id}?type=view`}
+                        href={`/admin/catalog/${catalog.id}?type=view`}
                         className="clickable"
                     >
                         {catalog.productTitle}
@@ -32,42 +32,29 @@ const Page = async () => {
                     {capitalizeFirstLetter(catalog.status)}
                 </td>
                 <td className="crud-table__cell">
-                        <span>
-                             <Link
-                                 href={`/farmer/catalog/${catalog.id}?type=view`} className="clickable"
-                             >
-                                <FaEye/>
-                             </Link>
-                        </span>
                     <span>
-                            <Link
-                                href={`/farmer/catalog/${catalog.id}?type=edit`}
-                                className="clickable"
-                            >
+                        <Link
+                            href={`/admin/catalog/${catalog.id}?type=view`}
+                            className="clickable"
+                        >
+                            <FaEye/>
+                        </Link>
+                    </span>
+                    <span>
+                        <Link
+                            href={`/admin/catalog/${catalog.id}?type=edit`}
+                            className="clickable"
+                        >
                             <CiEdit/>
-                            </Link>
-                        </span>
-                    {/*<span>*/}
-                    {/*        <MdDelete/>*/}
-                    {/*    </span>*/}
+                        </Link>
+                    </span>
+                    <DeleteCatalog catalog={catalog}/>
                 </td>
             </tr>);
         });
     };
 
     return (<>
-        <div className="page-heading mb-2">
-            <div className="title">
-                <h3>Catalog page</h3>
-            </div>
-            <div className="button-wrapper">
-                <Link
-                    href="/farmer/catalog/create"
-                    className="btn btn-primary custom-btn">
-                    Create new catalog
-                </Link>
-            </div>
-        </div>
         <table className="crud-table">
             <thead className="crud-table__header">
             <tr className="crud-table__row">
