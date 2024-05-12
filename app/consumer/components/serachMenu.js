@@ -5,8 +5,26 @@ import {Container, Navbar, Nav, Form, FormControl, Button, Col, Row, Dropdown, N
 import '@/public/styles/consumer/searchmenu.css';
 import Image from "next/image";
 import Link from "next/link";
+import {useState, useEffect} from "react";
+import { BsCart3 } from "react-icons/bs";
 
-function SearchMenu() {
+
+const  SearchMenu = () => {
+
+    const [totalProducts, setTotalProducts] = useState(0);
+
+    const searchProducts = (e) => {
+        e.preventDefault();
+        const search = e.target.value;
+        console.log(search);
+    }
+
+    useEffect(() => {
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const total = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+        setTotalProducts(total);
+    }, []);
+
     return (
         <header className="navbar-search-menu">
                 <Container className='container'>
@@ -48,6 +66,8 @@ function SearchMenu() {
                                         placeholder="Search for products, categories or brands..."
                                         className="mr-2 search-bar"
                                         aria-label="Search for products, categories or brands..."
+                                        name="search"
+                                        onChange={searchProducts}
                                     />
                                 </Form>
                             </div>
@@ -85,14 +105,17 @@ function SearchMenu() {
                                         </Link>
                                     </Col>
                                     <Col sm={2}>
-                                        <Link href={'/'}>
-                                            <Image
-                                                src="/images/cart.svg"
-                                                width={30}
-                                                height={30}
-                                                alt="Add to Cart"
-                                                className='cart-icon'
-                                            />
+                                        <Link href={'/consumer/cart'}>
+                                            {/*<Image*/}
+                                            {/*    src="/images/cart.svg"*/}
+                                            {/*    title={totalProducts}*/}
+                                            {/*    width={30}*/}
+                                            {/*    height={30}*/}
+                                            {/*    alt="Add to Cart"*/}
+                                            {/*    className='cart-icon'*/}
+                                            {/*/>*/}
+                                            <BsCart3 className='total-cart-icon position-relative'/>
+                                            <span className="position-relative total-cart-items-icon">{totalProducts}</span>
                                         </Link>
                                     </Col>
                                 </Row>

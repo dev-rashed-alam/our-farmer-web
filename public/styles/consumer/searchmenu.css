@@ -77,6 +77,10 @@ img, svg {
 .search-bar::placeholder {
     color: #999;
 }
+.search-bar:focus {
+    outline: none;
+    box-shadow: none;
+}
 
 .navbar-search-menu .delivery-text {
     font-size: 13px;
@@ -97,4 +101,18 @@ img, svg {
 }
 .navbar-search-menu .my-account {
     color: #000000;
+}
+.total-cart-icon {
+    font-size: 30px !important;
+    color: #000000;
+    margin-top: 10px;
+}
+.total-cart-items-icon {
+    font-size: 12px;
+    top: -45px;
+    left: 20px;
+    background: red;
+    padding: 5px 10px;
+    border-radius: 28px;
+    color: white;
 }

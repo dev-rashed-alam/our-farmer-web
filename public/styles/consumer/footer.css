@@ -2,7 +2,7 @@
     margin-top: 50px;
     background-color: #F3F4F6;
     color: #000000;
-    padding: 50px 0 20px !important;
+    padding: 50px 0 50px !important;
 }
 
 .sub-footer {
@@ -133,4 +133,7 @@
 }
 .copyright-section {
     margin-top: 20px;
+}
+.contact-icon {
+    margin-top: 10px !important;
 }

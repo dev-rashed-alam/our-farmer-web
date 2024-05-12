@@ -4,11 +4,13 @@ import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import '@/public/styles/consumer/product.css';
 import Button from "react-bootstrap/Button";
+import Link from "next/link";
 const Product = () => {
     const products = [
         {
             id: 1,
             name: "Cauliflower (ফুলকপি)",
+            slug: "cauliflower",
             price: 5.99,
             image: "/images/products/1.png",
             description: "Fresh organic apple from the farm",
@@ -19,6 +21,7 @@ const Product = () => {
         {
             id: 14,
             name: "Pumpkin (কুমড়ো)",
+            slug: "pumpkin",
             price: 16.99,
             image: "/images/products/9.webp",
             description: "Fresh organic pumpkin from the farm",
@@ -29,6 +32,7 @@ const Product = () => {
         {
             id: 15,
             name: "Spinach (পালং)",
+            slug: "spinach",
             price: 17.99,
             image: "/images/products/9.jpeg",
             description: "Fresh organic spinach from the farm",
@@ -39,6 +43,7 @@ const Product = () => {
         {
             id: 4,
             name: "Lady's finger (ঢেঁড়স)",
+            slug: "ladys-finger",
             price: 6.99,
             image: "/images/products/3.jpeg",
             description: "Fresh organic Ladies-finger from the farm",
@@ -48,6 +53,7 @@ const Product = () => {
         {
             id: 5,
             name: "Rice (চাল)",
+            slug: "rice",
             price: 7.99,
             image: "/images/products/4.jpeg",
             description: "Fresh organic pineapple from the farm",
@@ -57,6 +63,7 @@ const Product = () => {
         {
             id: 6,
             name: "Potato (আলু)",
+            slug: "potato",
             price: 8.99,
             image: "/images/products/6.jpeg",
             description: "Fresh organic watermelon from the farm",
@@ -67,6 +74,7 @@ const Product = () => {
         {
             id: 7,
             name: "Tomato (টমেটো)",
+            slug: "tomato",
             price: 9.99,
             image: "/images/products/14.jpeg",
             description: "Fresh organic tomato from the farm",
@@ -77,6 +85,7 @@ const Product = () => {
         {
             id: 9,
             name: "Cabbage (বাঁধাকপি)",
+            slug: "cabbage",
             price: 11.99,
             image: "/images/products/10.jpeg",
             description: "Fresh organic cabbage from the farm",
@@ -87,6 +96,7 @@ const Product = () => {
         {
             id: 10,
             name: "Green Chilli (মরিচ)",
+            slug: "green-chilli",
             price: 12.99,
             image: "/images/products/11.webp",
             description: "Fresh organic green chilli from the farm",
@@ -98,6 +108,7 @@ const Product = () => {
         {
             id: 11,
             name: "Ginger (আদা)",
+            slug: "ginger",
             price: 13.99,
             image: "/images/products/12.jpeg",
             description: "Fresh organic ginger from the farm",
@@ -108,6 +119,7 @@ const Product = () => {
         {
             id: 12,
             name: "Garlic (রসুন)",
+            slug: "garlic",
             price: 14.99,
             image: "/images/products/13.webp",
             description: "Fresh organic garlic from the farm",
@@ -117,6 +129,7 @@ const Product = () => {
         {
             id: 13,
             name: "Onion (পেঁয়াজ)",
+            slug: "onion",
             price: 15.99,
             image: "/images/products/8.jpeg",
             description: "Fresh organic onion from the farm",
@@ -124,6 +137,7 @@ const Product = () => {
             types: "Organic"
         },
         ];
+
     const bestSales = products.filter(product => product.isFeatured).slice(0, 4);
     const firstTwoProducts = bestSales.slice(0, 2);
     const lastTwoProducts = bestSales.slice(2);
@@ -140,7 +154,7 @@ const Product = () => {
                                 <Card.Text><span className={product.price > 8 && product.price < 16 ? "fw-bold badge bg-danger discounted" : "fw-bold badge bg-success discounted"}>{product.discount}</span></Card.Text>
                                 <Card.Img variant="top" className="p-3" src={`${product.image}`} />
                                 <Card.Body>
-                                    <Card.Text className="p">{product.name}</Card.Text>
+                                    <Card.Text className="p"><Link href={'/consumer/product/' + `${product.slug}`} className="text-decoration-none">{product.name}</Link></Card.Text>
                                     <Card.Text className="fw-bolder h5"><span className="text-danger">Tk </span>{product.price}</Card.Text>
                                     <Button variant="light" className="fw-bold pr-3 custom-round-button add-to-cart">Add to Cart</Button>
                                 </Card.Body>
@@ -160,7 +174,7 @@ const Product = () => {
                                     <Card.Text><span className={product.price > 8 && product.price < 16 ? "fw-bold badge bg-danger discounted" : "fw-bold badge bg-success discounted"}>{product.discount}</span></Card.Text>
                                     <Card.Img variant="top" className="p-3" src={`${product.image}`} />
                                     <Card.Body>
-                                        <Card.Text className="p">{product.name}</Card.Text>
+                                        <Card.Text className="p"><Link href={'/consumer/product/' + `${product.slug}`} className="text-decoration-none">{product.name}</Link></Card.Text>
                                         <Card.Text className="fw-bolder h5"><span className="text-danger">Tk </span>{product.price}</Card.Text>
                                         <Button variant="light" className="fw-bold pr-3 custom-round-button add-to-cart">Add to Cart</Button>
                                     </Card.Body>
