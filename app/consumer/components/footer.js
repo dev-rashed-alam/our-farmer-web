@@ -112,7 +112,7 @@ const Footer = () => {
                             <span className="footer-title">Make Money with Us</span>
                             <Nav>
                                 <Nav.Item>
-                                    <Nav.Link href="/" className="text-body-secondary m-0 p-0">Sell on OurFarmer</Nav.Link>
+                                    <Nav.Link href={'/sign-up'} className="text-body-secondary m-0 p-0">Sell on OurFarmer</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
                                     <Nav.Link eventKey="link-1" className="text-body-secondary m-0 p-0">Sell Services on OurFarmer</Nav.Link>

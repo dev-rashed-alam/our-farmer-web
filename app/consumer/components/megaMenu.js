@@ -1,6 +1,7 @@
 import React from 'react';
 import {Container, Navbar, Nav, NavDropdown, Badge} from 'react-bootstrap';
 import '@/public/styles/consumer/megaMenu.css';
+import Link from "next/link";
 const MegaMenu = () => {
 
     const categories = [
@@ -34,8 +35,8 @@ const MegaMenu = () => {
                         <Nav.Link href={'/'} className='fw-bold'>Home</Nav.Link>
                         <Nav.Link href="/consumer/product" className='fw-bold'>Shop
                         </Nav.Link>
-                        <Nav.Link href="/consumer/product?category=fruits-vegatables" className='fw-bold'>Fruits and Vegetables</Nav.Link>
-                        <Nav.Link href="#" className='fw-bold'>Contact</Nav.Link>
+                        <Nav.Link href="/consumer/product?category=2" className='fw-bold'>Fruits and Vegetables</Nav.Link>
+                        <Nav.Link href={"#"} className='fw-bold'><Link href={'/consumer/contact'} className='text-decoration-none text-body-secondary'> Contact</Link></Nav.Link>
                     </Nav>
                     <Nav className="ml-auto">
                         <Nav.Link href="#" className="trending fw-bold">Trending Product</Nav.Link>

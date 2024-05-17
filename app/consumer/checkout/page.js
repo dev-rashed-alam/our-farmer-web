@@ -1,7 +1,5 @@
 "use client";
 
-import Header from "@/app/consumer/components/header";
-import Footer from "@/app/consumer/components/footer";
 import {
     Container,
     Row,
@@ -16,7 +14,48 @@ import {
 } from "react-bootstrap";
 import Link from "next/link";
 import "@/public/styles/consumer/checkout.css";
+import {useSelector} from "react-redux";
+import {useRouter} from "next/navigation";
 export default function Page() {
+    const { push } = useRouter();
+
+    const cartItems = useSelector(state => state.cartItems);
+    const totalPrice = cartItems && cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    const delivery = 2.00;
+
+    const handlePlaceOrder = () => {
+        console.log('Order placed successfully');
+        const userDetails = document.getElementById('checkout-page');
+        //get all the  form data from the form
+        const orderDetails = {
+            first_name: userDetails.querySelector('#first_name').value,
+            last_name: userDetails.querySelector('#last_name').value,
+            email: userDetails.querySelector('#email').value,
+            phone: userDetails.querySelector('#phone').value,
+            address: userDetails.querySelector('#address').value,
+            city: userDetails.querySelector('#city').value,
+            state: userDetails.querySelector('#state').value,
+            zip: userDetails.querySelector('#zip').value,
+            country: userDetails.querySelector('#country').value,
+            is_create_account: userDetails.querySelector('#is_create_account').checked,
+            order_notes: userDetails.querySelector('#order_notes').value,
+            total: totalPrice + delivery,
+            delivery: delivery,
+            payment_method: 'Cash on delivery',
+            //generate random tracking number
+            tracking_no: Math.floor(Math.random() * 10000000000),
+            products: cartItems
+        }
+        let tracking_no = '1234567890'; // generate a random tracking number
+        //remove all the items from the cart
+        localStorage.removeItem('cartItems');
+        //store the order details in the local storage
+        localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
+        // redirect to the thank you route
+        push('/consumer/thankyou?') // Navigate to the new post page
+
+        console.log(orderDetails);
+    }
     return (
         <main className="checkout-page mt-4" id="checkout-page">
             <Container>
@@ -32,13 +71,13 @@ export default function Page() {
                                 <Col>
                                     <FormGroup>
                                         <FormLabel>First Name</FormLabel>
-                                        <Form.Control type="text" placeholder="First Name" className="checkout-input"/>
+                                        <Form.Control type="text" placeholder="First Name" className="checkout-input" id='first_name'/>
                                     </FormGroup>
                                 </Col>
                                 <Col>
                                     <FormGroup>
                                         <FormLabel>Last Name</FormLabel>
-                                        <Form.Control type="text" placeholder="Last Name" className="checkout-input"/>
+                                        <Form.Control type="text" placeholder="Last Name" className="checkout-input" id='last_name'/>
                                     </FormGroup>
                                 </Col>
                             </Row >
@@ -46,13 +85,13 @@ export default function Page() {
                                 <Col>
                                     <FormGroup>
                                         <FormLabel>Email</FormLabel>
-                                        <Form.Control type="email" placeholder="Email" className="checkout-input"/>
+                                        <Form.Control type="email" placeholder="Email" className="checkout-input" id='email'/>
                                     </FormGroup>
                                 </Col>
                                 <Col>
                                     <FormGroup>
                                         <FormLabel>Phone</FormLabel>
-                                        <Form.Control type="text" placeholder="Phone" className="checkout-input"/>
+                                        <Form.Control type="text" placeholder="Phone" className="checkout-input" id='phone'/>
                                     </FormGroup>
                                 </Col>
                             </Row>
@@ -60,13 +99,13 @@ export default function Page() {
                                 <Col>
                                     <FormGroup>
                                         <FormLabel>Address</FormLabel>
-                                        <Form.Control type="text" placeholder="Address" className="checkout-input"/>
+                                        <Form.Control type="text" placeholder="Address" className="checkout-input" id='address'/>
                                     </FormGroup>
                                 </Col>
                                 <Col>
                                     <FormGroup>
                                         <FormLabel>City</FormLabel>
-                                        <Form.Control type="text" placeholder="City" className="checkout-input"/>
+                                        <Form.Control type="text" placeholder="City" className="checkout-input" id='city'/>
                                     </FormGroup>
                                 </Col>
                             </Row>
@@ -74,13 +113,13 @@ export default function Page() {
                                 <Col>
                                     <FormGroup>
                                         <FormLabel>State</FormLabel>
-                                        <Form.Control type="text" placeholder="State" className="checkout-input"/>
+                                        <Form.Control type="text" placeholder="State" className="checkout-input" id='state'/>
                                     </FormGroup>
                                 </Col>
                                 <Col>
                                     <FormGroup>
                                         <FormLabel>Zip</FormLabel>
-                                        <Form.Control type="text" placeholder="Zip" className="checkout-input"/>
+                                        <Form.Control type="text" placeholder="Zip" className="checkout-input" id='zip'/>
                                     </FormGroup>
                                 </Col>
                             </Row>
@@ -88,7 +127,7 @@ export default function Page() {
                                 <Col>
                                     <FormGroup>
                                         <FormLabel>Country</FormLabel>
-                                        <FormSelect>
+                                        <FormSelect id='country'>
                                             <option value="bangladesh">Bangladesh</option>
                                         </FormSelect>
                                     </FormGroup>
@@ -97,7 +136,7 @@ export default function Page() {
                             <Row className="mb-1">
                                 <Col>
                                     <FormGroup>
-                                        <FormCheck type="checkbox" label="Create an account?" />
+                                        <FormCheck type="checkbox" label="Create an account?" id='is_create_account'/>
                                     </FormGroup>
                                 </Col>
                             </Row>
@@ -112,7 +151,7 @@ export default function Page() {
                                 <Col>
                                     <FormGroup>
                                         <FormLabel>Order Notes</FormLabel>
-                                        <Form.Control as="textarea" rows={3} placeholder="Notes about your order, e.g. special notes for delivery." />
+                                        <Form.Control as="textarea" rows={3} placeholder="Notes about your order, e.g. special notes for delivery." id='order_notes' />
                                     </FormGroup>
                                 </Col>
                             </Row>
@@ -136,19 +175,20 @@ export default function Page() {
                                 </div>
                             </Col>
                         </Row>
-                        <Row className="border-bottom p-3">
-                            <Col xs={8}>
-                                <div>
-                                    <span className="text-body-secondary">Marketside Fresh Organic Bananas</span>
-                                </div>
-                            </Col>
-                            <Col xs={4}>
-                                <div>
-                                    <span className="text-body-secondary">Tk 10.00</span>
-                                </div>
-                            </Col>
-                        </Row>
-
+                        {cartItems && cartItems.map(item => (
+                            <Row className="border-bottom p-3" key={item.id}>
+                                <Col xs={8}>
+                                    <div>
+                                        <span className="text-body-secondary">{item.name} x {item.quantity}</span>
+                                    </div>
+                                </Col>
+                                <Col xs={4}>
+                                    <div>
+                                        <span className="text-body-secondary">Tk {item.price * item.quantity}</span>
+                                    </div>
+                                </Col>
+                            </Row>
+                        ))}
                         <Row className="border-bottom p-3">
                             <Col xs={8}>
                                 <div>
@@ -199,7 +239,7 @@ export default function Page() {
 
                         <Row>
                             <Col>
-                                <Button className="checkout-button">Place Order</Button>
+                                <Button className="checkout-button" onClick={()=>handlePlaceOrder()}>Place Order</Button>
                             </Col>
                         </Row>
                     </Col>

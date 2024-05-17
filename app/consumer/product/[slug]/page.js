@@ -4,145 +4,17 @@ import NotFound from "@/app/consumer/components/404";
 import {Button, Card, Col, Container, Row, Tabs, Tab} from "react-bootstrap";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, {useEffect} from "react";
 import { BsFillStarFill, BsStar } from "react-icons/bs";
+import {useRouter} from "next/navigation";
+import {useSelector} from "react-redux";
 
 export default function Page({params}) {
     const  {slug} = params;
-    //write code for fetch of product using axios api and filter the product by  param
+    const products = useSelector(state => state.allProducts);
 
-    const products = [
-        {
-            id: 1,
-            name: "Cauliflower (ফুলকপি)",
-            slug: "cauliflower",
-            price: 5.99,
-            image: "/images/products/1.png",
-            description: "Fresh organic apple from the farm",
-            discount: "10% off",
-            types: "Sales",
-            isFeatured: false
-        },
-        {
-            id: 14,
-            name: "Pumpkin (কুমড়ো)",
-            slug: "pumpkin",
-            price: 16.99,
-            image: "/images/products/9.webp",
-            description: "Fresh organic pumpkin from the farm",
-            discount: "20% off",
-            types: null,
-            isFeatured: false
-        },
-        {
-            id: 15,
-            name: "Spinach (পালং)",
-            slug: "spinach",
-            price: 17.99,
-            image: "/images/products/9.jpeg",
-            description: "Fresh organic spinach from the farm",
-            discount: null,
-            types: "Organic",
-            isFeatured: true
-        },
-        {
-            id: 4,
-            name: "Lady's finger (ঢেঁড়স)",
-            slug: "ladys-finger",
-            price: 6.99,
-            image: "/images/products/3.jpeg",
-            description: "Fresh organic Ladies-finger from the farm",
-            discount: "20% off",
-            types: null
-        },
-        {
-            id: 5,
-            name: "Rice (চাল)",
-            slug: "rice",
-            price: 7.99,
-            image: "/images/products/4.jpeg",
-            description: "Fresh organic pineapple from the farm",
-            discount: null,
-            types: "Organic"
-        },
-        {
-            id: 6,
-            name: "Potato (আলু)",
-            slug: "potato",
-            price: 8.99,
-            image: "/images/products/6.jpeg",
-            description: "Fresh organic watermelon from the farm",
-            discount: "10% off",
-            types: "Sales",
-            isFeatured: true
-        },
-        {
-            id: 7,
-            name: "Tomato (টমেটো)",
-            slug: "tomato",
-            price: 9.99,
-            image: "/images/products/14.jpeg",
-            description: "Fresh organic tomato from the farm",
-            discount: "5% off",
-            types: "Sales",
-            isFeatured: true
-        },
-        {
-            id: 9,
-            name: "Cabbage (বাঁধাকপি)",
-            slug: "cabbage",
-            price: 11.99,
-            image: "/images/products/10.jpeg",
-            description: "Fresh organic cabbage from the farm",
-            discount: "20% off",
-            types: null,
-            isFeatured: true
-        },
-        {
-            id: 10,
-            name: "Green Chilli (মরিচ)",
-            slug: "green-chilli",
-            price: 12.99,
-            image: "/images/products/11.webp",
-            description: "Fresh organic green chilli from the farm",
-            discount: null,
-            types: "Organic",
-            isFeatured: false
-
-        },
-        {
-            id: 11,
-            name: "Ginger (আদা)",
-            slug: "ginger",
-            price: 13.99,
-            image: "/images/products/12.jpeg",
-            description: "Fresh organic ginger from the farm",
-            discount: "10% off",
-            types: "Sales",
-            isFeatured: true
-        },
-        {
-            id: 12,
-            name: "Garlic (রসুন)",
-            slug: "garlic",
-            price: 14.99,
-            image: "/images/products/13.webp",
-            description: "Fresh organic garlic from the farm",
-            discount: "5% off",
-            types: "Sales"
-        },
-        {
-            id: 13,
-            name: "Onion (পেঁয়াজ)",
-            slug: "onion",
-            price: 15.99,
-            image: "/images/products/8.jpeg",
-            description: "Fresh organic onion from the farm",
-            discount: "15% off",
-            types: "Organic"
-        },
-    ];
     const product = products.find(product => product.slug === slug);
+
 
     const handleAddToCart = ({id, name, price, quantity}) => {
         const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
@@ -157,6 +29,7 @@ export default function Page({params}) {
 
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
     };
+
     return (
         <main>
             {
@@ -178,8 +51,16 @@ export default function Page({params}) {
                                        sociosqu ad litora torquent Lorem ipsum Lorem ipsum nisl ut dolor dignissim semper.</p>
                                    <p className="text-danger fw-bold h3 mt-3">TK: {product.price}</p>
                                    <div className="product-buttons">
-                                       <Button className="text-dark product-cart-button" onClick={() => handleAddToCart(product)}>Add to Cart</Button>
-                                       <Button className="text-dark product-buy-button">Buy Now</Button>
+                                       {
+                                             product.stock > 0 ? (
+                                                  <>
+                                                      <Button className="text-dark product-cart-button" onClick={() => handleAddToCart(product)}>Add to Cart</Button>
+                                                      <Button className="text-dark product-buy-button" onClick={() => handleAddToCart(product)} href={'/consumer/checkout'}>Buy Now</Button>
+                                                  </>
+                                             ) : (
+                                                  <Button variant="light" className="fw-bold pr-3 custom-round-button add-to-cart text-danger" disabled>Out of Stock</Button>
+                                             )
+                                       }
                                    </div>
                                </Col>
 
@@ -260,7 +141,12 @@ export default function Page({params}) {
                                                <Card.Body>
                                                    <Card.Text className="p"><Link href={'/consumer/product/' + `${item.slug}`} className="text-decoration-none">{item.name}</Link></Card.Text>
                                                    <Card.Text className="fw-bolder h5"><span className="text-danger">Tk </span>{item.price}</Card.Text>
-                                                   <Button variant="light" className="fw-bold pr-3 custom-round-button add-to-cart">Add to Cart</Button>
+                                                   {
+                                                       item.stock > 0 ?
+                                                           <Button variant="light" className="fw-bold pr-3 custom-round-button add-to-cart" onClick={()=>handleAddToCart(item)}>Add to Cart</Button>
+                                                           :
+                                                           <Button variant="light" className="fw-bold pr-3 custom-round-button add-to-cart text-danger" disabled>Out of Stock</Button>
+                                                   }
                                                </Card.Body>
                                            </Card>
                                        </Col>

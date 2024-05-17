@@ -7,23 +7,30 @@ import Image from "next/image";
 import Link from "next/link";
 import {useState, useEffect} from "react";
 import { BsCart3 } from "react-icons/bs";
+import {useSelector, useDispatch} from "react-redux";
+import {useRouter, useSearchParams} from "next/navigation";
 
 
 const  SearchMenu = () => {
+    const { push } = useRouter();
+    const srcParams = useSearchParams()
+    const src = srcParams.get('src')
+    const cartItems = useSelector(state => state.totalCartItems);
+    const dispatch = useDispatch();
+    const [search, setSearch] = useState('');
+    const user = useSelector(state => state.user);
 
-    const [totalProducts, setTotalProducts] = useState(0);
+    useEffect(() => {
+        dispatch({ type: 'TOTAL_CART_ITEMS' });
+        setSearch(src)
+    }, [cartItems]);
 
     const searchProducts = (e) => {
         e.preventDefault();
-        const search = e.target.value;
-        console.log(search);
+        setSearch( e.target.value);
+        dispatch({ type: 'GET_PRODUCTS', payload: { src: e.target.value } })
+        push('/consumer/product?src=' + e.target.value);
     }
-
-    useEffect(() => {
-        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-        const total = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-        setTotalProducts(total);
-    }, []);
 
     return (
         <header className="navbar-search-menu">
@@ -63,10 +70,11 @@ const  SearchMenu = () => {
                                 <Form className="d-flex">
                                     <FormControl
                                         type="search"
-                                        placeholder="Search for products, categories or brands..."
+                                        placeholder="Search for products, categories ..."
                                         className="mr-2 search-bar"
-                                        aria-label="Search for products, categories or brands..."
-                                        name="search"
+                                        aria-label="Search for products, categories ..."
+                                        name="src"
+                                        value={search}
                                         onChange={searchProducts}
                                     />
                                 </Form>
@@ -88,7 +96,8 @@ const  SearchMenu = () => {
                                     </Col>
                                     <Col sm={4}>
                                         <div className="me-auto">
-                                            <div className='d-inline sign-in'> Sign in
+                                            <div className='d-inline sign-in'>
+                                                <Link href={'/consumer/signin'} className="text-body-secondary text-decoration-none">Sign In</Link>
                                                 <br/><span className='fw-bold my-account'>My Account</span>
                                             </div>
                                         </div>
@@ -115,7 +124,7 @@ const  SearchMenu = () => {
                                             {/*    className='cart-icon'*/}
                                             {/*/>*/}
                                             <BsCart3 className='total-cart-icon position-relative'/>
-                                            <span className="position-relative total-cart-items-icon">{totalProducts}</span>
+                                            <span className="position-relative total-cart-items-icon">{cartItems}</span>
                                         </Link>
                                     </Col>
                                 </Row>
