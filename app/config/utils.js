@@ -91,3 +91,23 @@ export const capitalizeFirstLetter = (str) => {
         return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     }
 };
+
+export const isValidFileType = (allowedFileTypes, fileType) => {
+    return allowedFileTypes.includes(fileType)
+}
+
+export const getErrorMessages = (err) => {
+    let errorObj = {};
+    if(err?.inner){
+        for (let item of err.inner) {
+            errorObj[item.path] = item.message;
+        }
+    }
+    return errorObj;
+};
+
+export const filterPostData = (obj) => {
+    return Object.fromEntries(
+        Object.entries(obj).filter(([_, v]) => v != null && v !== "")
+    );
+};

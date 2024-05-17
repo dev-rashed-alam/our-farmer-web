@@ -4,7 +4,7 @@ import Link from "next/link"
 import {capitalizeFirstLetter, changeDateFormat} from "@/app/config/utils";
 import {FaEye} from "react-icons/fa";
 import {findAllUsers} from "@/app/service/userService";
-import DeleteUser from "@/app/admin/user/components/DeleteUser";
+import {FaUserEdit} from "react-icons/fa";
 
 const Page = async () => {
     const userResponse = await findAllUsers('FARMER')
@@ -28,13 +28,20 @@ const Page = async () => {
                 <td className="crud-table__cell">
                     <span>
                         <Link
-                            href={`/admin/catalog/${user.id}?type=view`}
+                            href={`/admin/user/${user.id}`}
                             className="clickable"
                         >
                             <FaEye/>
                         </Link>
                     </span>
-                    <DeleteUser user={user}/>
+                    <span>
+                        <Link
+                            href={`/admin/user/edit/${user.id}`}
+                            className="clickable"
+                        >
+                            <FaUserEdit/>
+                        </Link>
+                    </span>
                 </td>
             </tr>);
         });

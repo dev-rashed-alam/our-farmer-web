@@ -7,7 +7,7 @@ import {MdLogout} from 'react-icons/md';
 import {FaServicestack} from "react-icons/fa";
 import '@/public/styles/admin/layout.css';
 import {BsFillChatSquareQuoteFill, BsJournalBookmarkFill} from 'react-icons/bs';
-import {isAdmin} from "@/app/config/utils";
+import {clearStorage, isAdmin} from "@/app/config/utils";
 import {usePathname, useRouter} from "next/navigation";
 
 function AdminLayout({children}) {
@@ -25,7 +25,8 @@ function AdminLayout({children}) {
     }, [])
 
     const handleLogOut = () => {
-
+        clearStorage();
+        router.push('/sign-in')
     };
 
     const renderAdminContent = () => {
