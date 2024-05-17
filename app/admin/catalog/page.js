@@ -14,12 +14,7 @@ const Page = async () => {
         return catalogResponse?.data?.map((catalog) => {
             return (<tr className="crud-table__row" key={`catalog_${catalog.id}`}>
                 <td className="crud-table__cell">
-                    <Link
-                        href={`/admin/catalog/${catalog.id}?type=view`}
-                        className="clickable"
-                    >
-                        {catalog.productTitle}
-                    </Link>
+                    {catalog.productTitle}
                 </td>
                 <td className="crud-table__cell">
                     <div dangerouslySetInnerHTML={{__html: catalog.description}}></div>
@@ -32,7 +27,7 @@ const Page = async () => {
                     {capitalizeFirstLetter(catalog.status)}
                 </td>
                 <td className="crud-table__cell">
-                    <span>
+                    <span className="admin-icons">
                         <Link
                             href={`/admin/catalog/${catalog.id}?type=view`}
                             className="clickable"
@@ -40,7 +35,8 @@ const Page = async () => {
                             <FaEye/>
                         </Link>
                     </span>
-                    <span>
+                    &nbsp;
+                    <span className="admin-icons">
                         <Link
                             href={`/admin/catalog/${catalog.id}?type=edit`}
                             className="clickable"
@@ -48,6 +44,7 @@ const Page = async () => {
                             <CiEdit/>
                         </Link>
                     </span>
+                    &nbsp;
                     <DeleteCatalog catalog={catalog}/>
                 </td>
             </tr>);

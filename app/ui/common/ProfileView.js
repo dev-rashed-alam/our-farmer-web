@@ -13,7 +13,7 @@ const ProfileView = async ({userId}) => {
     const {data} = await findUserById(userId);
 
     const getProfilePic = () => {
-        if (data?.avatar !== null) return data?.avatar;
+        if (data?.avatar) return data?.avatar;
         return ProfileImage;
     };
 

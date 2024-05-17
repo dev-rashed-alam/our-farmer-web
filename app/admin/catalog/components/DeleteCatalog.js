@@ -16,7 +16,7 @@ const DeleteCatalog = ({catalog}) => {
     }
 
     return (
-        <span onClick={() => removeCatalog(catalog.id)} className="clickable">
+        <span onClick={() => removeCatalog(catalog.id)} className="clickable admin-icons">
             <MdDelete/>
         </span>
     )

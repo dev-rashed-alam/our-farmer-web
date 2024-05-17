@@ -118,3 +118,15 @@ header {
 .top-nav-link {
     display: flex;
 }
+
+.admin-icons, .admin-icons a {
+    color: #000 !important;
+    font-size: 18px !important;
+}
+
+.admin-icons:hover, .admin-icons a:hover {
+    color: #623cea !important;
+}
+.top-right-details{
+    display: flex !important;
+}

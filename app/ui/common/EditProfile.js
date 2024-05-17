@@ -24,6 +24,7 @@ const Profile = () => {
         firstName: "",
         lastName: "",
         phoneNumber: "",
+        address: "",
         password: "",
         confirmPassword: "",
     });
@@ -81,6 +82,7 @@ const Profile = () => {
                 const data = await updateUserById(id, postData)
                 clearStorage();
                 router.push('/sign-in')
+                router.refresh();
             })
             .catch(function (err) {
                 setErrors(getErrorMessages(err));
@@ -191,6 +193,30 @@ const Profile = () => {
                         {errors && Object.keys(errors).length > 0 && errors["phoneNumber"] && (
                             <div className="invalid-feedback">
                                 {capitalizeFirstLetter(errors["phoneNumber"])}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </Row>
+            <Row>
+                <div className="field-wrapper">
+                    <label htmlFor="address">Address</label>
+                    <div className="input">
+                        <input
+                            type="text"
+                            id="address"
+                            name="address"
+                            value={inputData.address || ""}
+                            className={
+                                errors && Object.keys(errors).length > 0 && errors["address"]
+                                    ? "form-control field-error"
+                                    : "form-control"
+                            }
+                            onChange={handleChange}
+                        />
+                        {errors && Object.keys(errors).length > 0 && errors["address"] && (
+                            <div className="invalid-feedback">
+                                {capitalizeFirstLetter(errors["address"])}
                             </div>
                         )}
                     </div>

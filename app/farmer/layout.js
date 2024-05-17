@@ -5,7 +5,9 @@ import '@/public/styles/farmer/Layout.css';
 import Link from 'next/link';
 import Image from "next/image";
 import {useRouter} from 'next/navigation'
-import {clearStorage, isFarmer} from "@/app/config/utils";
+import {clearStorage, getUserInfo, isFarmer} from "@/app/config/utils";
+import ProfileImage from "@/public/images/profile.jpeg";
+import {MdLogout} from "react-icons/md";
 
 const Layout = ({children}) => {
     const [isFarmerLoggedIn, setIsFarmerLoggedIn] = useState(false);
@@ -22,6 +24,11 @@ const Layout = ({children}) => {
     const handleLogout = () => {
         clearStorage();
         router.push('/sign-in')
+    };
+
+    const getProfilePic = () => {
+        if (getUserInfo()?.avatar) return getUserInfo()?.avatar;
+        return ProfileImage;
     };
 
     const renderLayout = () => {
@@ -53,10 +60,29 @@ const Layout = ({children}) => {
                                     </Link>
                                 </Nav>
                                 <Navbar.Text>
-                                    Signed in as: <span>Farmer</span> |{' '}
-                                    <span className="cursor-pointer" onClick={handleLogout}>
-                                Logout
-                             </span>
+                                    <Link
+                                        href={`/farmer/user/edit/${getUserInfo().id}`}>
+                                        <Image
+                                            className="rounded-circle p-1 bg-primary"
+                                            src={getProfilePic()}
+                                            alt="profile-image"
+                                            width={40}
+                                            height={40}
+                                        />
+                                    </Link>
+                                    &nbsp;
+                                    &nbsp;
+                                    <Link
+                                        href="/sign-in"
+                                        className="nav_link top_nav_link me-2"
+                                        onClick={handleLogout}
+                                    >
+                                    <span className="nav_icon">
+                                        <MdLogout/>
+                                        &nbsp;
+                                    </span>
+                                        <span className="nav_name">Log Out</span>
+                                    </Link>
                                 </Navbar.Text>
                             </Navbar.Collapse>
                         </Container>

@@ -1,6 +1,6 @@
 "use client"
 import React from "react";
-import {deleteUserById, updateUserStatusById} from "@/app/service/userService";
+import {deleteUserById, findAllUsers, updateUserStatusById} from "@/app/service/userService";
 import {useRouter} from "next/navigation";
 
 const UserActionsUpdate = ({user}) => {
@@ -19,7 +19,8 @@ const UserActionsUpdate = ({user}) => {
     const removeUser = async () => {
         try {
             await deleteUserById(user.id)
-            router.push("/admin/user")
+            router.push("/admin/user");
+            router.refresh();
         } catch (e) {
             console.log(e)
         }

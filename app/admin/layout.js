@@ -7,8 +7,9 @@ import {MdLogout} from 'react-icons/md';
 import {FaServicestack} from "react-icons/fa";
 import '@/public/styles/admin/layout.css';
 import {BsFillChatSquareQuoteFill, BsJournalBookmarkFill} from 'react-icons/bs';
-import {clearStorage, isAdmin} from "@/app/config/utils";
+import {clearStorage, getUserInfo, isAdmin} from "@/app/config/utils";
 import {usePathname, useRouter} from "next/navigation";
+import ProfileImage from "@/public/images/profile.jpeg";
 
 function AdminLayout({children}) {
     const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false)
@@ -29,18 +30,44 @@ function AdminLayout({children}) {
         router.push('/sign-in')
     };
 
+    const getProfilePic = () => {
+        if (getUserInfo()?.avatar) return getUserInfo()?.avatar;
+        return ProfileImage;
+    };
+
+
     const renderAdminContent = () => {
         if (isAdminLoggedIn) {
             return (
                 <>
                     <header>
                         <div className="top-bar float-end">
-                            <Link href="/sign-in" className="nav_link top_nav_link" onClick={handleLogOut}>
-                            <span className="nav_icon">
-                                <MdLogout/>
-                            </span>
+                            <div className="top-right-details">
+                               <span>
+                                   <Link
+                                       href={`/admin/user/edit/${getUserInfo().id}`}>
+                                        <Image
+                                            className="rounded-circle p-1 bg-primary mt-2"
+                                            src={getProfilePic()}
+                                            alt="profile-image"
+                                            width={40}
+                                            height={40}
+                                        />
+                                    </Link>
+                                </span>
+                                <span>
+                                    <Link
+                                        href="/sign-in"
+                                        className="nav_link top_nav_link"
+                                        onClick={handleLogOut}
+                                    >
+                                    <span className="nav_icon">
+                                        <MdLogout/>
+                                    </span>
                                 <span className="nav_name">Log Out</span>
                             </Link>
+                           </span>
+                            </div>
                         </div>
                     </header>
                     <div className="nav-wrapper" id="navbar">
