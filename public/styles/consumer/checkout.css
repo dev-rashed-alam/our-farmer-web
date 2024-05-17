@@ -1,0 +1,34 @@
+.checkout-page .billing-details {
+    padding: 20px;
+    border-radius: 0;
+    border: none;
+}
+.checkout-page label {
+    font-family: Inter;
+    font-size: 16px;
+    color: #000000;
+}
+.checkout-page .checkout-input {
+    border: 1px solid lightgrey;
+    padding: 10px 20px;
+    border-radius: 10px !important;
+    box-shadow: 0 0 1px rgba(224, 224, 224, 0.1);
+}
+.checkout-page .checkout-input:focus {
+    padding: 10px 20px;
+    border-radius: 0;
+    outline: none;
+    background: #FFFFFF;
+    box-shadow: none;
+}
+.checkout-page .checkout-button {
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    background: #634C9F;
+    padding: 10px 20px;
+}
+
+.checkout-page .place-order {
+    border: 1px solid #d1bdff;
+}

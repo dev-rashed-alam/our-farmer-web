@@ -1,0 +1,57 @@
+.nav-menu {
+    background-color: #ffffff;
+    border-bottom: 1px solid #ececec;
+}
+
+.nav-menu .navbar-brand {
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.nav-menu .navbar-nav .nav-link {
+    font-size: 1rem;
+    color: #6B7280;
+}
+
+.nav-menu .lang-dropdown, .currency-dropdown {
+    margin-right: 10px;
+}
+
+.nav-menu .lang-dropdown .dropdown-toggle, .currency-dropdown .dropdown-toggle {
+    color: #6B7280;
+}
+
+.nav-menu .nav-link {
+    font-size: 12px;
+    color: #6B7280 !important;
+}
+
+.nav-menu .active, .active:hover {
+    color: #000000 !important;
+    background: none;
+}
+.nav-menu .active:hover {
+    color: #000000 !important;
+    background: none;
+}
+
+.nav-menu .navbar-nav .nav-link {
+    font-family: Inter;
+    font-size:  1rem;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.nav-menu .navbar-nav .nav-link:hover {
+    color: #166534 !important;
+}
+
+.nav-menu .navbar-nav .nav-link.active {
+    color: #166534;
+}
+.dropdown-toggle::after {
+    border: none;
+}
+img, svg {
+    vertical-align: baseline;
+}

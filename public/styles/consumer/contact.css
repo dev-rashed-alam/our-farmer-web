@@ -1,0 +1,24 @@
+.contact-page {
+    font-family: Arial, sans-serif;
+}
+
+.contact-page .header-row {
+    background-color: #f8f9fa;
+    padding: 50px 0;
+}
+
+.contact-page .contact-info-section {
+    margin-top: 50px;
+}
+
+.contact-page .contact-card {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.contact-page .contact-icon {
+    font-size: 2rem;
+    color: #007bff;
+    margin-bottom: 15px;
+}

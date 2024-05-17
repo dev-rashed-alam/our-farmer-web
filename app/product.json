@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "name": "Cauliflower (ফুলকপি)",
+    "price": 5.99,
+    "image": "/images/products/1.png",
+    "description": "Fresh organic apple from the farm",
+    "discount": "10% off",
+    "types": "Sales",
+    "isFeatured": false
+  },
+  {
+    "id": 14,
+    "name": "Pumpkin (কুমড়ো)",
+    "price": 16.99,
+    "image": "/images/products/9.webp",
+    "description": "Fresh organic pumpkin from the farm",
+    "discount": "20% off",
+    "types": null,
+    "isFeatured": false
+  },
+  {
+    "id": 15,
+    "name": "Spinach (পালং)",
+    "price": 17.99,
+    "image": "/images/products/9.jpeg",
+    "description": "Fresh organic spinach from the farm",
+    "discount": null,
+    "types": "Organic",
+    "isFeatured": true
+  },
+  {
+    "id": 16,
+    "name": "Cabbage (বাঁধাকপি)",
+    "price": 18.99,
+    "image": "/images/products/9.jpg",
+    "description": "Fresh organic cabbage from the farm",
+    "discount": null,
+    "types": "Organic",
+    "isFeatured": true
+  },
+  {
+    "id": 17,
+    "name": "Carrot (গাজর)",
+    "price": 19.99,
+    "image": "/images/products/9.png",
+    "description": "Fresh organic carrot from the farm",
+    "discount": null,
+    "types": "Organic",
+    "isFeatured": true
+  },
+  {
+    "id": 18,
+    "name": "Cucumber (শসা)",
+    "price": 20.99,
+    "image": "/images/products/9.jpg",
+    "description": "Fresh organic cucumber from the farm",
+    "discount": null,
+    "types": "Organic",
+    "isFeatured": true
+  },
+  {
+    "id": 19,
+    "name": "Eggplant (বেগুন)",
+    "price": 21.99,
+    "image": "/images/products/9.jpg",
+    "description": "Fresh organic eggplant from the farm",
+    "discount": null,
+    "types": "Organic",
+    "isFeatured": true
+  },
+  {
+    "id": 20,
+    "name": "Garlic (রসুন)",
+    "price": 22.99,
+    "image": "/images/products/9.jpg",
+    "description": "Fresh organic garlic from the farm",
+    "discount": null,
+    "types": "Organic",
+    "isFeatured": true
+  },
+  {
+    "id": 21,
+    "name": "Ginger (আদা)",
+    "price": 23.99,
+    "image": "/images/products/9.jpg",
+    "description": "Fresh organic ginger from the farm",
+    "discount": null,
+    "types": "Organic",
+    "isFeatured": true
+  },
+  {
+    "id": 22,
+    "name": "Green Chili (মরিচ)",
+    "price": 24.99,
+    "image": "/images/products/9.jpg",
+    "description": "Fresh organic green chili from the farm",
+    "discount": null,
+    "types": "Organic",
+    "isFeatured": true
+    }
+]

@@ -1,0 +1,29 @@
+.consumer-login-page {
+    align-items: center;
+    justify-content: center;
+}
+
+
+.consumer-login-page .login-form {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+}
+
+.consumer-login-page .login-form h2 {
+    margin-bottom: 20px;
+}
+
+.consumer-login-page .login-form .form-group {
+    margin-bottom: 15px;
+}
+
+.consumer-login-page .login-form .form-control {
+    border-radius: 4px;
+}
+
+.consumer-login-page .login-form .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
