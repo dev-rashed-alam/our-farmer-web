@@ -1,0 +1,53 @@
+.about-page {
+    font-family: Arial, sans-serif;
+}
+
+.about-page .header-row {
+    background-color: #f8f9fa;
+    padding: 50px 0;
+}
+
+.about-page .team-section {
+    margin-top: 50px;
+}
+
+.about-page .team-card {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-page .team-card img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin: 20px auto;
+}
+
+.about-page .team-card .social-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.about-page .team-card .social-icons a {
+    color: #495057;
+    font-size: 1.5rem;
+    margin: 0 10px;
+}
+
+.about-page .team-card .social-icons a:hover {
+    color: #007bff;
+}
+
+.about-page .mission-section {
+    background-color: #f8f9fa;
+    padding: 50px 0;
+}
+
+.about-page .mission-section h2 {
+    margin-bottom: 20px;
+}
+
+.about-page .mission-section p {
+    margin-bottom: 30px;
+}

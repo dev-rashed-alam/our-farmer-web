@@ -1,0 +1,118 @@
+.navbar-search-menu {
+    background-color: #fff;
+    margin: 0 5%;
+    padding: 15px;
+    color: black;
+}
+
+.navbar-search-menu .navbar-brand {
+    font-size: 1.5rem;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-search-menu .navbar-nav .nav-link {
+    font-size: 1rem;
+    color: #6B7280;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-search-menu .lang-dropdown, .currency-dropdown {
+    margin-right: 10px;
+    padding: 0;
+}
+
+.navbar-search-menu .lang-dropdown .dropdown-toggle, .currency-dropdown .dropdown-toggle {
+    color: #6B7280;
+}
+
+.navbar-search-menu .nav-link {
+    font-size: 12px;
+    color: #6B7280 !important;
+}
+
+.navbar-search-menu .active, .active:hover {
+    color: #000000 !important;
+    background: none;
+}
+.navbar-search-menu .active:hover {
+    color: #000000 !important;
+    background: none;
+}
+
+.navbar-search-menu .navbar-nav .nav-link {
+    font-family: Inter;
+    font-size:  1rem;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.navbar-search-menu .navbar-nav .nav-link:hover {
+    color: #166534 !important;
+}
+
+.navbar-search-menu .navbar-nav .nav-link.active {
+    color: #166534;
+}
+.dropdown-toggle::after {
+    border: none;
+}
+img, svg {
+    vertical-align: baseline;
+}
+.navbar-search-menu a {
+    color: #6B7280;
+    text-decoration: none;
+    padding: 15px 10px;
+}
+
+.navbar-search-menu .search-bar {
+    background: #e9e8e8;
+    padding: 14px 30px;
+    font-family: Inter;
+    border: none;
+}
+.search-bar::placeholder {
+    color: #999;
+}
+.search-bar:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.navbar-search-menu .delivery-text {
+    font-size: 13px;
+    color: #6B7280;
+    margin: 0;
+}
+.navbar-search-menu .delivery {
+    color: #000000;
+}
+.navbar-search-menu .location-icon, .fav-icon, .cart-icon, .profile-icon {
+    margin-top: 10px;
+}
+
+.navbar-search-menu .sign-in {
+    font-size: 13px;
+    color: #6B7280;
+    margin: 0;
+}
+.navbar-search-menu .my-account {
+    color: #000000;
+}
+.total-cart-icon {
+    font-size: 30px !important;
+    color: #000000;
+    margin-top: 10px;
+}
+.total-cart-items-icon {
+    font-size: 12px;
+    top: -45px;
+    left: 20px;
+    background: red;
+    padding: 5px 10px;
+    border-radius: 28px;
+    color: white;
+}

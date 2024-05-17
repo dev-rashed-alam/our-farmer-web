@@ -1,0 +1,139 @@
+.footer {
+    margin-top: 50px;
+    background-color: #F3F4F6;
+    color: #000000;
+    padding: 50px 0 50px !important;
+}
+
+.sub-footer {
+    margin-bottom: 30px;
+}
+
+.sub-footer h5 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.sub-footer p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+.main-footer .footer-subtitle {
+    font-size: 16px;
+    color: #111827;
+}
+
+
+.subscribe-input {
+    display: inline;
+    justify-content: center;
+    align-items: center;
+    background: #FFFFFF;
+    padding: 14px;
+    font-family: Inter;
+    width: 80%;
+    border: 1px solid #D1D5DB;
+    border-left: none;
+    border-radius: 10px 0 0 10px;
+
+}
+.subscribe-input:focus {
+    outline: none;
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    box-shadow: none;
+    z-index: unset !important;
+    border-left: none !important;
+}
+.input-inline-icon {
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    border-radius: 10px 0 0 10px;
+}
+.input-inline-icon svg{
+    width: 44px !important;
+    height: 44px !important;
+
+}
+.subscribe-button {
+    background: #634C9F;
+    padding: 14px;
+    margin: 0 0 0 -3px !important;
+    overflow: hidden;
+    border: 1px solid #634C9F;
+    border-radius: 0 10px 10px 0;
+}
+.subscribe-agreement {
+    font-size: 14px !important;
+}
+.subscribe-anchor {
+    color: #634C9F;
+}
+.social-icons {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.social-icons li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.social-icons a {
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.main-footer h5 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.main-footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.main-footer .footer-title {
+    font-family: Inter;
+    font-weight: bolder;
+    font-size: 18px;
+}
+.social-media {
+    margin-top: 20px;
+    font-size: 14px;
+}
+.main-footer .nav .nav-item a {
+    font-family: Inter;
+    margin-top: 10px !important;
+    color: #111827;
+    text-decoration: none;
+    font-size: 15px;
+}
+.main-footer .social-icons a {
+    position: relative;
+    list-style: none;
+    padding: 7px 25px;
+    background: white;
+    border-radius: 10px;
+    margin: 5px;
+
+}
+.main-footer .social-icons img {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    width: 25px;
+    height: 25px;
+}
+
+.main-footer ul li a:hover {
+    color: #ccc;
+}
+.copyright-section {
+    margin-top: 20px;
+}
+.contact-icon {
+    margin-top: 10px !important;
+}

@@ -1,0 +1,79 @@
+.web-banner {
+    padding: 50px 0;
+}
+
+.web-banner-content {
+    position: relative;
+    background-image: url("/images/webbanner.png");
+    background-size: cover;
+    background-position: inherit;
+    color: #fff;
+    padding: 160px 20px;
+    border-radius: 10px;
+    text-align: left;
+    min-height: 340px !important;
+    max-height: 340px !important;
+}
+.web-banner-content h2,
+.web-banner-content p {
+    margin-bottom: 20px;
+}
+
+.web-banner-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    color: #fff;
+    height: 100%;
+}
+
+@media (max-width: 768px) {
+    .web-banner-content {
+        padding: 10px;
+    }
+
+    .web-banner-content h2 {
+        font-size: 20px;
+    }
+
+    .web-banner-content p {
+        font-size: 16px;
+    }
+}
+.web-banner-content .shop-now {
+    background: #634C9F;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    margin-top: 50px;
+    text-decoration: none;
+    font-size: 16px;
+    position: absolute;
+    top: 230px;
+    left: 50px;
+}
+
+.featured-product-card {
+    position: relative;
+    background-image: url("/images/banner1.png");
+    background-size: cover;
+    background-position: inherit;
+    color: #fff;
+    padding: 10px 10px;
+    border-radius: 10px;
+    border: none;
+    text-align: left;
+    min-height: 340px !important;
+    max-height: 340px !important;
+}
+
+.featured-product-card .title {
+    font-family: Inter;
+    background: white;
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 100px;
+}

@@ -1,7 +1,10 @@
+
+import HomePage from "@/app/consumer/components/home";
+
 export default function Home() {
   return (
     <main>
-      <p>This application is in under development!</p>
+        <HomePage />
     </main>
   );
 }
