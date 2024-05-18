@@ -70,7 +70,7 @@ const Layout = ({children}) => {
                                     </Link>
                                     <Link
                                         href="/sign-in"
-                                        className="nav_link top_nav_link m-2"
+                                        className="nav-link m-2 farmer-logout"
                                         onClick={handleLogout}
                                     >
                                         <MdLogout/>

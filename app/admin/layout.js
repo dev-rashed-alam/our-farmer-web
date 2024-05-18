@@ -110,7 +110,7 @@ function AdminLayout({children}) {
                                 )}
                                 {permissions.includes('ALL') && (
                                     <li>
-                                        <Link href="#" className="nav_link">
+                                        <Link href="/admin/service" className="nav_link">
                                             <span className="nav_icon">
                                                 <FaServicestack/>
                                             </span>

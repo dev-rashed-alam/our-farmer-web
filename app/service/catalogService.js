@@ -97,3 +97,71 @@ export const deleteCatalogById = async (id) => {
         printApiErrors(e)
     }
 }
+
+export const saveCatalogService = async (inputData) => {
+    try {
+        const {data} = await axios.post(`${API_BASE_URL}/farmer/service/save`, inputData, {
+            headers: getReqHeaderConfig()
+        });
+        return data
+    } catch (e) {
+        printApiErrors(e)
+    }
+}
+
+export const updateCatalogService = async (id, inputData) => {
+    try {
+        const {data} = await axios.put(`${API_BASE_URL}/farmer/service/update/${id}`, inputData, {
+            headers: getReqHeaderConfig()
+        });
+        return data
+    } catch (e) {
+        printApiErrors(e)
+    }
+}
+
+export const findAllCatalogServicesByUser = async (token) => {
+    const res = await fetch(`${API_BASE_URL}/farmer/services/by-user`, {
+        cache: 'no-store',
+        headers: getReqConfig(token)
+    })
+    if (!res.ok) {
+        throw new Error('Failed to fetch data')
+    }
+
+    return res.json()
+}
+
+export const findAllCatalogServices = async (token) => {
+    const res = await fetch(`${API_BASE_URL}/farmer/services`, {
+        cache: 'no-store',
+        headers: getReqConfig(token)
+    })
+    if (!res.ok) {
+        throw new Error('Failed to fetch data')
+    }
+
+    return res.json()
+}
+
+export const findServiceById = async (id, token) => {
+    try {
+        const {data} = await axios.get(`${API_BASE_URL}/farmer/service/${id}`, {
+            headers: getReqConfig(token)
+        })
+        return data
+    } catch (e) {
+        printApiErrors(e)
+    }
+}
+
+export const deleteServiceById = async (id) => {
+    try {
+        const {data} = await axios.delete(`${API_BASE_URL}/farmer/service/remove/${id}`, {
+            headers: getReqHeaderConfig()
+        });
+        return data
+    } catch (e) {
+        printApiErrors(e)
+    }
+}

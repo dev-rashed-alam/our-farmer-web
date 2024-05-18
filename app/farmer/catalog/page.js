@@ -48,9 +48,6 @@ const Page = async () => {
                             <CiEdit/>
                             </Link>
                         </span>
-                    {/*<span>*/}
-                    {/*        <MdDelete/>*/}
-                    {/*    </span>*/}
                 </td>
             </tr>);
         });

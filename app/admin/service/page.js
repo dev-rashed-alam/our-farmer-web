@@ -1,15 +1,17 @@
 import React from 'react';
 import '@/public/styles/farmer/Table.css';
 import Link from "next/link"
-import {findAllCatalogServicesByUser} from "@/app/service/catalogService";
+import {findAllCatalogServices, findAllCatalogServicesByUser} from "@/app/service/catalogService";
 import {cookies} from "next/headers";
 import {changeDateFormat} from "@/app/config/utils";
 import {FaEye} from "react-icons/fa";
 import {CiEdit} from "react-icons/ci";
+import DeleteCatalog from "@/app/admin/catalog/components/DeleteCatalog";
+import DeleteService from "@/app/admin/service/components/DeleteService";
 
 const Page = async () => {
     let tokenStr = cookies().get("token")?.value;
-    const {data} = await findAllCatalogServicesByUser(tokenStr)
+    const {data} = await findAllCatalogServices(tokenStr)
 
     const renderServices = () => {
         return data?.map((service) => {
@@ -28,21 +30,24 @@ const Page = async () => {
                     <td className="crud-table__cell">{service?.productCatalog?.unitCost}</td>
                     <td className="crud-table__cell">{service.status}</td>
                     <td className="crud-table__cell">
-                         <span>
+                         <span className="admin-icons">
                              <Link
-                                 href={`/farmer/service/${service.id}?type=view`} className="clickable"
+                                 href={`/admin/service/${service.id}?type=view`} className="clickable"
                              >
                                 <FaEye/>
                              </Link>
                         </span>
-                        <span>
+                        &nbsp;
+                        <span className="admin-icons">
                             <Link
-                                href={`/farmer/service/${service.id}?type=edit`}
+                                href={`/admin/service/${service.id}?type=edit`}
                                 className="clickable"
                             >
                             <CiEdit/>
                             </Link>
                         </span>
+                        &nbsp;
+                        <DeleteService service={service}/>
                     </td>
                 </tr>
             );
@@ -54,13 +59,6 @@ const Page = async () => {
             <div className="page-heading mb-2">
                 <div className="title">
                     <h3>Service page</h3>
-                </div>
-                <div className="button-wrapper">
-                    <Link
-                        href="/farmer/service/create"
-                        className="btn btn-primary custom-btn">
-                        Take a new service
-                    </Link>
                 </div>
             </div>
             <table className="crud-table">

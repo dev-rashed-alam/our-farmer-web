@@ -103,6 +103,12 @@ export const legalAffairs = [
     }
 ]
 
+export const productionUnits = [
+    {value: "KG", label: "Kilogram"},
+    {value: "TONN", label: "Tonns"},
+    {value: "BUSHELS", label: "Bushels"},
+]
+
 export const serviceType = [
     {
         value: "FINANCIAL_SUPPORT", label: "Financial Support"
@@ -112,6 +118,18 @@ export const serviceType = [
     },
     {
         value: 'SELLING_THROUGH_PLATFORM', label: "Selling Through Platform"
+    }
+]
+
+export const tenureType = [
+    {
+        value: 3, label: "Three Month"
+    },
+    {
+        value: 6, label: "Six Month"
+    },
+    {
+        value: 12, label: "Twelve Month"
     }
 ]
 

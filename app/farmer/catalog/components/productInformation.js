@@ -2,14 +2,8 @@ import React, {useEffect, useState} from "react";
 import Select from "react-select";
 import EditorComponent from "@/app/ui/common/editorComponent";
 import {findAllCategories, saveCatalogByStage, updateCatalogByStage} from "@/app/service/catalogService";
-import {changeDateFormat} from "@/app/config/utils";
+import {changeDateFormat, productionUnits} from "@/app/config/utils";
 import {useSearchParams} from "next/navigation";
-
-const productionUnits = [
-    {value: "KG", label: "Kilogram"},
-    {value: "TONN", label: "Tonns"},
-    {value: "BUSHELS", label: "Bushels"},
-]
 
 const ProductInformation = ({handleNext, areaId, productInfo, setCatalogResponse}) => {
     const [inputData, setInputData] = useState({});
