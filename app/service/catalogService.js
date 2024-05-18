@@ -165,3 +165,14 @@ export const deleteServiceById = async (id) => {
         printApiErrors(e)
     }
 }
+
+export const changeServiceStatus = async (id, status) => {
+    try {
+        const {data} = await axios.put(`${API_BASE_URL}/farmer/service/change/status/${id}/${status}`, {}, {
+            headers: getReqHeaderConfig()
+        });
+        return data
+    } catch (e) {
+        printApiErrors(e)
+    }
+}

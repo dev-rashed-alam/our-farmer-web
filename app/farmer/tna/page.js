@@ -1,66 +1,30 @@
-'use client'
-import React, {useState} from 'react';
+import React from 'react';
 import '@/public/styles/farmer/Table.css';
 import Link from "next/link"
+import {findServiceByStatus} from "@/app/service/tnaService";
+import {cookies} from "next/headers";
+import {RxUpdate} from "react-icons/rx";
 
-const Page = () => {
-    const [tasks, setTasks] = useState([
-        {
-            "id": 1,
-            "cropName": "Rice",
-            "superVisorName": "Alice Smith",
-            "status": "Approved",
-            "date": "2024-03-23"
-        },
-        {
-            "id": 2,
-            "cropName": "Wheat",
-            "superVisorName": "Bob Johnson",
-            "status": "Approved",
-            "date": "2024-03-23"
-        },
-        {
-            "id": 3,
-            "cropName": "Maize (Corn)",
-            "superVisorName": "Emma Brown",
-            "status": "Under Verification",
-            "date": "2024-03-23"
-        },
-        {
-            "id": 4,
-            "cropName": "Soybeans",
-            "superVisorName": "Michael Williams",
-            "status": "Rejected",
-            "date": "2024-03-23"
-        },
-        {
-            "id": 5,
-            "cropName": "Potatoes",
-            "superVisorName": "Sarah Davis",
-            "status": "Approved",
-            "date": "2024-03-23"
-        }
-    ])
-
-    const handleTaskDelete = async (id) => {
-
-    };
+const Page = async () => {
+    let tokenStr = cookies().get("token")?.value;
+    const {data} = await findServiceByStatus(tokenStr, "APPROVE")
 
     const renderTnaList = () => {
-        return tasks?.map((task) => {
+        return data?.map((task) => {
             return (
                 <tr className="crud-table__row" key={`task_${task.id}`}>
                     <td className="crud-table__cell">
-                        <Link href={`/tasks/${task.id}`} className="clickable">
-                            {task.cropName}
-                        </Link>
+                        {task.productCatalog.productTitle}
                     </td>
-                    <td className="crud-table__cell">{task.date}</td>
-                    <td className="crud-table__cell">{task.superVisorName}</td>
-                    <td className="crud-table__cell">{task.status}</td>
+                    <td className="crud-table__cell">{task.serviceType.label}</td>
+                    <td className="crud-table__cell">{task.tenureType.label}</td>
+                    <td className="crud-table__cell">{task.productCatalog.unitType.label}</td>
+                    <td className="crud-table__cell">{task.sellingPrice}</td>
+                    <td className="crud-table__cell">{task.productCatalog.moq}</td>
+                    <td className="crud-table__cell">{task.productCatalog.unitCost}</td>
                     <td className="crud-table__cell">
-                        <Link href={`/farmer/tna/update`} className="clickable crud-button crud-button--negative">
-                            Update TNA
+                        <Link href={`/farmer/tna/update`} className="clickable">
+                            <RxUpdate/>
                         </Link>
                     </td>
                 </tr>
@@ -79,9 +43,12 @@ const Page = () => {
                 <thead className="crud-table__header">
                 <tr className="crud-table__row">
                     <th className="crud-table__header-cell">Title</th>
-                    <th className="crud-table__header-cell">Creation date</th>
-                    <th className="crud-table__header-cell">Assign to</th>
-                    <th className="crud-table__header-cell">Status</th>
+                    <th className="crud-table__header-cell">Service Type</th>
+                    <th className="crud-table__header-cell">Tenure Type</th>
+                    <th className="crud-table__header-cell">Unit</th>
+                    <th className="crud-table__header-cell">Selling Price</th>
+                    <th className="crud-table__header-cell">MOQ</th>
+                    <th className="crud-table__header-cell">Unit Cost</th>
                     <th className="crud-table__header-cell">Actions</th>
                 </tr>
                 </thead>

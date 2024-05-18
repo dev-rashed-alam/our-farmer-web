@@ -1,91 +1,117 @@
-'use client'
-import React, {useState} from 'react';
+import React from 'react';
 import '@/public/styles/farmer/Table.css';
-import Link from "next/link"
 
-const Page = () => {
+const scheduleData = [
+    {
+        phase: 'Land Preparation',
+        activities: ['Plowing', 'Harrowing', 'Leveling'],
+        responsible: 'John Doe, Farm Workers',
+        startDate: 'June 1',
+        endDate: 'June 14'
+    },
+    {
+        phase: 'Seed Selection & Treatment',
+        activities: ['Select seeds', 'Treat seeds'],
+        responsible: 'John Doe',
+        startDate: 'June 15',
+        endDate: 'June 16'
+    },
+    {
+        phase: 'Sowing',
+        activities: ['Seeding or transplanting'],
+        responsible: 'John Doe, Farm Workers',
+        startDate: 'June 17',
+        endDate: 'June 23'
+    },
+    {
+        phase: 'Water Management',
+        activities: ['Irrigation maintenance'],
+        responsible: 'John Doe',
+        startDate: 'June 24',
+        endDate: 'Continuous'
+    },
+    {
+        phase: 'Fertilization',
+        activities: ['Basal', 'Tillering', 'Panicle Init.'],
+        responsible: 'John Doe',
+        startDate: 'June 24',
+        endDate: 'July 15'
+    },
+    {
+        phase: 'Weed Management',
+        activities: ['Manual weeding', 'Herbicide app.'],
+        responsible: 'John Doe, Farm Workers',
+        startDate: 'July 1',
+        endDate: 'July 7'
+    },
+    {
+        phase: 'Pest & Disease Management',
+        activities: ['Scouting', 'Pesticide app.'],
+        responsible: 'John Doe',
+        startDate: 'Continuous',
+        endDate: 'Continuous'
+    },
+    {
+        phase: 'Monitoring & Maintenance',
+        activities: ['Field inspections'],
+        responsible: 'John Doe',
+        startDate: 'Continuous',
+        endDate: 'Continuous'
+    },
+    {
+        phase: 'Harvesting',
+        activities: ['Cutting', 'Threshing', 'Drying'],
+        responsible: 'John Doe, Farm Workers',
+        startDate: 'October 1',
+        endDate: 'October 7'
+    },
+    {
+        phase: 'Post-Harvest Handling',
+        activities: ['Cleaning', 'Drying', 'Storage'],
+        responsible: 'John Doe',
+        startDate: 'October 8',
+        endDate: 'October 21'
+    },
+];
 
-    const [tasks, setTasks] = useState([
-        {
-            "id": 1,
-            "cropName": "Rice",
-            "superVisorName": "Alice Smith",
-            "status": "Approved",
-            "date": "2024-03-23"
-        },
-        {
-            "id": 2,
-            "cropName": "Wheat",
-            "superVisorName": "Bob Johnson",
-            "status": "Approved",
-            "date": "2024-03-23"
-        },
-        {
-            "id": 3,
-            "cropName": "Maize (Corn)",
-            "superVisorName": "Emma Brown",
-            "status": "Under Verification",
-            "date": "2024-03-23"
-        },
-        {
-            "id": 4,
-            "cropName": "Soybeans",
-            "superVisorName": "Michael Williams",
-            "status": "Rejected",
-            "date": "2024-03-23"
-        },
-        {
-            "id": 5,
-            "cropName": "Potatoes",
-            "superVisorName": "Sarah Davis",
-            "status": "Approved",
-            "date": "2024-03-23"
-        }
-    ])
-
-    const handleTaskDelete = async (id) => {
-
-    };
-
-    const renderTnaList = () => {
-        return tasks?.map((task) => {
-            return (
-                <tr className="crud-table__row" key={`task_${task.id}`}>
-                </tr>
-            );
-        });
+const ScheduleTable = () => {
+    const renderRowspan = (phase, activities, startDate, endDate) => {
+        return activities.map((activity, index) => (
+            <tr className="crud-table__row" key={`${phase}-${index}`}>
+                {index === 0 && <td className="crud-table__cell" rowSpan={activities.length}>
+                    {phase}
+                </td>}
+                <td className="crud-table__cell">{activity}</td>
+                <td className="crud-table__cell">
+                    {startDate}
+                </td>
+                <td className="crud-table__cell">
+                    {endDate}
+                </td>
+            </tr>
+        ));
     };
 
     return (
-        <>
-            <div className="page-heading mb-2">
-                <div className="title">
-                    <h3>Time and action page</h3>
-                </div>
-            </div>
-            <table className="crud-table">
-                <thead className="crud-table__header">
-                <tr className="crud-table__row">
-                    <th className="crud-table__header-cell">Land Preparation</th>
-                    <th className="crud-table__header-cell">Seed Selection and Treatment</th>
-                    <th className="crud-table__header-cell">Equipment Check</th>
-                    <th className="crud-table__header-cell">Planting</th>
-                    <th className="crud-table__header-cell">Irrigation</th>
-                    <th className="crud-table__header-cell">Weed Control</th>
-                    <th className="crud-table__header-cell">Fertilization</th>
-                    <th className="crud-table__header-cell">Pest and Disease Management</th>
-                    <th className="crud-table__header-cell">Growth Monitoring</th>
-                    <th className="crud-table__header-cell">Harvesting</th>
-                    <th className="crud-table__header-cell">Post-Harvest Processing</th>
-                    <th className="crud-table__header-cell">Production</th>
-                </tr>
-                </thead>
-                <tbody className="crud-table__body">
-                {renderTnaList()}
-                </tbody>
-            </table>
-        </>
+        <table className="crud-table">
+            <thead className="crud-table__header">
+            <tr className="crud-table__row">
+                <th className="crud-table__header-cell">Phase</th>
+                <th className="crud-table__header-cell">Activities</th>
+                <th className="crud-table__header-cell">Start Date</th>
+                <th className="crud-table__header-cell">End Date</th>
+            </tr>
+            </thead>
+            <tbody className="crud-table__body">
+            {scheduleData.map(({
+                                   phase,
+                                   activities,
+                                   startDate,
+                                   endDate
+                               }) => renderRowspan(phase, activities, startDate, endDate))}
+            </tbody>
+        </table>
     );
 };
 
-export default Page;
+export default ScheduleTable;

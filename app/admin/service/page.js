@@ -7,7 +7,7 @@ import {changeDateFormat} from "@/app/config/utils";
 import {FaEye} from "react-icons/fa";
 import {CiEdit} from "react-icons/ci";
 import DeleteCatalog from "@/app/admin/catalog/components/DeleteCatalog";
-import DeleteService from "@/app/admin/service/components/DeleteService";
+import ServiceActions from "@/app/admin/service/components/ServiceActions";
 
 const Page = async () => {
     let tokenStr = cookies().get("token")?.value;
@@ -47,7 +47,7 @@ const Page = async () => {
                             </Link>
                         </span>
                         &nbsp;
-                        <DeleteService service={service}/>
+                        <ServiceActions service={service}/>
                     </td>
                 </tr>
             );
