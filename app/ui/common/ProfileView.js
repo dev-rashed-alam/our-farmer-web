@@ -7,10 +7,11 @@ import Link from "next/link";
 import Image from "next/image";
 import ProfileImage from "@/public/images/profile.jpeg";
 import UserActionsUpdate from "@/app/admin/user/components/UserActionsUpdate";
+import {cookies} from "next/headers";
 
 const ProfileView = async ({userId}) => {
-
-    const {data} = await findUserById(userId);
+    let tokenStr = cookies().get("token")?.value;
+    const {data} = await findUserById(userId, tokenStr);
 
     const getProfilePic = () => {
         if (data?.avatar) return data?.avatar;

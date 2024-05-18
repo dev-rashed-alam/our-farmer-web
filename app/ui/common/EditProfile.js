@@ -16,7 +16,7 @@ import {useParams, useRouter} from "next/navigation";
 import {findUserById, updateUserById} from "@/app/service/userService";
 import {adminProfile} from "@/app/config/validationSchema";
 
-const Profile = () => {
+const Profile = ({tokenStr}) => {
     const [errors, setErrors] = useState({});
     const [profileImg, setProfileImg] = useState(null);
     const [imageError, setImageError] = useState(false)
@@ -57,7 +57,7 @@ const Profile = () => {
     };
 
     const fetchUserInfo = async () => {
-        const {data} = await findUserById(id)
+        const {data} = await findUserById(id, tokenStr)
         setInputData((prev) => ({...prev, ...data}));
     }
 

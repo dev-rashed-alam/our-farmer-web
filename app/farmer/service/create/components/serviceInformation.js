@@ -1,11 +1,23 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Select from "react-select";
 import EditorComponent from "@/app/ui/common/editorComponent";
+import {serviceType} from "@/app/config/utils";
+import {findAllCatalogsByUser} from "@/app/service/catalogService";
 
 const ServiceInformation = () => {
     const [inputData, setInputData] = useState({});
     const [userList, setUserList] = useState([]);
     const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        (() => {
+            try {
+                const data = findAllCatalogsByUser()
+            } catch (e) {
+                console.log(e)
+            }
+        })()
+    }, []);
 
     const handleUserSelect = (user) => {
         setInputData((prev) => ({...prev, user: user}));
@@ -29,7 +41,7 @@ const ServiceInformation = () => {
                     <div className="mb-3 col-md-4">
                         <label htmlFor="assignUser">Service Type <span className="star">*</span></label>
                         <Select
-                            options={userList}
+                            options={serviceType}
                             isMulti={false}
                             classNamePrefix="react-select"
                             onChange={handleUserSelect}

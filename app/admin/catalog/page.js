@@ -6,9 +6,11 @@ import {capitalizeFirstLetter, changeDateFormat} from "@/app/config/utils";
 import {FaEye} from "react-icons/fa";
 import {CiEdit} from "react-icons/ci";
 import DeleteCatalog from "@/app/admin/catalog/components/DeleteCatalog";
+import {cookies} from "next/headers";
 
 const Page = async () => {
-    const catalogResponse = await findAllCatalogs()
+    let tokenStr = cookies().get("token")?.value;
+    const catalogResponse = await findAllCatalogs(tokenStr)
 
     const renderCatalogs = () => {
         return catalogResponse?.data?.map((catalog) => {

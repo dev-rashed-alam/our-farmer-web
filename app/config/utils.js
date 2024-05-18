@@ -1,6 +1,19 @@
 import {toast} from "react-toastify";
 import moment from "moment";
 
+export const getReqConfig = (token) => {
+    return {
+        'Content-Type': 'application/json', Accept: 'application/json', Authorization: `Bearer ${token.slice(1, -1)}`
+    };
+}
+
+export const getReqHeaderConfig = () => {
+    return {
+        'Content-Type': 'application/json', Accept: 'application/json', Authorization: `Bearer ${getToken()}`
+    };
+}
+
+
 export const printApiErrors = (error) => {
     if (error?.response?.data?.message) {
         toast.error(error.response.data.message)
@@ -13,6 +26,10 @@ export const printApiErrors = (error) => {
 export const saveUserInfoInStorage = (data) => {
     localStorage.setItem("token", data.access_token);
     localStorage.setItem("user", JSON.stringify(data.data))
+}
+
+export const getToken = () => {
+    return localStorage?.getItem("token") || ""
 }
 
 export const clearStorage = (data) => {
@@ -86,6 +103,18 @@ export const legalAffairs = [
     }
 ]
 
+export const serviceType = [
+    {
+        value: "FINANCIAL_SUPPORT", label: "Financial Support"
+    },
+    {
+        value: 'BINIMOY_MANAGEMENT', label: "Binimoy Management"
+    },
+    {
+        value: 'SELLING_THROUGH_PLATFORM', label: "Selling Through Platform"
+    }
+]
+
 export const capitalizeFirstLetter = (str) => {
     if (str) {
         return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -98,7 +127,7 @@ export const isValidFileType = (allowedFileTypes, fileType) => {
 
 export const getErrorMessages = (err) => {
     let errorObj = {};
-    if(err?.inner){
+    if (err?.inner) {
         for (let item of err.inner) {
             errorObj[item.path] = item.message;
         }

@@ -6,6 +6,7 @@ import {useRouter} from "next/navigation";
 import {doLogin} from "@/app/service/authService";
 import {toast} from "react-toastify";
 import {saveUserInfoInStorage} from "@/app/config/utils";
+import Cookies from 'js-cookie';
 
 const Login = () => {
     const [inputData, setInputData] = useState({});
@@ -43,6 +44,8 @@ const Login = () => {
                 saveUserInfoInStorage(data)
                 let userInfo = data.data;
                 if (userInfo.id) {
+                    Cookies.set('userInfo', JSON.stringify(userInfo));
+                    Cookies.set('token', JSON.stringify(data.access_token));
                     toast.success("Login successful!")
                     if (userInfo.userType === "FARMER") {
                         router.push("/farmer")
@@ -94,7 +97,7 @@ const Login = () => {
                         <p className="field-error">{errors.password}</p>
                     </div>
                     <div className="d-grid">
-                        <button type="submit" className="btn btn-primary">
+                        <button type="submit" className="btn btn-primary btn-full">
                             Submit
                         </button>
                     </div>

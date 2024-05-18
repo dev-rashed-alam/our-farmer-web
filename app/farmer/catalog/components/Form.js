@@ -6,7 +6,6 @@ import LandInformation from "@/app/farmer/catalog/components/landInformation";
 import ProductInformation from "@/app/farmer/catalog/components/productInformation";
 import VerificationStatus from "@/app/farmer/catalog/components/verificationStatus";
 import Confirmation from "@/app/farmer/catalog/components/confirmation";
-import { useSearchParams } from 'next/navigation'
 
 const Form = ({catalogInfo}) => {
     const [catalogResponse, setCatalogResponse] = useState({})
@@ -35,25 +34,25 @@ const Form = ({catalogInfo}) => {
                                 <form id="msform">
                                     <ul id="progressbar">
                                         <li
-                                            className={selectedStep === "LAND" ? 'active' : ''}
+                                            className={selectedStep === "LAND" ? 'active-form' : ''}
                                             id="land"
                                         >
                                             <strong>Land Information</strong>
                                         </li>
                                         <li
-                                            className={selectedStep === "PRODUCT" ? 'active' : ''}
+                                            className={selectedStep === "PRODUCT" ? 'active-form' : ''}
                                             id="product"
                                         >
                                             <strong>Product Information</strong>
                                         </li>
                                         <li
-                                            className={selectedStep === "STATUS" ? 'active' : ''}
+                                            className={selectedStep === "STATUS" ? 'active-form' : ''}
                                             id="status"
                                         >
                                             <strong>Catalog Verification</strong>
                                         </li>
                                         <li
-                                            className={selectedStep === "FINISH" ? 'active' : ''}
+                                            className={selectedStep === "FINISH" ? 'active-form' : ''}
                                             id="finish"
                                         >
                                             <strong>Finish</strong>

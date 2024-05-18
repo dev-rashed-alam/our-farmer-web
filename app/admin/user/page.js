@@ -5,9 +5,11 @@ import {capitalizeFirstLetter, changeDateFormat} from "@/app/config/utils";
 import {FaEye} from "react-icons/fa";
 import {findAllUsers} from "@/app/service/userService";
 import {FaUserEdit} from "react-icons/fa";
+import {cookies} from "next/headers";
 
 const Page = async () => {
-    const userResponse = await findAllUsers('FARMER')
+    let tokenStr = cookies().get("token")?.value;
+    const userResponse = await findAllUsers('FARMER', tokenStr)
 
     const renderCatalogs = () => {
         return userResponse?.data?.map((user) => {

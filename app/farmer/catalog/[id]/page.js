@@ -1,8 +1,10 @@
 import Form from "@/app/farmer/catalog/components/Form";
 import {findAllCatalogs, findCatalogById} from "@/app/service/catalogService";
+import {cookies} from "next/headers";
 
 const Page = async ({params}) => {
-    const catalogResponse = await findCatalogById(params.id)
+    let tokenStr = cookies().get("token")?.value;
+    const catalogResponse = await findCatalogById(params.id, tokenStr)
 
     return <Form catalogInfo={catalogResponse.data}/>
 }

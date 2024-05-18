@@ -99,7 +99,7 @@
     color: lightgrey;
 }
 
-#progressbar .active {
+#progressbar .active-form {
     color: #000000;
 }
 
@@ -143,6 +143,6 @@
 }
 
 /*Color number of the step and the connector before it*/
-#progressbar li.active:before, #progressbar li.active:after {
+#progressbar li.active-form:before, #progressbar li.active-form:after {
     background: skyblue;
 }

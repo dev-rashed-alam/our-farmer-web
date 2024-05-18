@@ -165,7 +165,7 @@ const Registration = () => {
                         <p className="field-error">{errors.confirmPassword}</p>
                     </div>
                     <div className="d-grid">
-                        <button type="submit" className="btn btn-primary">
+                        <button type="submit" className="btn btn-primary btn-full">
                             Submit
                         </button>
                     </div>

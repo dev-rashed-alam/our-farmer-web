@@ -64,6 +64,10 @@ header {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
+    color: var(--white-color) !important;
+}
+.navbar-brand{
+    color: var(--white-color) !important;
 }
 
 .active, .nav_link:hover {
@@ -85,7 +89,7 @@ header {
     align-items: center;
     column-gap: 0.75rem;
     padding: 0.75rem;
-    color: var(--white-color);
+    color: var(--white-color) !important;
     border-radius: 0.5rem;
     margin-bottom: 1rem;
     transition: 0.3s;

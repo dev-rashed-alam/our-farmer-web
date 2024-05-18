@@ -58,8 +58,6 @@ const Layout = ({children}) => {
                                     <Link href="/farmer/service" className="nav-link">
                                         Services
                                     </Link>
-                                </Nav>
-                                <Navbar.Text>
                                     <Link
                                         href={`/farmer/user/edit/${getUserInfo().id}`}>
                                         <Image
@@ -70,20 +68,16 @@ const Layout = ({children}) => {
                                             height={40}
                                         />
                                     </Link>
-                                    &nbsp;
-                                    &nbsp;
                                     <Link
                                         href="/sign-in"
-                                        className="nav_link top_nav_link me-2"
+                                        className="nav_link top_nav_link m-2"
                                         onClick={handleLogout}
                                     >
-                                    <span className="nav_icon">
                                         <MdLogout/>
                                         &nbsp;
-                                    </span>
-                                        <span className="nav_name">Log Out</span>
+                                        Log Out
                                     </Link>
-                                </Navbar.Text>
+                                </Nav>
                             </Navbar.Collapse>
                         </Container>
                     </Navbar>
