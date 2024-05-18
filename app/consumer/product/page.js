@@ -4,6 +4,8 @@ import {Container, Row, Col, Card, Button, Image} from 'react-bootstrap';
 import { useSearchParams } from 'next/navigation'
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import {fetchAllProducts, fetchProductsFailure, fetchProductsSuccess} from "@/app/store/productAction";
+import {addToCart} from "@/app/store/cartAction";
 export default function Page(request) {
     const dispatch = useDispatch();
     const products = useSelector(state => state.products);
@@ -55,14 +57,26 @@ export default function Page(request) {
 
     const categoryParam = searchParams.get('category')
     const srcParams = searchParams.get('src')
+    const trendingParam = searchParams.get('isTrending')
+    const featuredParam = searchParams.get('isFeatured')
 
     useEffect(() => {
-
         dispatch({ type: 'GET_PRODUCTS', payload: { src: srcParams } })
         if (categoryParam) {
             dispatch({ type: 'GET_PRODUCTS', payload: { category: categoryParam } })
         }
+        if (trendingParam) {
+            dispatch({ type: 'GET_PRODUCTS', payload: { isTrending: trendingParam } })
+        }
+        if (featuredParam) {
+            dispatch({ type: 'GET_PRODUCTS', payload: { isFeatured: featuredParam } })
+        }
     }, [srcParams]);
+
+    const handleAddToCart = (product) => {
+        console.log(product)
+        dispatch(addToCart(product));
+    };
 
     const categoryName = category.find(cat => cat.id === parseInt(categoryParam))
 
@@ -92,8 +106,11 @@ export default function Page(request) {
                     products.length > 0 ? products.map(product => (
                         <Col xs={12} md={2} key={product.id}>
                             <Card className="single-product-card">
-                                <Card.Text><span
-                                    className={product.price > 8 && product.price < 16 ? "fw-bold badge bg-danger discounted" : "fw-bold badge bg-success discounted"}>{product.discount}</span></Card.Text>
+                                {
+                                    product.discount > 0 ?
+                                        <Card.Text><span className={product.price > 8 && product.price < 16 ? "fw-bold badge bg-danger discounted" : "fw-bold badge bg-success discounted"}>{product.discount} off</span></Card.Text>
+                                        : ''
+                                }
                                 <Card.Img variant="top" className="p-3" src={`${product.image}`}/>
                                 <Card.Body>
                                     <Card.Text className="p">{product.name}</Card.Text>
@@ -101,7 +118,7 @@ export default function Page(request) {
                                         className="text-danger">Tk </span>{product.price}</Card.Text>
                                     {
                                         product.stock > 0 ?
-                                            <Button variant="light" className="fw-bold pr-3 custom-round-button add-to-cart">Add
+                                            <Button variant="light" className="fw-bold pr-3 custom-round-button add-to-cart" onClick={()=>handleAddToCart(product)}>Add
                                                 to Cart</Button>
                                             :
                                             <Button variant="light" className="fw-bold pr-3 custom-round-button add-to-cart text-danger"
