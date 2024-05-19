@@ -71,7 +71,7 @@ const Product = () => {
                         firstTwoProducts.map(product => (
                             <Col xs={12} md={2} key={product.id}>
                                 <Card className="single-product-card">
-                                    <Card.Text><span className={product.price > 8 && product.price < 16 ? "fw-bold badge bg-danger discounted" : "fw-bold badge bg-success discounted"}>{product.discount}</span></Card.Text>
+                                    <Card.Text><span className={product.price > 8 && product.price < 16 ? "fw-bold badge bg-danger discounted" : "fw-bold badge bg-success discounted"}>{product.discount} off</span></Card.Text>
                                     <Card.Img variant="top" className="p-3" src={`${product.image}`} />
                                     <Card.Body>
                                         <Card.Text className="p"><Link href={'/consumer/product/' + `${product.slug}`} className="text-decoration-none">{product.name}</Link></Card.Text>
@@ -104,7 +104,7 @@ const Product = () => {
                         lastTwoProducts.map(product => (
                             <Col xs={12} md={2} key={product.id}>
                                 <Card className="single-product-card">
-                                    <Card.Text><span className={product.price > 8 && product.price < 16 ? "fw-bold badge bg-danger discounted" : "fw-bold badge bg-success discounted"}>{product.discount}</span></Card.Text>
+                                    <Card.Text><span className={product.price > 8 && product.price < 16 ? "fw-bold badge bg-danger discounted" : "fw-bold badge bg-success discounted"}>{product.discount} off</span></Card.Text>
                                     <Card.Img variant="top" className="p-3" src={`${product.image}`} />
                                     <Card.Body>
                                         <Card.Text className="p"><Link href={'/consumer/product/' + `${product.slug}`} className="text-decoration-none">{product.name}</Link></Card.Text>
