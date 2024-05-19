@@ -1,21 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Container, Navbar, Nav, NavDropdown, Badge} from 'react-bootstrap';
 import '@/public/styles/consumer/megaMenu.css';
 import Link from "next/link";
+import {findAllCategories} from "@/app/service/catalogService";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchAllProducts, fetchProductsFailure, fetchProductsSuccess} from "@/app/store/productAction";
+import {fetchAllCategories, fetchCategoryFailure, fetchCategorySuccess} from "@/app/store/categoryAction";
 const MegaMenu = () => {
+    const dispatch = useDispatch();
 
-    const categories = [
-        { id: 1, name: 'Vegetables' },
-        { id: 2, name: 'Fruits' },
-        { id: 3, name: 'Meat' },
-        { id: 4, name: 'Fish' },
-        { id: 5, name: 'Grocery' },
-        { id: 6, name: 'Dairy' },
-        { id: 7, name: 'Bakery' },
-        { id: 8, name: 'Beverages' },
-        { id: 9, name: 'Snacks' },
-        { id: 10, name: 'Others' }
-    ];
+    const categories = useSelector(state => state.categories);
+
+    useEffect(() => {
+        const categories = fetchAllCategories()
+        categories.then(response => {
+            dispatch(fetchCategorySuccess(response.data))
+        }).catch(error => {
+            dispatch(fetchCategoryFailure(error))
+        })
+        // console.log(testCategories)
+    }, []);
 
     return (
         <Navbar expand="lg" className='nav-mega-menu'>
@@ -39,7 +43,7 @@ const MegaMenu = () => {
                         <Nav.Link href={"#"} className='fw-bold'><Link href={'/consumer/contact'} className='text-decoration-none text-body-secondary'> Contact</Link></Nav.Link>
                     </Nav>
                     <Nav className="ml-auto">
-                        <Nav.Link href="#" className="trending fw-bold">Trending Product</Nav.Link>
+                        <Nav.Link href={'/consumer/product?isTrending=1'} className="trending fw-bold">Trending Product</Nav.Link>
                         <Nav.Link href="#" className="text-danger">Almost Finished
                             <span className="sales">
                                 Sales

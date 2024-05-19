@@ -9,6 +9,7 @@ import {useState, useEffect} from "react";
 import { BsCart3 } from "react-icons/bs";
 import {useSelector, useDispatch} from "react-redux";
 import {useRouter, useSearchParams} from "next/navigation";
+import {clearStorage, isConsumer} from "@/app/config/utils";
 
 
 const  SearchMenu = () => {
@@ -19,10 +20,14 @@ const  SearchMenu = () => {
     const dispatch = useDispatch();
     const [search, setSearch] = useState('');
     const user = useSelector(state => state.user);
+    const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
     useEffect(() => {
         dispatch({ type: 'TOTAL_CART_ITEMS' });
         setSearch(src)
+        if (isConsumer()){
+            setIsUserLoggedIn(true)
+        }
     }, [cartItems]);
 
     const searchProducts = (e) => {
@@ -31,6 +36,12 @@ const  SearchMenu = () => {
         dispatch({ type: 'GET_PRODUCTS', payload: { src: e.target.value } })
         push('/consumer/product?src=' + e.target.value);
     }
+
+    const handleLogout = () => {
+        clearStorage();
+        push('/')
+        window.location.reload();
+    };
 
     return (
         <header className="navbar-search-menu">
@@ -97,8 +108,22 @@ const  SearchMenu = () => {
                                     <Col sm={4}>
                                         <div className="me-auto">
                                             <div className='d-inline sign-in'>
-                                                <Link href={'/consumer/signin'} className="text-body-secondary text-decoration-none">Sign In</Link>
-                                                <br/><span className='fw-bold my-account'>My Account</span>
+                                                {
+                                                    !isUserLoggedIn ?
+                                                    <Link
+                                                        href={'/consumer/signin'}
+                                                        className="text-body-secondary text-decoration-none">
+                                                        Sign In
+                                                    </Link>:
+                                                    <Link
+                                                        href={'#'}
+                                                        onClick={handleLogout}
+                                                        className="text-body-secondary text-decoration-none">
+                                                        Sign Out
+                                                    </Link>
+                                                }
+                                                <br/>
+                                                <Link href={'/consumer/myaccount'} className="text-decoration-none fw-bold my-account">My Account</Link>
                                             </div>
                                         </div>
                                     </Col>

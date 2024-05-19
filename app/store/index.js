@@ -1,5 +1,7 @@
 import { createStore } from 'redux';
 import { toast } from "react-toastify";
+import axios from "axios";
+import {API_BASE_URL} from "@/app/config/constant";
 
 // Define your reducer(s)
 const initialState = {
@@ -167,11 +169,13 @@ const initialState = {
         },
     ],
     products: [],
-    user: null
+    user: null,
+    error: null,
+    categories: [],
+    orders: []
 };
 
 const rootReducer = (state = initialState, action) => {
-    console.log(action)
     switch (action.type) {
         case 'ADD_TO_CART':
             const existingItem = state.cartItems.length > 0 && state.cartItems.find(item => item.id === action.payload.id);
@@ -192,7 +196,8 @@ const rootReducer = (state = initialState, action) => {
                         discount: action.payload.discount,
                         types: action.payload.types,
                         isFeatured: action.payload.isFeatured,
-                        quantity: 1
+                        quantity: 1,
+                        stock: action.payload.stock
                     }];
 
                     localStorage.setItem('cartItems', JSON.stringify(newCartItems));
@@ -218,8 +223,17 @@ const rootReducer = (state = initialState, action) => {
                 totalCartItems: state.totalCartItems - 1
             };
         case 'INCREASE_QUANTITY':
-            const increasedCartItems = state.cartItems.map(item =>
-                item.id === action.payload.id ? { ...item, quantity: item.quantity + 1 } : item
+            const increasedCartItems = state.cartItems.map(item =>{
+                    // check stock before increasing quantity
+                    if (item.id === action.payload.id && item.quantity >= item.stock) {
+                        toast.warning('Out of stock', {position: "top-center"});
+                        return item
+                    }
+                    if (item.id === action.payload.id) {
+                        return { ...item, quantity: item.quantity + 1 }
+                    }
+                    return item
+                }
             );
             localStorage.setItem('cartItems', JSON.stringify(increasedCartItems));
             return {
@@ -248,37 +262,73 @@ const rootReducer = (state = initialState, action) => {
                 cartItems: cartItems
             };
         case 'GET_PRODUCTS':
+            let allProducts = JSON.parse(localStorage.getItem('products'));
             if (action.payload.src && action.payload.src != '') {
-                const products = state.allProducts.filter(product => product.name.toLowerCase().includes(action.payload.src.toLowerCase()))
+                const products = allProducts.filter(product => product.name.toLowerCase().includes(action.payload.src.toLowerCase()))
                 return {
                     ...state,
                     products: products
                 };
             }
             if (action.payload.category) {
-                const products = state.allProducts.filter(product => product.category_id === parseInt(action.payload.category))
+                console.log(allProducts)
+                const products = allProducts && allProducts.filter(product => {
+                    if (!product.category){
+                        return false
+                    }
+                    return product.category.id == action.payload.category
+                })
                 return {
                     ...state,
                     products: products
                 };
             }
+
+            if (action.payload.isTrending) {
+                const products = allProducts.filter(product => product.isTrending == action.payload.isTrending)
+                return {
+                    ...state,
+                    products: products
+                };
+            }
+
+            if (action.payload.isFeatured) {
+                const products = allProducts.filter(product => product.isFeatured == action.payload.isFeatured)
+                return {
+                    ...state,
+                    products: products
+                };
+            }
+            
             return {
                 ...state,
-                products: state.allProducts
+                products: allProducts,
+                allProducts: allProducts
             };
-
         case 'GET_SINGLE_PRODUCT':
             const product = state.allProducts.find(product => product.slug === action.payload);
             return {
                 ...state,
                 products: product
             };
-
+        case 'GET_ALL_CATEGORY':
+            //get all categories from local storage
+            const categories = JSON.parse(localStorage.getItem('categories'));
+            return {
+                ...state,
+                categories: categories
+            };
         case 'SIGN_IN_USER':
             localStorage.setItem('auth_info', JSON.stringify(action.payload));
             return {
                 ...state,
                 user: action.payload
+            };
+        case 'GET_ORDERS':
+            const orders = JSON.parse(localStorage.getItem('orders'));
+            return {
+                ...state,
+                orders: orders
             };
         default:
             return {

@@ -16,20 +16,53 @@ import Link from "next/link";
 import "@/public/styles/consumer/checkout.css";
 import {useSelector} from "react-redux";
 import {useRouter} from "next/navigation";
+import axios from "axios";
+import {API_BASE_URL} from "@/app/config/constant";
+import {createNewOrder} from "@/app/service/orderService";
+import {toast} from "react-toastify";
+import React, {useState} from "react";
+
 export default function Page() {
     const { push } = useRouter();
+    const [inputData, setInputData] = useState({});
+    const [errors, setErrors] = useState({});
 
     const cartItems = useSelector(state => state.cartItems);
     const totalPrice = cartItems && cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
     const delivery = 2.00;
 
-    const handlePlaceOrder = () => {
-        console.log('Order placed successfully');
+
+    const handleInputChange = (e) => {
+        e.preventDefault();
+        const {name, value} = e.target;
+        setInputData((prev) => ({...prev, [name]: value}));
+    }
+    const isValidForm = () => {
+        const errorsObj = {};
+        if (inputData.first_name == '') {
+            errorsObj['first_name'] = 'First Name is required';
+        }
+        if (inputData.phone == '') {
+            errorsObj['phone'] = 'Phone number is required';
+        }
+        if (inputData.address == '') {
+            errorsObj['address'] = 'Address is required';
+        }
+        if (inputData.city =='') {
+            errorsObj['city'] = 'City is required';
+        }
+        if (inputData.zip ='') {
+            errorsObj['zip'] = 'Zip is required';
+        }
+        setErrors(errorsObj);
+        return Object.keys(errorsObj).length === 0;
+    };
+    const handlePlaceOrder = async () => {
         const userDetails = document.getElementById('checkout-page');
-        //get all the  form data from the form
+
         const orderDetails = {
-            first_name: userDetails.querySelector('#first_name').value,
-            last_name: userDetails.querySelector('#last_name').value,
+            firstName: userDetails.querySelector('#first_name').value,
+            lastName: userDetails.querySelector('#last_name').value,
             email: userDetails.querySelector('#email').value,
             phone: userDetails.querySelector('#phone').value,
             address: userDetails.querySelector('#address').value,
@@ -37,24 +70,33 @@ export default function Page() {
             state: userDetails.querySelector('#state').value,
             zip: userDetails.querySelector('#zip').value,
             country: userDetails.querySelector('#country').value,
-            is_create_account: userDetails.querySelector('#is_create_account').checked,
+            isCreateAccount: userDetails.querySelector('#is_create_account').checked,
             order_notes: userDetails.querySelector('#order_notes').value,
-            total: totalPrice + delivery,
-            delivery: delivery,
-            payment_method: 'Cash on delivery',
+            totalPrice: totalPrice + delivery,
+            paymentMethod: 'Cash on delivery',
             //generate random tracking number
-            tracking_no: Math.floor(Math.random() * 10000000000),
-            products: cartItems
+            trackingNumber: Math.floor(Math.random() * 10000000000),
+            orderItems: cartItems,
+            shippingPrice: delivery
         }
-        let tracking_no = '1234567890'; // generate a random tracking number
-        //remove all the items from the cart
-        localStorage.removeItem('cartItems');
-        //store the order details in the local storage
-        localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
-        // redirect to the thank you route
-        push('/consumer/thankyou?') // Navigate to the new post page
 
-        console.log(orderDetails);
+        if (!orderDetails.firstName || !orderDetails.phone || !orderDetails.address || !orderDetails.city || !orderDetails.zip) {
+            toast.error('Fist Name, Phone, Address, City and Zip are required');
+        }
+        if (isValidForm()) {
+            const order = createNewOrder(orderDetails).then((data) => {
+                console.log("newUser", data.data.newUser)
+                console.log("data", data.data)
+                localStorage.removeItem('cartItems');
+                localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
+
+                sessionStorage.setItem('consumerInfo', JSON.stringify(data.data.newUser));
+                toast.success('Order placed successfully');
+                push('/consumer/thankyou')
+            }).catch((error) => {
+                console.log(error);
+            });
+        }
     }
     return (
         <main className="checkout-page mt-4" id="checkout-page">
@@ -70,8 +112,9 @@ export default function Page() {
                             <Row className="mb-1">
                                 <Col>
                                     <FormGroup>
-                                        <FormLabel>First Name</FormLabel>
-                                        <Form.Control type="text" placeholder="First Name" className="checkout-input" id='first_name'/>
+                                        <FormLabel>First Name <span className="text-danger">*</span></FormLabel>
+                                        <Form.Control type="text" placeholder="First Name" className="checkout-input" id='first_name' required onChange={handleInputChange}/>
+                                        <p className="field-error">{errors.first_name}</p>
                                     </FormGroup>
                                 </Col>
                                 <Col>
@@ -90,22 +133,25 @@ export default function Page() {
                                 </Col>
                                 <Col>
                                     <FormGroup>
-                                        <FormLabel>Phone</FormLabel>
-                                        <Form.Control type="text" placeholder="Phone" className="checkout-input" id='phone'/>
+                                        <FormLabel>Phone <span className="text-danger">*</span></FormLabel>
+                                        <Form.Control type="text" placeholder="Phone" className="checkout-input" id='phone' required/>
+                                        <p className="field-error">{errors.phone}</p>
                                     </FormGroup>
                                 </Col>
                             </Row>
                             <Row className="mb-1">
                                 <Col>
                                     <FormGroup>
-                                        <FormLabel>Address</FormLabel>
-                                        <Form.Control type="text" placeholder="Address" className="checkout-input" id='address'/>
+                                        <FormLabel>Address <span className="text-danger">*</span></FormLabel>
+                                        <Form.Control type="text" placeholder="Address" className="checkout-input" id='address' required/>
+                                        <p className="field-error">{errors.address}</p>
                                     </FormGroup>
                                 </Col>
                                 <Col>
                                     <FormGroup>
-                                        <FormLabel>City</FormLabel>
-                                        <Form.Control type="text" placeholder="City" className="checkout-input" id='city'/>
+                                        <FormLabel>City <span className="text-danger">*</span></FormLabel>
+                                        <Form.Control type="text" placeholder="City" className="checkout-input" id='city' required/>
+                                        <p className="field-error">{errors.city}</p>
                                     </FormGroup>
                                 </Col>
                             </Row>
@@ -118,15 +164,16 @@ export default function Page() {
                                 </Col>
                                 <Col>
                                     <FormGroup>
-                                        <FormLabel>Zip</FormLabel>
-                                        <Form.Control type="text" placeholder="Zip" className="checkout-input" id='zip'/>
+                                        <FormLabel>Zip/Post Code <span className="text-danger">*</span></FormLabel>
+                                        <Form.Control type="text" placeholder="Zip" className="checkout-input" id='zip' required/>
+                                        <p className="field-error">{errors.zip}</p>
                                     </FormGroup>
                                 </Col>
                             </Row>
                             <Row className="mb-1">
                                 <Col>
                                     <FormGroup>
-                                        <FormLabel>Country</FormLabel>
+                                        <FormLabel>Country <span className="text-danger">*</span></FormLabel>
                                         <FormSelect id='country'>
                                             <option value="bangladesh">Bangladesh</option>
                                         </FormSelect>
@@ -229,11 +276,16 @@ export default function Page() {
                         <Row className="border-bottom p-3">
                             <Col xs={12}>
                                     <span className="text-body-secondary small">Your personal data will be used to process your order,support your experience throughout this website, and forother purposes described in our <Link href={'#'}>privacy policy</Link></span>
+
                             </Col>
                         </Row>
                         <Row className="border-bottom p-3">
                             <Col xs={12}>
-                                <FormCheck type="checkbox" label="I have read and agree to the website terms and conditions." />
+                                <FormCheck type="checkbox" name="agree" id="agree" label="I have read and agree to the website terms and conditions."/>
+                                {
+                                    !inputData.agree &&
+                                    <FormText className="text-danger">Please agree to the terms and conditions</FormText>
+                                }
                             </Col>
                         </Row>
 

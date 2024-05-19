@@ -15,12 +15,12 @@ export default function Page() {
         const orders = JSON.parse(localStorage.getItem('orderDetails'));
         //const details = localStorage.getItem('orderDetails');
         //filter for tracking number
-        if (orders.tracking_no != tracking) {
+        if (orders.trackingNumber != tracking) {
             setOrderDetails([])
             return;
         }
-        if (tracking == orders.tracking_no && orders.products.length > 0) {
-                setOrderDetails(orders.products)
+        if (tracking == orders.trackingNumber && orders.orderItems.length > 0) {
+                setOrderDetails(orders.orderItems)
         }
 
     }
