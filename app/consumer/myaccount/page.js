@@ -72,6 +72,7 @@ const Page = () => {
                         <tr>
                             <th>Order Id</th>
                             <th>Order Date</th>
+                            <th>Order Tracking Number</th>
                             <th>Order Status</th>
                             <th>Order Total</th>
                         </tr>
@@ -81,6 +82,7 @@ const Page = () => {
                         orders.length > 0 ? orders.map(order => (
                             <tr key={order.id}>
                                 <td>{order.id}</td>
+                                <td>{order.trackingNumber}</td>
                                 <td>{order.createdAt.toString()}</td>
                                 <td><span className={order.isDelivered == 'PENDING' ? "badge bg-info" : "badge bg-success"}>{order.isDelivered}</span></td>
                                 <td>{order.totalPrice}</td>

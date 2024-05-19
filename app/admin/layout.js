@@ -9,6 +9,8 @@ import '@/public/styles/admin/layout.css';
 import {BsFillChatSquareQuoteFill, BsJournalBookmarkFill} from 'react-icons/bs';
 import {clearStorage, isAdmin} from "@/app/config/utils";
 import {usePathname, useRouter} from "next/navigation";
+import {FaShoppingCart} from "react-icons/fa";
+import {FaProductHunt} from "react-icons/fa";
 
 function AdminLayout({children}) {
     const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false)
@@ -98,6 +100,28 @@ function AdminLayout({children}) {
                                                 <BsJournalBookmarkFill/>
                                             </span>
                                             <span className="nav_name">Manage TNA</span>
+                                        </Link>
+                                    </li>
+                                )}
+                                {permissions.includes('ALL') && (
+                                    <li>
+                                        <Link href="/admin/product"
+                                              className={`nav_link ${pathname === "/admin/product" ? 'active' : ''}`}>
+                                            <span className="nav_icon">
+                                                <FaProductHunt />
+                                            </span>
+                                            <span className="nav_name">Manage Products</span>
+                                        </Link>
+                                    </li>
+                                )}
+                                {permissions.includes('ALL') && (
+                                    <li>
+                                        <Link href="/admin/order"
+                                              className={`nav_link ${pathname === "/admin/order" ? 'active' : ''}`}>
+                                            <span className="nav_icon">
+                                                <FaShoppingCart />
+                                            </span>
+                                            <span className="nav_name">Manage Orders</span>
                                         </Link>
                                     </li>
                                 )}

@@ -118,3 +118,8 @@ header {
 .top-nav-link {
     display: flex;
 }
+.common-sytle {
+    background-color: #12192c !important;
+    color: white !important;
+
+}
