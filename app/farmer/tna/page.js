@@ -1,29 +1,29 @@
 import React from 'react';
 import '@/public/styles/farmer/Table.css';
 import Link from "next/link"
-import {findServiceByStatus} from "@/app/service/tnaService";
+import {findTnaByUser} from "@/app/service/tnaService";
 import {cookies} from "next/headers";
 import {RxUpdate} from "react-icons/rx";
 
 const Page = async () => {
     let tokenStr = cookies().get("token")?.value;
-    const {data} = await findServiceByStatus(tokenStr, "APPROVE")
+    const {data} = await findTnaByUser(tokenStr)
 
     const renderTnaList = () => {
         return data?.map((task) => {
             return (
                 <tr className="crud-table__row" key={`task_${task.id}`}>
                     <td className="crud-table__cell">
-                        {task.productCatalog.productTitle}
+                        {task.serviceInfo.productCatalog.productTitle}
                     </td>
-                    <td className="crud-table__cell">{task.serviceType.label}</td>
-                    <td className="crud-table__cell">{task.tenureType.label}</td>
-                    <td className="crud-table__cell">{task.productCatalog.unitType.label}</td>
-                    <td className="crud-table__cell">{task.sellingPrice}</td>
-                    <td className="crud-table__cell">{task.productCatalog.moq}</td>
-                    <td className="crud-table__cell">{task.productCatalog.unitCost}</td>
+                    <td className="crud-table__cell">{task.serviceInfo.serviceType.label}</td>
+                    <td className="crud-table__cell">{task.serviceInfo.tenureType.label}</td>
+                    <td className="crud-table__cell">{task.serviceInfo.productCatalog.unitType.label}</td>
+                    <td className="crud-table__cell">{task.serviceInfo.sellingPrice}</td>
+                    <td className="crud-table__cell">{task.serviceInfo.productCatalog.moq}</td>
+                    <td className="crud-table__cell">{task.serviceInfo.productCatalog.unitCost}</td>
                     <td className="crud-table__cell">
-                        <Link href={`/farmer/tna/update`} className="clickable">
+                        <Link href={`/farmer/tna/${task.id}`} className="clickable">
                             <RxUpdate/>
                         </Link>
                     </td>

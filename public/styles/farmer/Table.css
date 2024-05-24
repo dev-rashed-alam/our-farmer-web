@@ -67,3 +67,17 @@
 .clickable {
     text-decoration: underline !important;
 }
+
+.cell_editable{
+    width: 200px !important;
+    height: 50px !important;
+    padding: 5px !important;
+}
+
+.cell_editable input{
+    /*width: 160px !important;*/
+    border-radius: 0 !important;
+}
+.cell_editable input:focus{
+    box-shadow: none !important;
+}

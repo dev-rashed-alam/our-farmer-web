@@ -158,3 +158,26 @@ export const filterPostData = (obj) => {
         Object.entries(obj).filter(([_, v]) => v != null && v !== "")
     );
 };
+
+export const sortByObjectKey = (data) => {
+    const keys = Object.keys(data);
+    keys.sort();
+    const sortedData = {};
+    keys.forEach(key => {
+        sortedData[key] = data[key];
+    });
+    return sortedData;
+}
+
+
+export const groupByPhaseId = (tasks) => {
+    let tmpData = tasks.reduce((acc, task) => {
+        const phaseId = task.phase.id;
+        if (!acc[phaseId]) {
+            acc[phaseId] = [];
+        }
+        acc[phaseId].push(task);
+        return acc;
+    }, {});
+    return tmpData;
+}

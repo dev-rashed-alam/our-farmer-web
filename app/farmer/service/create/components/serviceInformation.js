@@ -294,7 +294,7 @@ const ServiceInformation = ({serviceInfo}) => {
                             onChange={handleInputChange}
                             readOnly={isViewOnly}
                         />
-                        <p className="field-error">{errors.interestValue}</p>
+                        <p className="field-error">{errors.sellingPrice}</p>
                     </div>
                     <div className="mb-3 col-md-12">
                         <EditorComponent

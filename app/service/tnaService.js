@@ -1,11 +1,33 @@
 import axios from "axios";
 import {API_BASE_URL} from "@/app/config/constant";
-import {getReqConfig, printApiErrors} from "@/app/config/utils";
+import {getReqConfig, getReqHeaderConfig, printApiErrors} from "@/app/config/utils";
 
-export const findServiceByStatus = async (token, status) => {
+export const findTnaByUser = async (token) => {
     try {
-        const {data} = await axios.get(`${API_BASE_URL}/farmer/services/${status}`, {
+        const {data} = await axios.get(`${API_BASE_URL}/farmer/tna/by-user`, {
             headers: getReqConfig(token)
+        })
+        return data
+    } catch (e) {
+        printApiErrors(e)
+    }
+}
+
+export const saveProductTna = async (postData) => {
+    try {
+        const {data} = await axios.post(`${API_BASE_URL}/admin/tna/save`, postData, {
+            headers: getReqHeaderConfig()
+        })
+        return data
+    } catch (e) {
+        printApiErrors(e)
+    }
+}
+
+export const getProductTnaById = async (id) => {
+    try {
+        const {data} = await axios.get(`${API_BASE_URL}/farmer/tna/${id}`, {
+            headers: getReqHeaderConfig()
         })
         return data
     } catch (e) {

@@ -5,6 +5,8 @@ import {changeServiceStatus, deleteServiceById} from "@/app/service/catalogServi
 import {FcApprove} from "react-icons/fc";
 import {useRouter} from "next/navigation"
 import {GiCancel} from "react-icons/gi";
+import {saveProductTna} from "@/app/service/tnaService";
+import {getUserInfo} from "@/app/config/utils";
 
 const ServiceActions = ({service}) => {
     const router = useRouter();
@@ -18,7 +20,11 @@ const ServiceActions = ({service}) => {
     }
     const toggleServiceStatus = async () => {
         try {
-            await changeServiceStatus(service.id, service.status === "APPROVE" ? "HOLD" : "APPROVE")
+            let status = service.status === "APPROVE" ? "HOLD" : "APPROVE"
+            await changeServiceStatus(service.id, status)
+            if (status === "APPROVE") {
+                await saveProductTna({requestedUser: service.createdBy.id, serviceId: service.id})
+            }
             router.refresh()
         } catch (e) {
             console.log(e)
