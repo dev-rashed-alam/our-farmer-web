@@ -18,9 +18,7 @@ const Page = async () => {
             return (
                 <tr className="crud-table__row" key={`service_${service.id}`}>
                     <td className="crud-table__cell">
-                        <Link href={`/farmer/service/${service.id}`} className="clickable">
-                            {service.serviceType.label}
-                        </Link>
+                        {service.serviceType.label}
                     </td>
                     <td className="crud-table__cell">{service?.productCatalog?.productTitle}</td>
                     <td className="crud-table__cell">{changeDateFormat(service.createdAt, "YYYY-MM-DD", "DD MMM, YYYY")}</td>
@@ -56,11 +54,6 @@ const Page = async () => {
 
     return (
         <>
-            <div className="page-heading mb-2">
-                <div className="title">
-                    <h3>Service page</h3>
-                </div>
-            </div>
             <table className="crud-table">
                 <thead className="crud-table__header">
                 <tr className="crud-table__row">

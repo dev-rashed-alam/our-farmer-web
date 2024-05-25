@@ -112,7 +112,8 @@ function AdminLayout({children}) {
                                 )}
                                 {permissions.includes('ALL') && (
                                     <li>
-                                        <Link href="/admin/service" className="nav_link">
+                                        <Link href="/admin/service"
+                                              className={`nav_link ${pathname === "/admin/service" ? 'active' : ''}`}>
                                             <span className="nav_icon">
                                                 <FaServicestack/>
                                             </span>
@@ -122,7 +123,8 @@ function AdminLayout({children}) {
                                 )}
                                 {permissions.includes('ALL') && (
                                     <li>
-                                        <Link href="#" className="nav_link">
+                                        <Link href="/admin/tna"
+                                              className={`nav_link ${pathname === "/admin/tna" ? 'active' : ''}`}>
                                             <span className="nav_icon">
                                                 <BsJournalBookmarkFill/>
                                             </span>
@@ -135,7 +137,7 @@ function AdminLayout({children}) {
                                         <Link href="/admin/product"
                                               className={`nav_link ${pathname === "/admin/product" ? 'active' : ''}`}>
                                             <span className="nav_icon">
-                                                <FaProductHunt />
+                                                <FaProductHunt/>
                                             </span>
                                             <span className="nav_name">Manage Products</span>
                                         </Link>
@@ -146,7 +148,7 @@ function AdminLayout({children}) {
                                         <Link href="/admin/order"
                                               className={`nav_link ${pathname === "/admin/order" ? 'active' : ''}`}>
                                             <span className="nav_icon">
-                                                <FaShoppingCart />
+                                                <FaShoppingCart/>
                                             </span>
                                             <span className="nav_name">Manage Orders</span>
                                         </Link>
