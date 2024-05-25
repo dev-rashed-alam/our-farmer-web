@@ -25,6 +25,15 @@ export default function Page() {
     }
 
     const totalPrice = cartItems && cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+
+    const subTotal = cartItems.reduce((acc, item) => {
+        return acc + (item.discountType =='PERCENTAGE'
+                ? ((item.discount > 0 ? item.price - (item.price * item.discount / 100) : item.price) * item.quantity)
+                : (item.discount > 0 ? item.price - item.discount : item.price) * item.quantity
+        );
+
+    }, 0);
+
     const delivery = 5.00;
     return (
         <>
@@ -62,7 +71,13 @@ export default function Page() {
                                         <Button variant="outline-primary quantity-style" onClick={() => increaseQty(item)}>+</Button>
                                     </td>
                                     <td>
-                                        Tk {parseFloat(item.price * item.quantity).toFixed(2)}
+                                        {/*minus discount from */}
+
+                                        Tk {parseFloat(
+                                            item.discountType =='PERCENTAGE'
+                                                ? ((item.discount > 0 ? item.price - (item.price * item.discount / 100) : item.price) * item.quantity)
+                                                : (item.discount > 0 ? item.price - item.discount : item.price) * item.quantity
+                                    ).toFixed(2)}
                                     </td>
                                     <td>
                                     <Button variant="outline-danger" onClick={() => removeItem(item)} className="ms-2">x</Button>
@@ -97,6 +112,10 @@ export default function Page() {
                                         <td>Tk {parseFloat(totalPrice).toFixed(2)}</td>
                                     </tr>
                                     <tr>
+                                        <td>Discount</td>
+                                        <td>Tk {totalPrice - subTotal}</td>
+                                    </tr>
+                                    <tr>
                                         <td>Shipping</td>
                                         <td>Tk {parseFloat(delivery).toFixed(2)}</td>
                                     </tr>
@@ -106,7 +125,7 @@ export default function Page() {
                                     </tr>
                                     <tr>
                                         <td>Total</td>
-                                        <td>Tk {parseFloat(totalPrice+ delivery).toFixed(2)}</td>
+                                        <td>Tk {parseFloat(totalPrice+ delivery - (totalPrice - subTotal)).toFixed(2)}</td>
                                     </tr>
                                     </tbody>
                                 </Table>

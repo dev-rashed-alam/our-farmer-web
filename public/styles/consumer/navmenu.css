@@ -14,7 +14,7 @@
 }
 
 .nav-menu .lang-dropdown, .currency-dropdown {
-    margin-right: 10px;
+    margin-right: 0 !important;
 }
 
 .nav-menu .lang-dropdown .dropdown-toggle, .currency-dropdown .dropdown-toggle {
@@ -54,4 +54,9 @@
 }
 img, svg {
     vertical-align: baseline;
+}
+.nav-menu .container {
+    display: inline-block;
+    justify-content: space-between;
+    align-items: center;
 }

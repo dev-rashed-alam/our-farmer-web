@@ -15,6 +15,8 @@ export default function Page({params}) {
 
     const product = products.find(product => product.slug === slug);
 
+    const relatedProducts = products.filter(item => item.category == product.category && item.id !== product.id);
+
 
     const handleAddToCart = ({id, name, price, quantity}) => {
         const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
@@ -45,11 +47,17 @@ export default function Page({params}) {
                                <Col xs={7}>
                                    <div className="border-bottom p-1">
                                     <span className="fw-bold h2">{product.name}</span>
-                                       <div className="mt-1">SKU: E7F8G9H0</div>
+                                       <div className="mt-1">SKU: {product.sku}</div>
                                    </div>
-                                   <p className="mt-3">Lorem ipsum text nisl ut dolor dignissim semper. Nulla luctus Lorem ipsum tincidunt. Class aptent
-                                       sociosqu ad litora torquent Lorem ipsum Lorem ipsum nisl ut dolor dignissim semper.</p>
-                                   <p className="text-danger fw-bold h3 mt-3">TK: {product.price}</p>
+                                   <p className="mt-3">{product.description}</p>
+                                   <p className="text-dark fw-bold h3 mt-3">
+                                       TK:{
+                                           product.discountType =='PERCENTAGE' ?
+                                               (product.discount > 0 ? product.price - (product.price * product.discount / 100) : product.price):
+                                               product.discount > 0 ? product.price - product.discount : product.price
+                                       }
+                                       &nbsp; <del className="text-danger">Tk {product.price}</del>
+                                   </p>
                                    <div className="product-buttons">
                                        {
                                              product.stock > 0 ? (
@@ -74,14 +82,7 @@ export default function Page({params}) {
                                        id="noanim-tab-example"
                                    >
                                        <Tab eventKey="home" title="Description">
-                                          <div className="m-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab delectus doloribus magni, natus nemo nesciunt,
-                                              odit officiis omnis quae quisquam repellendus repudiandae tenetur voluptatem! Adipisci consequatur
-                                              impedit modi officiis ut. Eaque eos harum quia tenetur. Ab enim modi nulla quae, qui quo
-                                              rem sequi! Consequuntur, fuga, soluta. A beatae, debitis dicta ducimus esse eveniet illum
-                                              iure minus quos tempora. Facilis minus nemo provident voluptatem! Aspernatur consectetur quos recusandae ullam? Accusamus,
-                                              assumenda aut dolorum ducimus ea excepturi explicabo ipsa ipsum mollitia nisi nobis suscipit,
-                                              tempora ut vel voluptatum? Blanditiis cupiditate debitis eius, error et impedit nihil officia? Atque doloribus incidunt minima?</div>
-
+                                          <div className="m-3">{product.description}</div>
                                        </Tab>
                                        <Tab eventKey="profile" title="Reviews (2)">
                                            <Row className="m-3 border-bottom">
@@ -133,7 +134,7 @@ export default function Page({params}) {
                            <Card.Title><span className="fw-bolder h3 p-0">Related Products </span></Card.Title>
                            <Row>
                                {
-                                   products.map(item => (
+                                   relatedProducts && relatedProducts.map(item => (
                                        <Col xs={12} md={2} key={item.id}>
                                            <Card className="single-product-card">
                                                <Card.Text><span className={item.price > 8 && item.price < 16 ? "fw-bold badge bg-danger discounted" : "fw-bold badge bg-success discounted"}>{item.discount}</span></Card.Text>
