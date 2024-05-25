@@ -4,8 +4,7 @@ import {printApiErrors} from "@/app/config/utils";
 
 export const createNewProduct = async (reqData) => {
     try {
-        const data = await axios.post(`${API_BASE_URL}/admin/products`, reqData)
-        return data;
+        return await axios.post(`${API_BASE_URL}/admin/products`, reqData);
     } catch (e) {
         printApiErrors(e)
     }

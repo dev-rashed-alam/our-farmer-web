@@ -6,6 +6,8 @@ import {createNewOrder} from "@/app/service/orderService";
 import {toast} from "react-toastify";
 import {createNewProduct} from "@/app/service/productService";
 import {Row, Col} from "react-bootstrap";
+import {router} from "next/client";
+import {redirect} from "next/navigation";
 
 const Page = () => {
     const [inputData, setInputData] = React.useState({
@@ -59,15 +61,13 @@ const Page = () => {
             isTrending: inputData.isTrending,
             image: inputData.image
         }
-        console.log(reqData)
         if (isValidForm()) {
-            const product = createNewProduct(reqData).then((data) => {
-                console.log(data)
+            const product = createNewProduct(reqData).then((res) => {
                 toast.success('Product Created successfully');
+                redirect('/admin/product');
             }).catch((error) => {
                 console.log(error);
             });
-            console.log(product)
         }
     }
     return (
@@ -91,6 +91,7 @@ const Page = () => {
                         <div className="form-group mt-2">
                             <label htmlFor="status">Status</label>
                             <select id="status" name="status" className="form-control" onChange={handleChange} >
+                                <option value="">Select Status</option>
                                 <option value="1">Active</option>
                                 <option value="0">Inactive</option>
                             </select>
@@ -112,6 +113,7 @@ const Page = () => {
                         <div className="form-group mt-2">
                             <label htmlFor="discountType">Discount Type</label>
                             <select id="discountType" name="discountType" className="form-control" onChange={handleChange} >
+                                <option value="">Select Discount Type</option>
                                 <option value="PERCENTAGE">Percentage</option>
                                 <option value="FIXED">Fixed</option>
                             </select>
@@ -119,6 +121,7 @@ const Page = () => {
                         <div className="form-group mt-2">
                             <label htmlFor="isFeatured">Is Featured</label>
                             <select id="isFeatured" name="isFeatured" className="form-control" onChange={handleChange} >
+                                <option value="">Select</option>
                                 <option value="1">Yes</option>
                                 <option value="0">No</option>
                             </select>

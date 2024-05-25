@@ -40,20 +40,28 @@ const Product = () => {
             <Row>
                 {
                     products.map(product => (
+
                         <Col xs={12} md={2} key={product.id}>
                             <Card className="single-product-card">
                                 {
-                                    product.discount > 0 ?
-                                        <Card.Text><span className={product.price > 8 && product.price < 16 ? "fw-bold badge bg-danger discounted" : "fw-bold badge bg-success discounted"}>{product.discount} off</span></Card.Text>
-                                        : ''
+                                    product.discountType =='PERCENTAGE' ? (product.discount > 0 ?
+                                        <Card.Text><span className={product.price > 8 && product.price < 16 ? "fw-bold badge bg-danger discounted" : "fw-bold badge bg-success discounted"}>{product.discount}% off</span></Card.Text>
+                                        : ''):
+                                        (product.discount > 0 ? <Card.Text><span className={product.price > 8 && product.price < 16 ? "fw-bold badge bg-danger discounted" : "fw-bold badge bg-info text-white discounted"}>Tk{product.discount} off</span></Card.Text> : '')
                                 }
                                 <Card.Img variant="top" className="p-3" src={`${product.image}`} />
                                 <Card.Body>
-                                    <Card.Text className="p"><Link href={'/consumer/product/' + `${product.slug}`} className="text-decoration-none">{product.name}</Link></Card.Text>
-                                    <Card.Text className="fw-bolder h5"><span className="text-danger">Tk </span>{product.price}</Card.Text>
+                                    <Card.Text className="p "><Link href={'/consumer/product/' + `${product.slug}`} className="text-decoration-none text-body-secondary fw-bold">{product.name} ({product.nameBn})</Link></Card.Text>
+                                    <Card.Text className="fw-bolder h5">
+                                        <span className="text-danger">Tk </span>
+                                        {
+                                         product.discountType =='PERCENTAGE' ?
+                                             (product.discount > 0 ? product.price - (product.price * product.discount / 100) : product.price):
+                                             product.discount > 0 ? product.price - product.discount : product.price
+                                        } <small><del>Tk {product.price}</del></small></Card.Text>
                                     {
                                         product.stock > 0 ?
-                                            <Button variant="light" className="fw-bold pr-3 custom-round-button add-to-cart" onClick={()=>handleAddToCart(product)}>Add to Cart</Button>
+                                            <Button variant="light" className="text-body-secondary fw-bold pr-3 custom-round-button add-to-cart" onClick={()=>handleAddToCart(product)}>Add to Cart</Button>
                                             :
                                             <Button variant="light" className="fw-bold pr-3 custom-round-button add-to-cart text-danger" disabled>Out of Stock</Button>
                                     }
@@ -71,14 +79,25 @@ const Product = () => {
                         firstTwoProducts.map(product => (
                             <Col xs={12} md={2} key={product.id}>
                                 <Card className="single-product-card">
-                                    <Card.Text><span className={product.price > 8 && product.price < 16 ? "fw-bold badge bg-danger discounted" : "fw-bold badge bg-success discounted"}>{product.discount}</span></Card.Text>
+                                    {
+                                        product.discountType =='PERCENTAGE' ? (product.discount > 0 ?
+                                                <Card.Text><span className={product.price > 8 && product.price < 16 ? "fw-bold badge bg-danger discounted" : "fw-bold badge bg-success discounted"}>{product.discount}% off</span></Card.Text>
+                                                : ''):
+                                            (product.discount > 0 ? <Card.Text><span className={product.price > 8 && product.price < 16 ? "fw-bold badge bg-danger discounted" : "fw-bold badge bg-info text-white discounted"}>Tk{product.discount} off</span></Card.Text> : '')
+                                    }
                                     <Card.Img variant="top" className="p-3" src={`${product.image}`} />
                                     <Card.Body>
-                                        <Card.Text className="p"><Link href={'/consumer/product/' + `${product.slug}`} className="text-decoration-none">{product.name}</Link></Card.Text>
-                                        <Card.Text className="fw-bolder h5"><span className="text-danger">Tk </span>{product.price}</Card.Text>
+                                        <Card.Text className="p "><Link href={'/consumer/product/' + `${product.slug}`} className="text-decoration-none text-body-secondary fw-bold">{product.name} ({product.nameBn})</Link></Card.Text>
+                                        <Card.Text className="fw-bolder h5">
+                                            <span className="text-danger">Tk </span>
+                                            {
+                                                product.discountType =='PERCENTAGE' ?
+                                                    (product.discount > 0 ? product.price - (product.price * product.discount / 100) : product.price):
+                                                    product.discount > 0 ? product.price - product.discount : product.price
+                                            } <small><del>Tk {product.price}</del></small></Card.Text>
                                         {
                                             product.stock > 0 ?
-                                                <Button variant="light" className="fw-bold pr-3 custom-round-button add-to-cart" onClick={()=>handleAddToCart(product)}>Add to Cart</Button>
+                                                <Button variant="light" className="text-body-secondary fw-bold pr-3 custom-round-button add-to-cart" onClick={()=>handleAddToCart(product)}>Add to Cart</Button>
                                                 :
                                                 <Button variant="light" className="fw-bold pr-3 custom-round-button add-to-cart text-danger" disabled>Out of Stock</Button>
                                         }
@@ -104,14 +123,25 @@ const Product = () => {
                         lastTwoProducts.map(product => (
                             <Col xs={12} md={2} key={product.id}>
                                 <Card className="single-product-card">
-                                    <Card.Text><span className={product.price > 8 && product.price < 16 ? "fw-bold badge bg-danger discounted" : "fw-bold badge bg-success discounted"}>{product.discount}</span></Card.Text>
+                                    {
+                                        product.discountType =='PERCENTAGE' ? (product.discount > 0 ?
+                                                <Card.Text><span className={product.price > 8 && product.price < 16 ? "fw-bold badge bg-danger discounted" : "fw-bold badge bg-success discounted"}>{product.discount}% off</span></Card.Text>
+                                                : ''):
+                                            (product.discount > 0 ? <Card.Text><span className={product.price > 8 && product.price < 16 ? "fw-bold badge bg-danger discounted" : "fw-bold badge bg-info text-white discounted"}>Tk{product.discount} off</span></Card.Text> : '')
+                                    }
                                     <Card.Img variant="top" className="p-3" src={`${product.image}`} />
                                     <Card.Body>
-                                        <Card.Text className="p"><Link href={'/consumer/product/' + `${product.slug}`} className="text-decoration-none">{product.name}</Link></Card.Text>
-                                        <Card.Text className="fw-bolder h5"><span className="text-danger">Tk </span>{product.price}</Card.Text>
+                                        <Card.Text className="p "><Link href={'/consumer/product/' + `${product.slug}`} className="text-decoration-none text-body-secondary fw-bold">{product.name} ({product.nameBn})</Link></Card.Text>
+                                        <Card.Text className="fw-bolder h5">
+                                            <span className="text-danger">Tk </span>
+                                            {
+                                                product.discountType =='PERCENTAGE' ?
+                                                    (product.discount > 0 ? product.price - (product.price * product.discount / 100) : product.price):
+                                                    product.discount > 0 ? product.price - product.discount : product.price
+                                            } <small><del>Tk {product.price}</del></small></Card.Text>
                                         {
                                             product.stock > 0 ?
-                                                <Button variant="light" className="fw-bold pr-3 custom-round-button add-to-cart" onClick={()=>handleAddToCart(product)}>Add to Cart</Button>
+                                                <Button variant="light" className="text-body-secondary fw-bold pr-3 custom-round-button add-to-cart" onClick={()=>handleAddToCart(product)}>Add to Cart</Button>
                                                 :
                                                 <Button variant="light" className="fw-bold pr-3 custom-round-button add-to-cart text-danger" disabled>Out of Stock</Button>
                                         }

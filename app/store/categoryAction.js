@@ -19,7 +19,7 @@ export const fetchCategoryFailure = (error) => ({
 
 export const fetchAllCategories = async () => {
     try {
-        const {data} = await axios.get(`${API_BASE_URL}/farmer/categories`);
+        const {data} = await axios.get(`${API_BASE_URL}/consumer/categories`);
         localStorage.setItem('categories', JSON.stringify(data.data))
         return data
     } catch (e) {

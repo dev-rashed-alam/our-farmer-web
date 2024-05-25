@@ -28,4 +28,21 @@ export const fetchAllOrders = async () => {
         printApiErrors(e)
     }
 }
+export const fetchOrderByTrackingNumber = async (trackingNumber) => {
+    try {
+        const {data} = await axios.get(`${API_BASE_URL}/consumer/orders?trackingNumber=${trackingNumber}`);
+        localStorage.setItem(`orderByTrackingNumber`, JSON.stringify(data.data))
+        return data
+    } catch (e) {
+        printApiErrors(e)
+    }
+}
+export const fetchOrdersByTrackingSuccess = (order) => ({
+    type: 'GET_ORDERS_BY_TRACKING',
+    payload: order,
+});
+export const fetchOrdersByTrackingFailure = (error) => ({
+    type: 'FETCH_ORDERS_BY_TRACKING_FAILURE',
+    payload: error,
+});
 

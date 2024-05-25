@@ -4,29 +4,34 @@ import {React, useState, useEffect} from "react";
 import "@/public/styles/consumer/cart.css";
 import {Button, Card, Col, Container, Form, FormControl, Image, InputGroup, Row, Table} from "react-bootstrap";
 import Link from "next/link";
+import {
+    fetchAllOrders, fetchOrdersByTrackingFailure,
+    fetchOrdersByTrackingSuccess,
+    fetchOrdersFailure,
+    fetchOrdersSuccess
+} from "@/app/store/reducer/orderAction";
+import {fetchOrderByTrackingNumber} from "@/app/store/reducer/orderAction";
+import {useDispatch, useSelector} from "react-redux";
 
 export default function Page() {
     // tracking is from request response
     const [tracking, setTracking] = useState(null);
-    const [orderDetails, setOrderDetails] = useState([]);
+    const ordersByTracking = useSelector(state => state.ordersByTracking);
+    const dispatch = useDispatch();
 
     const handleOrderTrack = () => {
-        //get tracking info from local storage and json parse
-        const orders = JSON.parse(localStorage.getItem('orderDetails'));
-        //const details = localStorage.getItem('orderDetails');
-        //filter for tracking number
-        if (orders.trackingNumber != tracking) {
-            setOrderDetails([])
-            return;
-        }
-        if (tracking == orders.trackingNumber && orders.orderItems.length > 0) {
-                setOrderDetails(orders.orderItems)
-        }
-
+        const orders = fetchOrderByTrackingNumber(tracking)
+        orders.then(response => {
+            dispatch(fetchOrdersByTrackingSuccess(response.data))
+            console.log(response.data)
+        }).catch(error => {
+            dispatch(fetchOrdersByTrackingFailure(error))
+        })
+        console.log(ordersByTracking)
     }
     return (
         <Container className="cart-container text-center">
-            <span className="cart-title ">Order Tracking Number : {tracking}</span>
+            <span className="cart-title">Track Your Order</span>
             <Row className="justify-content-center mt-5">
                 <Col xs={12} md={6}>
                     <Form>
@@ -38,7 +43,7 @@ export default function Page() {
                                 value={tracking}
                                 onChange={(e) => setTracking(e.target.value)}
                             />
-                            <Button variant="outline-secondary" id="button-addon2" onClick={()=>handleOrderTrack()}>
+                            <Button variant="outline-secondary" id="button-addon2" className="checkout-button" onClick={()=>handleOrderTrack()}>
                                 Track
                             </Button>
                         </InputGroup>
@@ -46,60 +51,53 @@ export default function Page() {
                 </Col>
             </Row>
             {
-                orderDetails.length > 0 ?
-                    <Row>
-                        <Col xs={12}>
-                            <div className="">
-                                <Card.Text className="mb-2 text-danger">Order Status: Delivered</Card.Text>
-                                <br/>
-                                <Card.Text className="mb-2 text-danger">Order Date: 12/12/2021</Card.Text>
-                                <br/>
-                                <Card.Text className="mb-2 text-danger">Order Total: $100</Card.Text>
-                                <br/>
-                                <Card.Text className="mb-2 text-danger">Order Payment Method: Credit Card</Card.Text>
-                                <br/>
-                                <Card.Text className="mb-2 text-danger">Order Payment Status: Paid</Card.Text>
-                                <br/>
-                                <Card.Text className="mb-2 text-danger">Order Shipping Address: 1234 Street, City, State, 12345</Card.Text>
-                                <br/>
-                                <Card.Text className="mb-2 text-danger">Order Billing Address: 1234 Street, City, State, 12345</Card.Text>
-                                <br/>
-                                <Card.Text className="mb-2 text-danger">Order Items: 2</Card.Text>
-
-                                {/*order items table*/}
-                                <Table bordered>
-                                    <thead>
-                                    <tr>
-                                        <th>Product</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Total</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>Product 1</td>
-                                        <td>$50</td>
-                                        <td>1</td>
-                                        <td>$50</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Product 2</td>
-                                        <td>$50</td>
-                                        <td>1</td>
-                                        <td>$50</td>
-                                    </tr>
-                                    </tbody>
-                                </Table>
-                                <Link href={'/'} variant="primary" className="back-to-home text-decoration-none">Back To Home</Link>
-                            </div>
-                        </Col>
-                    </Row>
+                ordersByTracking && ordersByTracking.length > 0 ?
+                    ordersByTracking.map((order, index) => {
+                        return (
+                            <Row key={index} className="justify-content-center mt-5">
+                                <Col xs={12} md={6}>
+                                    <Card>
+                                        <Card.Header>Order Details</Card.Header>
+                                        <Card.Body>
+                                            <Card.Title>Order ID: {order.trackingNumber}</Card.Title>
+                                            <Card.Text>
+                                                <Table striped bordered hover>
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Product Name</th>
+                                                        <th>Quantity</th>
+                                                        <th>Price</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {
+                                                        order.orderItems.map((item, index) => {
+                                                            return (
+                                                                <tr key={index}>
+                                                                    <td>{item.name}</td>
+                                                                    <td>{item.quantity}</td>
+                                                                    <td>{item.price}</td>
+                                                                </tr>
+                                                            )
+                                                        })
+                                                    }
+                                                    </tbody>
+                                                </Table>
+                                            </Card.Text>
+                                            <Card.Text>
+                                                <span>Order Status: {order.isDelivered ? 'Delivered' : 'Pending'}</span>
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                            </Row>
+                        )
+                    })
                     :
                     <Row>
                         <Col xs={12}>
                             <div className="">
-                                <Card.Text className="mb-2 text-danger">No Order Found</Card.Text>
+                                <Card.Text className="mb-2 text-danger">Sorry! Found Nothing.</Card.Text>
                             </div>
                         </Col>
                     </Row>

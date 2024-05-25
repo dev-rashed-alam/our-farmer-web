@@ -172,7 +172,8 @@ const initialState = {
     user: null,
     error: null,
     categories: [],
-    orders: []
+    orders: [],
+    ordersByTracking: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -329,6 +330,12 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 orders: orders
+            };
+        case 'GET_ORDERS_BY_TRACKING':
+            const ordersByTracking = JSON.parse(localStorage.getItem('orderByTrackingNumber'));
+            return {
+                ...state,
+                ordersByTracking: ordersByTracking
             };
         default:
             return {
