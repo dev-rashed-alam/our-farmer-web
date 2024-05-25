@@ -9,25 +9,25 @@ import '@/public/styles/consumer/about.css'
 
 const teamMembers = [
     {
-        name: 'John Doe',
-        role: 'CEO',
-        image: '/images/john.jpg',
+        name: 'Md. Rashed Alam',
+        role: 'Founder & CEO',
+        image: 'https://avatars.githubusercontent.com/u/85504794?v=4',
         twitter: '#',
         linkedin: '#',
         github: '#'
     },
     {
-        name: 'Jane Smith',
-        role: 'CTO',
-        image: '/images/jane.jpg',
+        name: 'Mohammad Sajjad Hossain',
+        role: 'Founder & CTO',
+        image: 'https://gitlab.com/uploads/-/system/user/avatar/2035473/avatar.png',
         twitter: '#',
         linkedin: '#',
         github: '#'
     },
     {
-        name: 'Alice Johnson',
-        role: 'COO',
-        image: '/images/alice.jpg',
+        name: 'Mariom Akther',
+        role: 'Co-Founder & COO',
+        image: 'https://www.svgrepo.com/show/382100/female-avatar-girl-face-woman-user-7.svg',
         twitter: '#',
         linkedin: '#',
         github: '#'
@@ -68,11 +68,25 @@ const About = () => {
                       </Col>
                   ))}
               </Row>
-              <Row className="mission-section text-center my-5">
+              <Row className="mission-section text-center my-5 bg-info-subtle">
                   <Col>
                       <h2>Our Mission</h2>
-                      <p>We aim to revolutionize the industry with our innovative solutions and dedicated team.</p>
-                      <Button variant="primary">Learn More</Button>
+                      {/*Our Farmer Mission*/}
+                        <p>Our mission is to empower farmers to improve their livelihoods and build a sustainable future.
+                            <br/>
+                            We believe that by providing farmers with the tools and resources they need to succeed, we can help them
+                            build a better life for themselves and their families.</p>
+                      {/*<Button variant="primary">Learn More</Button>*/}
+                  </Col>
+              </Row>
+              <Row className="mission-section text-center my-5">
+                  <Col>
+                      <h2>Our Vision</h2>
+                        {/*Our Farmer Mission*/}
+                            <p>Our vision is to create a world where every farmer has the opportunity to thrive.
+                                <br/>
+                                We believe that by working together, we can build a more sustainable future for all.</p>
+                        {/*<Button variant="primary">Learn More</Button>*/}
                   </Col>
               </Row>
           </Container>

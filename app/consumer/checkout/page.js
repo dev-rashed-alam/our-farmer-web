@@ -29,7 +29,14 @@ export default function Page() {
 
     const cartItems = useSelector(state => state.cartItems);
     const totalPrice = cartItems && cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-    const delivery = 2.00;
+    const subTotal = cartItems.reduce((acc, item) => {
+        return acc + (item.discountType =='PERCENTAGE'
+                ? ((item.discount > 0 ? item.price - (item.price * item.discount / 100) : item.price) * item.quantity)
+                : (item.discount > 0 ? item.price - item.discount : item.price) * item.quantity
+        );
+
+    }, 0);
+    const delivery = 5.00;
 
 
     const handleInputChange = (e) => {
@@ -183,17 +190,17 @@ export default function Page() {
                             <Row className="mb-1">
                                 <Col>
                                     <FormGroup>
-                                        <FormCheck type="checkbox" label="Create an account?" id='is_create_account'/>
+                                        <FormCheck type="checkbox" label="Create an account?" id='is_create_account' className="fw-bold"/>
                                     </FormGroup>
                                 </Col>
                             </Row>
-                            <Row className="mb-1">
-                                <Col>
-                                    <FormGroup className="fw-bold">
-                                        <FormCheck type="checkbox" label="Ship to different address?" />
-                                    </FormGroup>
-                                </Col>
-                            </Row>
+                            {/*<Row className="mb-1">*/}
+                            {/*    <Col>*/}
+                            {/*        <FormGroup className="fw-bold">*/}
+                            {/*            <FormCheck type="checkbox" label="Ship to different address?" />*/}
+                            {/*        </FormGroup>*/}
+                            {/*    </Col>*/}
+                            {/*</Row>*/}
                             <Row className="mb-1">
                                 <Col>
                                     <FormGroup>
@@ -232,6 +239,7 @@ export default function Page() {
                                 <Col xs={4}>
                                     <div>
                                         <span className="text-body-secondary">Tk {item.price * item.quantity}</span>
+
                                     </div>
                                 </Col>
                             </Row>
@@ -244,7 +252,19 @@ export default function Page() {
                             </Col>
                             <Col xs={4}>
                                 <div>
-                                    <span className="text-body-secondary">Tk 2.00</span>
+                                    <span className="text-body-secondary">Tk 5.00</span>
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row className="border-bottom p-3">
+                            <Col xs={8}>
+                                <div>
+                                    <span className="text-body-secondary">Discount</span>
+                                </div>
+                            </Col>
+                            <Col xs={4}>
+                                <div>
+                                    <span className="text-body-secondary">Tk {totalPrice - subTotal}</span>
                                 </div>
                             </Col>
                         </Row>
@@ -256,7 +276,7 @@ export default function Page() {
                             </Col>
                             <Col xs={4}>
                                 <div>
-                                    <span className="fw-bold">Tk {2.00 + 10.00}</span>
+                                    <span className="fw-bold">Tk {delivery + totalPrice - (totalPrice - subTotal)}</span>
                                 </div>
                             </Col>
                         </Row>
