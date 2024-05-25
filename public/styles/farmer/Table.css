@@ -81,3 +81,10 @@
 .cell_editable input:focus{
     box-shadow: none !important;
 }
+.tna-btns {
+    text-align: center;
+    margin-top: 20px;
+}
+.tna-btns .btn{
+    border-radius: 0 !important;
+}

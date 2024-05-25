@@ -1,12 +1,29 @@
 "use client"
 import React, {useEffect, useState} from 'react';
 import '@/public/styles/farmer/Table.css';
-import {getProductTnaById} from "@/app/service/tnaService";
+import {getProductTnaById, updateProductTnaById} from "@/app/service/tnaService";
 import {changeDateFormat, groupByPhaseId, sortByObjectKey} from "@/app/config/utils";
+import {useRouter} from "next/navigation";
+import {toast} from "react-toastify";
 
 const ScheduleTable = ({params}) => {
     const [scheduleData, setScheduleData] = useState({})
     const [selectedField, setSelectedField] = useState({})
+    const router = useRouter();
+
+    const mapActions = (actions, data) => {
+        for (let item in data) {
+            for (let task of data[item]) {
+                let selectedActions = actions.find(action => action.activityId === task.id);
+                if (selectedActions !== undefined) {
+                    task['startDate'] = selectedActions?.startDate;
+                    task['endDate'] = selectedActions?.endDate;
+                    task['remarks'] = selectedActions?.remarks;
+                }
+            }
+        }
+        return data
+    }
 
     useEffect(() => {
         (async () => {
@@ -14,7 +31,7 @@ const ScheduleTable = ({params}) => {
                 const {data} = await getProductTnaById(params.id)
                 let modifiedData = groupByPhaseId(data.activity);
                 modifiedData = sortByObjectKey(modifiedData);
-                setScheduleData(modifiedData)
+                setScheduleData(mapActions(data.actions, modifiedData))
             } catch (e) {
                 console.log(e)
             }
@@ -25,7 +42,7 @@ const ScheduleTable = ({params}) => {
         const {name, value} = e.target;
         let tmpData = scheduleData[phaseId]
         tmpData.map(item => {
-            if(item.id === taskId){
+            if (item.id === taskId) {
                 item[name] = value
             }
         })
@@ -87,22 +104,57 @@ const ScheduleTable = ({params}) => {
         ));
     };
 
+    const handleSubmit = async () => {
+        try {
+            let actions = []
+            for (let item in scheduleData) {
+                for (let task of scheduleData[item]) {
+                    actions.push({
+                        activityId: task.id,
+                        startDate: task.startDate,
+                        endDate: task.endDate,
+                        remarks: task.remarks
+                    })
+                }
+            }
+
+            await updateProductTnaById(params.id, {
+                actions
+            })
+            toast.success("TNA Update successful!")
+            router.push("/farmer/tna")
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     return (
-        <table className="crud-table">
-            <thead className="crud-table__header">
-            <tr className="crud-table__row">
-                <th className="crud-table__header-cell">Phase</th>
-                <th className="crud-table__header-cell">Activities</th>
-                <th className="crud-table__header-cell">Start Date</th>
-                <th className="crud-table__header-cell">End Date</th>
-                <th className="crud-table__header-cell">Remarks</th>
-            </tr>
-            </thead>
-            <tbody className="crud-table__body">
-            {Object.keys(scheduleData).map((key) => renderRowspan(key))}
-            </tbody>
-        </table>
-    );
+        <>
+            <table className="crud-table">
+                <thead className="crud-table__header">
+                <tr className="crud-table__row">
+                    <th className="crud-table__header-cell">Phase</th>
+                    <th className="crud-table__header-cell">Activities</th>
+                    <th className="crud-table__header-cell">Start Date</th>
+                    <th className="crud-table__header-cell">End Date</th>
+                    <th className="crud-table__header-cell">Remarks</th>
+                </tr>
+                </thead>
+                <tbody className="crud-table__body">
+                {Object.keys(scheduleData).map((key) => renderRowspan(key))}
+                </tbody>
+            </table>
+
+            {Object.keys(scheduleData).length > 0 && <div className="tna-btns">
+                <button type="button" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
+                &nbsp;
+                <button type="button" className="btn btn-secondary" onClick={() => {
+                    router.push("/farmer/tna")
+                }}>Go Back
+                </button>
+            </div>}
+        </>
+    )
 };
 
 export default ScheduleTable;

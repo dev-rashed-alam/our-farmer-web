@@ -78,8 +78,8 @@ const Profile = ({tokenStr}) => {
         adminProfile
             .validate(filterPostData(postData), {abortEarly: false})
             .then(async () => {
-                console.log(postData)
-                const data = await updateUserById(id, postData)
+                await updateUserById(id, postData)
+                toast.success("Profile Updated!")
                 clearStorage();
                 router.push('/sign-in')
                 router.refresh();

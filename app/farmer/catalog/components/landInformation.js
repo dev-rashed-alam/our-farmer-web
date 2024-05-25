@@ -4,6 +4,7 @@ import EditorComponent from "@/app/ui/common/editorComponent";
 import {findAllCountryData, saveCatalogByStage, updateCatalogByStage} from "@/app/service/catalogService";
 import {useSearchParams} from "next/navigation";
 import {landAcquisitionTypes, landSizeUnits, legalAffairs} from "@/app/config/utils";
+import {toast} from "react-toastify";
 
 const LandInformation = ({handleNext, setAreaId, landInfo, setCatalogResponse}) => {
     const [inputData, setInputData] = useState({});
@@ -152,6 +153,7 @@ const LandInformation = ({handleNext, setAreaId, landInfo, setCatalogResponse}) 
                         setCatalogResponse = {data}
                         setAreaId(data.id)
                     }
+                    toast.success("Land Information Update Successful!")
                 }
                 handleNext()
             } catch (e) {

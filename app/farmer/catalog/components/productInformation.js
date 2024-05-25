@@ -4,6 +4,7 @@ import EditorComponent from "@/app/ui/common/editorComponent";
 import {findAllCategories, saveCatalogByStage, updateCatalogByStage} from "@/app/service/catalogService";
 import {changeDateFormat, productionUnits} from "@/app/config/utils";
 import {useSearchParams} from "next/navigation";
+import {toast} from "react-toastify";
 
 const ProductInformation = ({handleNext, areaId, productInfo, setCatalogResponse}) => {
     const [inputData, setInputData] = useState({});
@@ -107,6 +108,7 @@ const ProductInformation = ({handleNext, areaId, productInfo, setCatalogResponse
                         }, 'PRODUCT_INFO');
                         setCatalogResponse(data)
                     }
+                    toast.success("Product Information Update Successful!")
                 }
                 handleNext()
             } catch (e) {

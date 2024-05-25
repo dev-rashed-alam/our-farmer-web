@@ -6,6 +6,7 @@ import {getUserInfo} from "@/app/config/utils";
 import {updateCatalogByStatus} from "@/app/service/catalogService";
 import {useRouter} from "next/navigation";
 import Image from 'next/image'
+import {toast} from "react-toastify";
 
 const VerificationStatus = ({handleNext, catalogResponse}) => {
     const router = useRouter()
@@ -14,9 +15,11 @@ const VerificationStatus = ({handleNext, catalogResponse}) => {
         const {data} = await updateCatalogByStatus(type, catalogResponse.id)
         if (type === "APPROVE") {
             if (data.id) {
+                toast.success("Catalog Approved!")
                 handleNext()
             }
         } else {
+            toast.warning("Catalog Rejected!")
             router.push("/admin/catalog")
         }
     }

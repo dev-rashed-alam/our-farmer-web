@@ -34,3 +34,14 @@ export const getProductTnaById = async (id) => {
         printApiErrors(e)
     }
 }
+
+export const updateProductTnaById = async (id, postData) => {
+    try {
+        const {data} = await axios.put(`${API_BASE_URL}/farmer/tna/${id}`, postData, {
+            headers: getReqHeaderConfig()
+        })
+        return data
+    } catch (e) {
+        printApiErrors(e)
+    }
+}

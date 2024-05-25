@@ -5,6 +5,7 @@ import EditorComponent from "@/app/ui/common/editorComponent";
 import {productionUnits, serviceType, tenureType} from "@/app/config/utils";
 import {findAllCatalogsByUser, saveCatalogService, updateCatalogService} from "@/app/service/catalogService";
 import {useRouter, useSearchParams} from "next/navigation";
+import {toast} from "react-toastify";
 
 const ServiceInformation = ({serviceInfo}) => {
     const [inputData, setInputData] = useState({});
@@ -120,6 +121,7 @@ const ServiceInformation = ({serviceInfo}) => {
                         ...inputData, productCatalog: inputData.catalog.value
                     });
                 }
+                toast.success("Service Update successful!")
                 router.push("/farmer/service");
                 router.refresh();
             } catch (e) {

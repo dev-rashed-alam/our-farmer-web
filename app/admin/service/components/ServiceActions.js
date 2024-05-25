@@ -7,12 +7,14 @@ import {useRouter} from "next/navigation"
 import {GiCancel} from "react-icons/gi";
 import {saveProductTna} from "@/app/service/tnaService";
 import {getUserInfo} from "@/app/config/utils";
+import {toast} from "react-toastify";
 
 const ServiceActions = ({service}) => {
     const router = useRouter();
     const removeService = async (id) => {
         try {
             await deleteServiceById(id)
+            toast.warning("Service Deleted!")
             router.refresh()
         } catch (e) {
             console.log(e)
@@ -24,6 +26,9 @@ const ServiceActions = ({service}) => {
             await changeServiceStatus(service.id, status)
             if (status === "APPROVE") {
                 await saveProductTna({requestedUser: service.createdBy.id, serviceId: service.id})
+                toast.success("Service Approved!")
+            } else {
+                toast.warning("Service in Hold!")
             }
             router.refresh()
         } catch (e) {
