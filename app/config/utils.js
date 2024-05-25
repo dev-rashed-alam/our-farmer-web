@@ -18,7 +18,7 @@ export const printApiErrors = (error) => {
     if (error?.response?.data?.message) {
         toast.error(error.response.data.message)
     } else {
-        toast.error('Something wen wrong!')
+        toast.error('Something went wrong!')
     }
     throw error.response.data;
 }

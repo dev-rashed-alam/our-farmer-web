@@ -15,6 +15,7 @@
 .dropdown-menu{
     border-radius: 0 !important;
     margin-left: -170px !important;
+    width: 380px !important;
 }
 .dropdown-parent{
     position: relative;
@@ -32,6 +33,9 @@
 }
 .dropdown-item{
     padding-bottom: 0 !important;
+    word-wrap: break-word;
+    word-break: break-all;
+    white-space: normal;
 }
 .dropdown-item:active{
     background-color: transparent !important;
