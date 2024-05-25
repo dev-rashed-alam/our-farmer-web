@@ -1,6 +1,6 @@
 'use client'
 import React, {useEffect, useState} from 'react';
-import {Navbar, Nav, Container} from 'react-bootstrap';
+import {Navbar, Nav, Container, DropdownButton, Dropdown} from 'react-bootstrap';
 import '@/public/styles/farmer/Layout.css';
 import Link from 'next/link';
 import Image from "next/image";
@@ -8,6 +8,7 @@ import {useRouter} from 'next/navigation'
 import {clearStorage, getUserInfo, isFarmer} from "@/app/config/utils";
 import ProfileImage from "@/public/images/profile.jpeg";
 import {MdLogout} from "react-icons/md";
+import Notification from "@/app/ui/common/Notification";
 
 const Layout = ({children}) => {
     const [isFarmerLoggedIn, setIsFarmerLoggedIn] = useState(false);
@@ -30,6 +31,10 @@ const Layout = ({children}) => {
         if (getUserInfo()?.avatar) return getUserInfo()?.avatar;
         return ProfileImage;
     };
+
+    const renderNotifications = () => {
+        return <Notification/>
+    }
 
     const renderLayout = () => {
         if (isFarmerLoggedIn) {
@@ -58,6 +63,7 @@ const Layout = ({children}) => {
                                     <Link href="/farmer/service" className="nav-link">
                                         Services
                                     </Link>
+                                    {renderNotifications()}
                                     <Link
                                         href={`/farmer/user/edit/${getUserInfo().id}`}>
                                         <Image

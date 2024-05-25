@@ -1,0 +1,35 @@
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+#dropdown-notification{
+    background-color: transparent !important;
+    border: none;
+}
+
+#dropdown-notification svg{
+    color: #000000;
+    font-size: 22px;
+}
+
+.dropdown-menu{
+    border-radius: 0 !important;
+}
+.dropdown-parent{
+    position: relative;
+    margin-right: 13px;
+}
+.dropdown-parent .count{
+    position: absolute;
+    top: -5px;
+    left: 25px;
+    /*background-color: red;*/
+    /*width: 20px;*/
+    /*height: 20px;*/
+    /*border-radius: 50%;*/
+    /*padding-left: 3px;*/
+}
+.count span{
+    font-size: 12px !important;
+    font-weight: bold !important;
+}
