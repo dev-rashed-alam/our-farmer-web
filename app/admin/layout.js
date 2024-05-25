@@ -12,6 +12,7 @@ import {usePathname, useRouter} from "next/navigation";
 import ProfileImage from "@/public/images/profile.jpeg";
 import {FaShoppingCart} from "react-icons/fa";
 import {FaProductHunt} from "react-icons/fa";
+import Notification from "@/app/ui/common/Notification";
 
 function AdminLayout({children}) {
     const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false)
@@ -45,7 +46,10 @@ function AdminLayout({children}) {
                     <header>
                         <div className="top-bar float-end">
                             <div className="top-right-details">
-                               <span>
+                                <span className="admin-notification">
+                                    <Notification/>
+                                </span>
+                                <span>
                                    <Link
                                        href={`/admin/user/edit/${getUserInfo().id}`}>
                                         <Image

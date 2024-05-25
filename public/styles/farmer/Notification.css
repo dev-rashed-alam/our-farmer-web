@@ -14,6 +14,7 @@
 
 .dropdown-menu{
     border-radius: 0 !important;
+    margin-left: -170px !important;
 }
 .dropdown-parent{
     position: relative;
@@ -29,7 +30,76 @@
     /*border-radius: 50%;*/
     /*padding-left: 3px;*/
 }
+.dropdown-item{
+    padding-bottom: 0 !important;
+}
+.dropdown-item:active{
+    background-color: transparent !important;
+}
 .count span{
     font-size: 12px !important;
     font-weight: bold !important;
+}
+.notification {
+    background: #FFF;
+    padding: 12px;
+    border: 0;
+    border-style: solid;
+    border-bottom-width: 1px;
+    border-image: linear-gradient(to right, white 0%, #cedae0 40%, #cedae0 60%, white 100%) 1 20%;
+}
+.notification.new {
+    -webkit-transition: all 500ms ease;
+    -moz-transition: all 500ms ease;
+    -ms-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+    background: #e9f0f3;
+}
+.notification .notification-image-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
+.notification .notification-image {
+    overflow: hidden;
+}
+.notification .notification-image svg{
+    margin-top: -1px;
+}
+.notification .notification-text {
+    display: table-cell;
+    padding-left: 15px;
+    vertical-align: middle;
+    color: #747F8B;
+    cursor: pointer;
+    font-size: 14px !important;
+    word-spacing: 2px;
+    line-height: 21px;
+}
+.notification .notification-text span{
+    font-size: 14px !important;
+}
+.notification .notification-text .highlight {
+    font-weight: bold !important;
+}
+.admin-notification{
+    margin-top: 9px !important;
+}
+.admin-notification .count{
+    color: #FFFFFF !important;
+}
+.admin-notification .dropdown-parent svg{
+    color: #FFFFFF !important;
+}
+.admin-notification .notification-image svg{
+    color: #000000 !important;
+}
+#dropdown-notification{
+    width: 45px !important;
+}
+.empty-notification{
+    height: 80px;
+    width: 300px;
+    padding: 20px;
+    text-align: center;
 }
