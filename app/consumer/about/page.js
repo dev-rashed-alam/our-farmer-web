@@ -10,7 +10,7 @@ import '@/public/styles/consumer/about.css'
 const teamMembers = [
     {
         name: 'Md. Rashed Alam',
-        role: 'Founder & CEO',
+        role: '203015007',
         image: 'https://avatars.githubusercontent.com/u/85504794?v=4',
         twitter: '#',
         linkedin: '#',
@@ -18,7 +18,7 @@ const teamMembers = [
     },
     {
         name: 'Mohammad Sajjad Hossain',
-        role: 'Founder & CTO',
+        role: '203015006',
         image: 'https://gitlab.com/uploads/-/system/user/avatar/2035473/avatar.png',
         twitter: '#',
         linkedin: '#',
@@ -26,7 +26,7 @@ const teamMembers = [
     },
     {
         name: 'Mariom Akther',
-        role: 'Co-Founder & COO',
+        role: '201015049',
         image: 'https://www.svgrepo.com/show/382100/female-avatar-girl-face-woman-user-7.svg',
         twitter: '#',
         linkedin: '#',

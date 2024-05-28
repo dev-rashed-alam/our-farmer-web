@@ -14,14 +14,14 @@ const Page = async () => {
             return (
                 <tr className="crud-table__row" key={`task_${task.id}`}>
                     <td className="crud-table__cell">
-                        {task.serviceInfo.productCatalog.productTitle}
+                        {task.serviceInfo?.productCatalog?.productTitle}
                     </td>
                     <td className="crud-table__cell">{task.serviceInfo.serviceType.label}</td>
                     <td className="crud-table__cell">{task.serviceInfo.tenureType.label}</td>
-                    <td className="crud-table__cell">{task.serviceInfo.productCatalog.unitType.label}</td>
+                    <td className="crud-table__cell">{task.serviceInfo.productCatalog?.unitType?.label}</td>
                     <td className="crud-table__cell">{task.serviceInfo.sellingPrice}</td>
-                    <td className="crud-table__cell">{task.serviceInfo.productCatalog.moq}</td>
-                    <td className="crud-table__cell">{task.serviceInfo.productCatalog.unitCost}</td>
+                    <td className="crud-table__cell">{task.serviceInfo.productCatalog?.moq}</td>
+                    <td className="crud-table__cell">{task.serviceInfo.productCatalog?.unitCost}</td>
                     <td className="crud-table__cell">
                         <Link href={`/farmer/tna/${task.id}`} className="clickable">
                             <RxUpdate/>

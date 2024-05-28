@@ -74,7 +74,7 @@ const Notification = () => {
                     url = `${prefix}/service/${item.data.entityId}?type=view`;
                     break;
                 case "TNA":
-                    url = `${prefix}/service/${item.data.entityId}?type=view`;
+                    url = `${prefix}/tna/${item.data.entityId}?type=view`;
                     break;
                 case "USER":
                     url = `${prefix}/user/${item.data.entityId}?type=view`;
