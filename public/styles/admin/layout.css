@@ -139,3 +139,7 @@ header {
     color: white !important;
 
 }
+.regular-12 {
+    font-size: 12px;
+    line-height: 16px;
+}
