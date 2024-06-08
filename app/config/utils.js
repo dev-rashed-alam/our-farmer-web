@@ -181,3 +181,30 @@ export const groupByPhaseId = (tasks) => {
     }, {});
     return tmpData;
 }
+
+export const convertNumberToUSFormat = (value, removeFloating = false) => {
+    if (!value && value !== 0) return;
+    let formatter;
+    if (removeFloating) {
+        formatter = new Intl.NumberFormat('en-us');
+        return formatter.format(Math.floor(value));
+    } else {
+        formatter = new Intl.NumberFormat('en-us', {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
+        });
+        return formatter.format(value);
+    }
+};
+
+
+export const getNumberUnit = (value, removeFloating = false) => {
+    if (value < 1e3) return convertNumberToUSFormat(value, removeFloating);
+    if (value >= 1e3 && value < 1e6) return convertNumberToUSFormat(+(value / 1e3), removeFloating) + 'K';
+    if (value >= 1e6 && value < 1e9) return convertNumberToUSFormat(+(value / 1e6), removeFloating) + 'M';
+    if (value >= 1e9 && value < 1e12) return convertNumberToUSFormat(+(value / 1e9), removeFloating) + 'B';
+    if (value >= 1e12) return convertNumberToUSFormat(+(value / 1e12), removeFloating) + 'T';
+};
+
+export const monthList = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"]
