@@ -80,7 +80,7 @@ const AdminDashboard = () => {
             </div>
             <div className="overall-performance-container">
                 <div className="performance-heading d-flex justify-content-between align-items-center">
-                    <p className="regular-14 gray_dark_01 weight-500">Overall Performance</p>
+                    <p className="regular-14 gray_dark_01 weight-500">Month Wise Order Summary</p>
                     <div className="d-flex align-items-center">
                         <div className="d-flex gap-6 mr-5">
                             <div className="target d-flex">
