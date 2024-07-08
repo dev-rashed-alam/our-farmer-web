@@ -346,6 +346,6 @@ const rootReducer = (state = initialState, action) => {
 };
 
 // Create the store
-const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(rootReducer);
 
 export default store;

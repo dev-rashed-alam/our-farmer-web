@@ -40,7 +40,6 @@ const  SearchMenu = () => {
     const handleLogout = () => {
         clearStorage();
         push('/')
-        window.location.reload();
     };
 
     return (
