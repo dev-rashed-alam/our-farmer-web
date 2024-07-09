@@ -126,17 +126,17 @@ const  SearchMenu = () => {
                                             </div>
                                         </div>
                                     </Col>
-                                    <Col sm={2}>
-                                        <Link href={'/'}>
-                                            <Image
-                                                src="/images/fav.svg"
-                                                width={30}
-                                                height={30}
-                                                alt='Favorite'
-                                                className='fav-icon'
-                                            />
-                                        </Link>
-                                    </Col>
+                                    {/*<Col sm={2}>*/}
+                                    {/*    <Link href={'/'}>*/}
+                                    {/*        <Image*/}
+                                    {/*            src="/images/fav.svg"*/}
+                                    {/*            width={30}*/}
+                                    {/*            height={30}*/}
+                                    {/*            alt='Favorite'*/}
+                                    {/*            className='fav-icon'*/}
+                                    {/*        />*/}
+                                    {/*    </Link>*/}
+                                    {/*</Col>*/}
                                     <Col sm={2}>
                                         <Link href={'/consumer/cart'}>
                                             {/*<Image*/}
