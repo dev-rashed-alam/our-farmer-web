@@ -1,19 +1,19 @@
 "use client";
 
-import React from 'react';
+import React, {Suspense} from 'react';
 import {Container, Navbar, Nav, Form, FormControl, Button, Col, Row, Dropdown, NavItem} from 'react-bootstrap';
 import '@/public/styles/consumer/searchmenu.css';
 import Image from "next/image";
 import Link from "next/link";
 import {useState, useEffect} from "react";
-import { BsCart3 } from "react-icons/bs";
+import {BsCart3} from "react-icons/bs";
 import {useSelector, useDispatch} from "react-redux";
 import {useRouter, useSearchParams} from "next/navigation";
 import {clearStorage, isConsumer} from "@/app/config/utils";
 
 
-const  SearchMenu = () => {
-    const { push } = useRouter();
+const SearchMenu = () => {
+    const {push} = useRouter();
     const srcParams = useSearchParams()
     const src = srcParams.get('src')
     const cartItems = useSelector(state => state.totalCartItems);
@@ -23,17 +23,17 @@ const  SearchMenu = () => {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
     useEffect(() => {
-        dispatch({ type: 'TOTAL_CART_ITEMS' });
+        dispatch({type: 'TOTAL_CART_ITEMS'});
         setSearch(src)
-        if (isConsumer()){
+        if (isConsumer()) {
             setIsUserLoggedIn(true)
         }
     }, [cartItems]);
 
     const searchProducts = (e) => {
         e.preventDefault();
-        setSearch( e.target.value);
-        dispatch({ type: 'GET_PRODUCTS', payload: { src: e.target.value } })
+        setSearch(e.target.value);
+        dispatch({type: 'GET_PRODUCTS', payload: {src: e.target.value}})
         push('/consumer/product?src=' + e.target.value);
     }
 
@@ -43,7 +43,8 @@ const  SearchMenu = () => {
     };
 
     return (
-        <header className="navbar-search-menu">
+        <Suspense>
+            <header className="navbar-search-menu">
                 <Container className='container'>
                     <Row>
                         <Col sm={2}>
@@ -109,20 +110,22 @@ const  SearchMenu = () => {
                                             <div className='d-inline sign-in'>
                                                 {
                                                     !isUserLoggedIn ?
-                                                    <Link
-                                                        href={'/consumer/signin'}
-                                                        className="text-body-secondary text-decoration-none">
-                                                        Sign In
-                                                    </Link>:
-                                                    <Link
-                                                        href={'#'}
-                                                        onClick={handleLogout}
-                                                        className="text-body-secondary text-decoration-none">
-                                                        Sign Out
-                                                    </Link>
+                                                        <Link
+                                                            href={'/consumer/signin'}
+                                                            className="text-body-secondary text-decoration-none">
+                                                            Sign In
+                                                        </Link> :
+                                                        <Link
+                                                            href={'#'}
+                                                            onClick={handleLogout}
+                                                            className="text-body-secondary text-decoration-none">
+                                                            Sign Out
+                                                        </Link>
                                                 }
                                                 <br/>
-                                                <Link href={'/consumer/myaccount'} className="text-decoration-none fw-bold my-account">My Account</Link>
+                                                <Link href={'/consumer/myaccount'}
+                                                      className="text-decoration-none fw-bold my-account">My
+                                                    Account</Link>
                                             </div>
                                         </div>
                                     </Col>
@@ -156,7 +159,8 @@ const  SearchMenu = () => {
                         </Col>
                     </Row>
                 </Container>
-        </header>
+            </header>
+        </Suspense>
     );
 }
 

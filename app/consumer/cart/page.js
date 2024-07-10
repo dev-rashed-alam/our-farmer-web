@@ -1,12 +1,11 @@
 "use client";
 
-import {React, useState, useEffect} from "react";
+import React, {Suspense} from "react";
 import "@/public/styles/consumer/cart.css";
 import {Button, Card, Col, Container, Form, FormControl, Image, InputGroup, Row, Table} from "react-bootstrap";
 import Link from "next/link";
-import product from "@/app/consumer/components/product";
 import {useDispatch, useSelector} from "react-redux";
-import {addToCart, removeFromCart, increaseQuantity, decreaseQuantity} from "@/app/store/cartAction";
+import {removeFromCart, increaseQuantity, decreaseQuantity} from "@/app/store/cartAction";
 
 export default function Page() {
     const dispatch = useDispatch();
@@ -36,7 +35,7 @@ export default function Page() {
 
     const delivery = 5.00;
     return (
-        <>
+        <Suspense>
             { cartItems.length > 0 ? (
                     <Container className="cart-container">
                 <span className="cart-title">MY SHOPPING BAG</span>
@@ -152,7 +151,6 @@ export default function Page() {
 
                 </Container>
             }
-
-        </>
+        </Suspense>
     )
 }

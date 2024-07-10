@@ -1,6 +1,6 @@
 "use client";
 
-import {React, useState, useEffect} from "react";
+import React from "react";
 import "@/public/styles/consumer/cart.css";
 import {Button, Card, Col, Container, Form, FormControl, Image, InputGroup, Row, Table} from "react-bootstrap";
 import Link from "next/link";

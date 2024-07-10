@@ -4,7 +4,6 @@ import React, {useState} from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import '@/public/styles/consumer/signin.css';
 import { useRouter } from 'next/navigation';
-import {useDispatch, useSelector} from 'react-redux';
 import {doLogin} from "@/app/service/authService";
 import {saveUserInfoInStorage} from "@/app/config/utils";
 import {toast} from "react-toastify";
