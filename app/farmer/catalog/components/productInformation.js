@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Select from "react-select";
-import EditorComponent from "@/app/ui/common/editorComponent";
+import EditorComponent from "@/app/ui/common/EditorComponent";
 import {findAllCategories, saveCatalogByStage, updateCatalogByStage} from "@/app/service/catalogService";
 import {changeDateFormat, productionUnits} from "@/app/config/utils";
 import {useSearchParams} from "next/navigation";

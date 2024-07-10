@@ -1,7 +1,7 @@
 "use client"
 import React, {useEffect, useState} from "react";
 import Select from "react-select";
-import EditorComponent from "@/app/ui/common/editorComponent";
+import EditorComponent from "@/app/ui/common/EditorComponent";
 import {productionUnits, serviceType, tenureType} from "@/app/config/utils";
 import {findAllCatalogsByUser, saveCatalogService, updateCatalogService} from "@/app/service/catalogService";
 import {useRouter, useSearchParams} from "next/navigation";
