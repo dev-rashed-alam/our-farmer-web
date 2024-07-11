@@ -42,14 +42,14 @@ const Page = async () => {
                         </Link>
                          &nbsp;
                          <Link
-                             // href={`/admin/product/show/${product.id}?type=view`}
+                             href="#"
                              className="clickable"
                          >
                             <FaEdit/>
                         </Link>
                          &nbsp;
                          <Link
-                             // href={`/admin/product/show/${product.id}?type=view`}
+                             href="#"
                              className="clickable"
                          >
                              <span className="clickable admin-icons">
