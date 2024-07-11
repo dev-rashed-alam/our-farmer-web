@@ -12,7 +12,6 @@ import {addToCart} from "@/app/store/cartAction";
 
 export default function Page({params}) {
     const dispatch = useDispatch();
-    // const products = useSelector(state => state.products);
     const  {slug} = params;
     const products = useSelector(state => state.allProducts);
 
