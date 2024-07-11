@@ -20,8 +20,8 @@ const Page = async () => {
                 <td className="crud-table__cell">
                     {order.totalPrice}
                 </td>
-                <td className="crud-table__cell">
-                    <span className={order.isDelivered =='PENDING'? "badge bg-info": "badge bg-success"}>
+                <td className="crud-table__cell text-center">
+                    <span className={order.isDelivered =='PENDING'? "badge bg-info status-badge": "badge bg-success status-badge"}>
                         {capitalizeFirstLetter(order.isDelivered)}
                     </span>
                 </td>
