@@ -143,3 +143,23 @@ header {
     font-size: 12px;
     line-height: 16px;
 }
+.deliver-btn{
+    font-weight: bold;
+    border-radius: 0;
+    width: 100%;
+}
+
+.product-create-form{
+    padding: 20px 50px;
+}
+.product-create-form label{
+    font-weight: 500 !important;
+}
+.product-create-form input, .product-create-form select{
+    border-radius: 0 !important;
+    height: 40px !important;
+}
+.product-create-form button{
+    border-radius: 0 !important;
+    text-align: center;
+}

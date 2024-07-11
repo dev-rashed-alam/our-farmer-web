@@ -1,24 +1,19 @@
 import React from 'react';
 import '@/public/styles/farmer/Table.css';
 import Link from "next/link"
-import {capitalizeFirstLetter, changeDateFormat} from "@/app/config/utils";
+import {changeDateFormat} from "@/app/config/utils";
 import {FaEye} from "react-icons/fa";
 import {fetchAllProducts} from "@/app/service/productService";
 import {Row, Col} from "react-bootstrap";
+
 const Page = async () => {
     const productResponse = await fetchAllProducts()
 
     const renderProducts = () => {
-        console.log('productResponse', productResponse)
         return productResponse?.data?.map((product) => {
             return (<tr className="crud-table__row" key={`order_${product.id}`}>
                 <td className="crud-table__cell">
-                    <Link
-                        href="#"
-                        className="clickable"
-                    >
-                        {product.name}
-                    </Link>
+                    {product.name}
                 </td>
                 <td className="crud-table__cell">
                     {product.description}
@@ -36,7 +31,7 @@ const Page = async () => {
                     {changeDateFormat(product.createdAt, "YYYY-MM-DD", "DD MMM, YYYY")}
                 </td>
                 <td className="crud-table__cell">
-                    <span>
+                     <span className="admin-icons">
                         <Link
                             href={`/admin/product/show/${product.id}?type=view`}
                             className="clickable"
@@ -51,12 +46,14 @@ const Page = async () => {
 
     return (<>
         <Row>
-            <Col xs={9} className="text-right">
-                <h1 className="page-title">Products</h1>
-            </Col>
-            <Col xs={3}>
-                <Link href="/admin/product/create" className="btn btn-primary common-sytle">Create New Product</Link>
-            </Col>
+           <div className="d-flex justify-content-end mb-3">
+               <Link
+                   href="/admin/product/create"
+                   className="btn btn-primary custom-btn"
+               >
+                   Create New Product
+               </Link>
+           </div>
         </Row>
         <table className="crud-table">
             <thead className="crud-table__header">

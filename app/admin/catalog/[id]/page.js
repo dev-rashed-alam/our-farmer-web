@@ -1,5 +1,5 @@
 import Form from "@/app/farmer/catalog/components/Form";
-import {findAllCatalogs, findCatalogById} from "@/app/service/catalogService";
+import {findCatalogById} from "@/app/service/catalogService";
 import {cookies} from "next/headers";
 
 const Page = async ({params}) => {

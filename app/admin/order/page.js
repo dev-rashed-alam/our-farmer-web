@@ -3,26 +3,16 @@ import '@/public/styles/farmer/Table.css';
 import Link from "next/link"
 import {capitalizeFirstLetter, changeDateFormat} from "@/app/config/utils";
 import {FaEye} from "react-icons/fa";
-import {CiEdit} from "react-icons/ci";
-import DeleteCatalog from "@/app/admin/catalog/components/DeleteCatalog";
 import {fetchAllOrders} from "@/app/service/orderService";
-import {FcApprove} from "react-icons/fc";
 
 const Page = async () => {
     const orderResponse = await fetchAllOrders()
 
-
     const renderOrders = () => {
-        console.log('orderResponse', orderResponse)
         return orderResponse?.data?.map((order) => {
             return (<tr className="crud-table__row" key={`order_${order.id}`}>
                 <td className="crud-table__cell">
-                    <Link
-                        href="#"
-                        className="clickable"
-                    >
-                        {order.firstName + " " + order.lastName}
-                    </Link>
+                    {order.firstName + " " + order.lastName}
                 </td>
                 <td className="crud-table__cell">
                     {order.phone}
@@ -42,7 +32,7 @@ const Page = async () => {
                     {changeDateFormat(order.createdAt, "YYYY-MM-DD", "DD MMM, YYYY")}
                 </td>
                 <td className="crud-table__cell">
-                    <span>
+                    <span className="admin-icons">
                         <Link
                             href={`/admin/order/show/${order.id}?type=view`}
                             className="clickable"
