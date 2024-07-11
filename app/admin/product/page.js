@@ -1,13 +1,10 @@
 import React from 'react';
 import '@/public/styles/farmer/Table.css';
 import Link from "next/link"
-import {capitalizeFirstLetter, changeDateFormat} from "@/app/config/utils";
 import {FaEdit, FaEye} from "react-icons/fa";
 import {changeDateFormat} from "@/app/config/utils";
-import {FaEye} from "react-icons/fa";
 import {fetchAllProducts} from "@/app/service/productService";
 import {Row, Col} from "react-bootstrap";
-import {FaDeleteLeft} from "react-icons/fa6";
 import DeleteCatalog from "@/app/admin/catalog/components/DeleteCatalog";
 
 const Page = async () => {
@@ -42,12 +39,14 @@ const Page = async () => {
                         >
                             <FaEye/>
                         </Link>
+                         &nbsp;
                         <Link
                             href={`/admin/product/show/${product.id}?type=view`}
                             className="clickable"
                         >
                             <FaEdit/>
                         </Link>
+                         &nbsp;
                         <Link
                             href={`/admin/product/show/${product.id}?type=view`}
                             className="clickable"
@@ -62,14 +61,14 @@ const Page = async () => {
 
     return (<>
         <Row>
-           <div className="d-flex justify-content-end mb-3">
-               <Link
-                   href="/admin/product/create"
-                   className="btn btn-primary custom-btn"
-               >
-                   Create New Product
-               </Link>
-           </div>
+            <div className="d-flex justify-content-end mb-3">
+                <Link
+                    href="/admin/product/create"
+                    className="btn btn-primary custom-btn"
+                >
+                    Create New Product
+                </Link>
+            </div>
         </Row>
         <table className="crud-table">
             <thead className="crud-table__header">
