@@ -33,24 +33,23 @@ const MegaMenu = () => {
                                  className="text-token-text-tertiary"><path
                                 d="M11.3346 7.83203L8.00131 11.1654L4.66797 7.83203" stroke="currentColor"
                                 strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                        </span>} id="basic-nav-dropdown" className='show'>
+                        </span>} id="basic-nav-dropdown" className='show text-decoration-none text-body-secondary fw-bold mt-2'>
                             {categories.map(category => (
                                 <NavDropdown.Item key={category.id} href={'/consumer/product/?category=' + category.id}>
                                     {category.name}
                                 </NavDropdown.Item>
                             ))}
                         </NavDropdown>
-                        <Link href={'/'} className='fw-bold'>Home</Link>
-                        <Link href="/consumer/product" className='fw-bold'>Shop
+                        <Link href={'/'} className='text-decoration-none text-body-secondary fw-bold p-2'>Home</Link>
+                        <Link href="/consumer/product" className='text-decoration-none text-body-secondary fw-bold p-2'>Shop
                         </Link>
-                        <Link href="/consumer/product?category=2" className='fw-bold'>Fruits and Vegetables</Link>
                         <Link href={'/consumer/contact'}
-                              className='text-decoration-none text-body-secondary fw-bold'> Contact</Link>
+                              className='text-decoration-none text-body-secondary fw-bold  p-2'> Contact</Link>
                     </Nav>
                     <Nav className="ml-auto">
-                        <Link href={'/consumer/product?isTrending=1'} className="trending fw-bold">Trending
+                        <Link href={'/consumer/product?isTrending=1'} className="trending text-decoration-none text-body-secondary fw-bold p-2">Trending
                             Product</Link>
-                        <Link href="#" className="text-danger">Almost Finished
+                        <Link href="#" className="text-danger text-decoration-none text-body-secondary p-2">Almost Finished
                             <span className="sales">
                                 Sales
                             </span>

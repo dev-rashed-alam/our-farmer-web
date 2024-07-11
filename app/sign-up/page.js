@@ -6,6 +6,8 @@ import {useRouter} from "next/navigation";
 import {doRegistration} from "@/app/service/authService";
 import {toast} from "react-toastify";
 import {getInputFieldError} from "@/app/config/utils";
+import Image from "next/image";
+import Link from "next/link";
 
 const Registration = () => {
     const [inputData, setInputData] = useState({});
@@ -71,6 +73,17 @@ const Registration = () => {
         <div className="auth-wrapper">
             <div className="auth-inner">
                 <form onSubmit={handleSubmit} autoComplete="off">
+                    <div className="text-center">
+                        <Link href={'/'}>
+                            <Image
+                                src="/images/logo-transparent.png"
+                                width={100}
+                                height={100}
+                                alt="Our Farmer"
+                                className='logo-icon'
+                            />
+                        </Link>
+                    </div>
                     <h3>Sign Up</h3>
                     <div className="row">
                         <div className="col">
@@ -172,6 +185,8 @@ const Registration = () => {
                     <div className="d-grid mt-2">
                         <p onClick={() => router.push("/sign-in")} className="paragraph cursor-pointer">Already have an
                             account? Sign In</p>
+                        <p onClick={() => router.push("/")} className="paragraph cursor-pointer text-center text-success">Back to Home</p>
+
                     </div>
                 </form>
             </div>

@@ -10,6 +10,8 @@ const WebBanner = () => {
             <Row>
                 {/* Featured Product Card */}
                 <Col xs={12} md={3} className="mb-3 mb-md-0">
+
+
                     <Card className="featured-product-card">
                         <Card.Body>
                             <Card.Title className="text-danger title">Organic Featured Products</Card.Title>

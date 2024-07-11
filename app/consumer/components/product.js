@@ -51,7 +51,7 @@ const Product = () => {
                                 }
                                 <Card.Img variant="top" className="p-3" src={`${product.image}`} />
                                 <Card.Body>
-                                    <Card.Text className="p "><Link href={'/consumer/product/' + `${product.slug}`} className="text-decoration-none text-body-secondary fw-bold">{product.name} ({product.nameBn})</Link></Card.Text>
+                                    <Card.Text className="p "><Link href={'/consumer/product/' + `${product.slug}`} className="text-decoration-none text-body-secondary fw-bold">{product.name} {product.nameBn ? '(' + product.nameBn + ')' : ''}</Link></Card.Text>
                                     <Card.Text className="fw-bolder h5">
                                         <span className="text-danger">Tk </span>
                                         {
@@ -87,7 +87,7 @@ const Product = () => {
                                     }
                                     <Card.Img variant="top" className="p-3" src={`${product.image}`} />
                                     <Card.Body>
-                                        <Card.Text className="p "><Link href={'/consumer/product/' + `${product.slug}`} className="text-decoration-none text-body-secondary fw-bold">{product.name} ({product.nameBn})</Link></Card.Text>
+                                        <Card.Text className="p "><Link href={'/consumer/product/' + `${product.slug}`} className="text-decoration-none text-body-secondary fw-bold">{product.name} {product.nameBn ? '(' + product.nameBn + ')' : ''}</Link></Card.Text>
                                         <Card.Text className="fw-bolder h5">
                                             <span className="text-danger">Tk </span>
                                             {

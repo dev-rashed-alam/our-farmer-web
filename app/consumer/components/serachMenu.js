@@ -49,13 +49,16 @@ const SearchMenu = () => {
                     <Row>
                         <Col sm={2}>
                             <Row>
-                                <Col sm={5}>
-                                    <Image
-                                        src="/images/logo2.png"
-                                        width={70}
-                                        height={30}
-                                        alt="Location"
-                                    />
+                                <Col sm={4}>
+                                    <Link href={'/'}>
+                                        <Image
+                                            src="/images/logo-transparent.png"
+                                            width={70}
+                                            height={70}
+                                            alt="Our Farmer"
+                                            className='logo-icon'
+                                        />
+                                    </Link>
                                 </Col>
                                 <Col sm={2}>
                                     <Image
@@ -66,10 +69,10 @@ const SearchMenu = () => {
                                         className='location-icon'
                                     />
                                 </Col>
-                                <Col sm={5}>
+                                <Col sm={6}>
                                     <div className="me-auto">
-                                        <div className='d-inline delivery-text'> Deliver to
-                                            <br/><span className='fw-bolder delivery'>All</span>
+                                        <div className='d-inline delivery-text'> Deliver All
+                                            <br/><span className='fw-bolder delivery'>Over Bangladesh</span>
                                         </div>
                                     </div>
                                 </Col>

@@ -25,9 +25,9 @@ const teamMembers = [
         github: '#'
     },
     {
-        name: 'Mariom Akther',
-        role: '201015049',
-        image: 'https://www.svgrepo.com/show/382100/female-avatar-girl-face-woman-user-7.svg',
+        name: 'Md Hasibul Hasan',
+        role: '201015031',
+        image: '/images/hasibul-hasan.jpg',
         twitter: '#',
         linkedin: '#',
         github: '#'

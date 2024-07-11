@@ -131,7 +131,7 @@ const Footer = () => {
                             <span className="footer-title">Get to Know Us</span>
                             <Nav>
                                 <Nav.Item>
-                                    <Nav.Link href="/home" className="text-body-secondary m-0 p-0">About OurFarmer</Nav.Link>
+                                    <Nav.Link href="/consumer/about" className="text-body-secondary m-0 p-0">About OurFarmer</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
                                     <Nav.Link eventKey="link-1" className="text-body-secondary m-0 p-0">Customer Reviews</Nav.Link>
