@@ -1,6 +1,6 @@
 import {API_BASE_URL} from "@/app/config/constant";
 import axios from "axios";
-import {getReqConfig, getReqHeaderConfig, printApiErrors} from "@/app/config/utils";
+import {getReqConfig, getReqHeaderConfig, getReqHeaderConfigWithMultiPart, printApiErrors} from "@/app/config/utils";
 
 export const findAllUsers = async (userType, token) => {
     const res = await fetch(`${API_BASE_URL}/admin/users?userType=${userType}`, {
@@ -27,7 +27,7 @@ export const findUserById = async (userId, token) => {
 
 export const deleteUserById = async (id) => {
     try {
-        const {data} = await axios.delete(`${API_BASE_URL}/admin/delete/user/${id}`,{
+        const {data} = await axios.delete(`${API_BASE_URL}/admin/delete/user/${id}`, {
             headers: getReqHeaderConfig()
         });
         return data
@@ -43,7 +43,7 @@ export const updateUserById = async (id, postData) => {
             formData.append(item, postData[item])
         }
         const {data} = await axios.put(`${API_BASE_URL}/admin/user/${id}`, formData, {
-            headers: getReqHeaderConfig()
+            headers: getReqHeaderConfigWithMultiPart()
         });
         return data
     } catch (e) {

@@ -13,6 +13,12 @@ export const getReqHeaderConfig = () => {
     };
 }
 
+export const getReqHeaderConfigWithMultiPart = () => {
+    return {
+        'Content-Type': 'multipart/form-data', Accept: 'application/json', Authorization: `Bearer ${getToken()}`
+    };
+}
+
 
 export const printApiErrors = (error) => {
     if (error?.response?.data?.message) {
