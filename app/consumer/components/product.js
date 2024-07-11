@@ -58,7 +58,9 @@ const Product = () => {
                                          product.discountType =='PERCENTAGE' ?
                                              (product.discount > 0 ? product.price - (product.price * product.discount / 100) : product.price):
                                              product.discount > 0 ? product.price - product.discount : product.price
-                                        } <small><del>Tk {product.price}</del></small></Card.Text>
+                                        }
+                                        { product.discount > 0 ? <small><del>Tk {product.price}</del></small> : ''}
+                                    </Card.Text>
                                     {
                                         product.stock > 0 ?
                                             <Button variant="light" className="text-body-secondary fw-bold pr-3 custom-round-button add-to-cart" onClick={()=>handleAddToCart(product)}>Add to Cart</Button>
@@ -94,7 +96,8 @@ const Product = () => {
                                                 product.discountType =='PERCENTAGE' ?
                                                     (product.discount > 0 ? product.price - (product.price * product.discount / 100) : product.price):
                                                     product.discount > 0 ? product.price - product.discount : product.price
-                                            } <small><del>Tk {product.price}</del></small></Card.Text>
+                                            } { product.discount > 0 ? <small><del>Tk {product.price}</del></small> : ''}
+                                        </Card.Text>
                                         {
                                             product.stock > 0 ?
                                                 <Button variant="light" className="text-body-secondary fw-bold pr-3 custom-round-button add-to-cart" onClick={()=>handleAddToCart(product)}>Add to Cart</Button>

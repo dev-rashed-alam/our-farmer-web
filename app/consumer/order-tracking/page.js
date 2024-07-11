@@ -84,7 +84,7 @@ export default function Page() {
                                                 </Table>
                                             </Card.Text>
                                             <Card.Text>
-                                                <span>Order Status: {order.isDelivered ? 'Delivered' : 'Pending'}</span>
+                                                <span>Order Status: {order.isDelivered == 'DELIVERED' ? 'Delivered' : 'Pending'}</span>
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
