@@ -1,13 +1,16 @@
 'use client'
 
-import React from 'react';
+import React, {useState} from 'react';
 import '@/public/styles/farmer/Form.css';
 import {toast} from "react-toastify";
 import {createNewProduct} from "@/app/service/productService";
 import {Row, Col} from "react-bootstrap";
 import {redirect} from "next/navigation";
+import {isValidFileType} from "@/app/config/utils";
 
 const Page = () => {
+    const [productImg, setProductImg] = useState(null);
+    const [imageError, setImageError] = useState(false)
     const [inputData, setInputData] = React.useState({
         name: '',
         description: '',
@@ -44,8 +47,25 @@ const Page = () => {
         setErrors(errorsObj);
         return Object.keys(errorsObj).length === 0;
     };
+
+    const uploadProductImage = (evt) => {
+        evt.preventDefault();
+        const {files} = evt.target;
+        if (isValidFileType(['image/jpeg', 'image/png'], files[0].type)) {
+            const formData = new FormData();
+            formData.append("myFile", files[0], files[0].name);
+            setProductImg(files[0]);
+            setImageError(false)
+        } else {
+            setImageError(true)
+        }
+    };
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
+
         const reqData = {
             name: inputData.name,
             description: inputData.description,
@@ -57,7 +77,7 @@ const Page = () => {
             discountType: inputData.discountType,
             isFeatured: inputData.isFeatured,
             isTrending: inputData.isTrending,
-            image: inputData.image
+            image: productImg || ''
         }
         if (isValidForm()) {
             const product = createNewProduct(reqData).then((res) => {
@@ -183,12 +203,12 @@ const Page = () => {
                     <div className="col-md-6 mb-3">
                         <label htmlFor="image">Image</label>
                         <input
-                            type="text"
+                            type="file"
                             id="image"
                             name="image"
-                            placeholder="Image URL"
+                            placeholder="Upload Image"
                             className="form-control"
-                            onChange={handleChange}
+                            onChange={uploadProductImage}
                         />
                     </div>
                     <div className="col-md-12 mb-3">

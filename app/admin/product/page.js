@@ -6,6 +6,7 @@ import {changeDateFormat} from "@/app/config/utils";
 import {fetchAllProducts} from "@/app/service/productService";
 import {Row, Col} from "react-bootstrap";
 import DeleteCatalog from "@/app/admin/catalog/components/DeleteCatalog";
+import {MdDelete} from "react-icons/md";
 
 const Page = async () => {
     const productResponse = await fetchAllProducts()
@@ -40,18 +41,20 @@ const Page = async () => {
                             <FaEye/>
                         </Link>
                          &nbsp;
-                        <Link
-                            href={`/admin/product/show/${product.id}?type=view`}
-                            className="clickable"
-                        >
+                         <Link
+                             // href={`/admin/product/show/${product.id}?type=view`}
+                             className="clickable"
+                         >
                             <FaEdit/>
                         </Link>
                          &nbsp;
-                        <Link
-                            href={`/admin/product/show/${product.id}?type=view`}
-                            className="clickable"
-                        >
-                             <DeleteCatalog catalog={product}/>
+                         <Link
+                             // href={`/admin/product/show/${product.id}?type=view`}
+                             className="clickable"
+                         >
+                             <span className="clickable admin-icons">
+                                <MdDelete/>
+                            </span>
                         </Link>
                     </span>
                 </td>
