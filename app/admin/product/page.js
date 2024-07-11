@@ -2,9 +2,11 @@ import React from 'react';
 import '@/public/styles/farmer/Table.css';
 import Link from "next/link"
 import {capitalizeFirstLetter, changeDateFormat} from "@/app/config/utils";
-import {FaEye} from "react-icons/fa";
+import {FaEdit, FaEye} from "react-icons/fa";
 import {fetchAllProducts} from "@/app/service/productService";
 import {Row, Col} from "react-bootstrap";
+import {FaDeleteLeft} from "react-icons/fa6";
+import DeleteCatalog from "@/app/admin/catalog/components/DeleteCatalog";
 const Page = async () => {
     const productResponse = await fetchAllProducts()
 
@@ -42,6 +44,18 @@ const Page = async () => {
                             className="clickable"
                         >
                             <FaEye/>
+                        </Link>
+                        <Link
+                            href={`/admin/product/show/${product.id}?type=view`}
+                            className="clickable"
+                        >
+                            <FaEdit/>
+                        </Link>
+                        <Link
+                            href={`/admin/product/show/${product.id}?type=view`}
+                            className="clickable"
+                        >
+                             <DeleteCatalog catalog={product}/>
                         </Link>
                     </span>
                 </td>

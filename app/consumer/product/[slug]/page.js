@@ -7,18 +7,21 @@ import Link from "next/link";
 import React, {useEffect} from "react";
 import { BsFillStarFill, BsStar } from "react-icons/bs";
 import {useRouter} from "next/navigation";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {addToCart} from "@/app/store/cartAction";
 
 export default function Page({params}) {
+    const dispatch = useDispatch();
+    // const products = useSelector(state => state.products);
     const  {slug} = params;
     const products = useSelector(state => state.allProducts);
 
     const product = products.find(product => product.slug === slug);
 
-    const relatedProducts = products.filter(item => item.category == product.category && item.id !== product.id);
+    const relatedProducts = products.filter(item => item.category == product?.category && item.id !== product?.id);
 
 
-    const handleAddToCart = ({id, name, price, quantity}) => {
+    const handleAddToCartz = ({id, name, price, quantity}) => {
         const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
         const newItem = { id, name, price, quantity: 1 };
         const existingItem = cartItems.find(item => item.id === id);
@@ -30,6 +33,10 @@ export default function Page({params}) {
         }
 
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    };
+    const handleAddToCart = (product) => {
+        console.log(product)
+        dispatch(addToCart(product));
     };
 
     return (
@@ -46,7 +53,7 @@ export default function Page({params}) {
                                </Col>
                                <Col xs={7}>
                                    <div className="border-bottom p-1">
-                                    <span className="fw-bold h2">{product.name}</span>
+                                    <span className="fw-bold h2">{product.name} {product.nameBn ? '(' + product.nameBn + ')' : ''}</span>
                                        <div className="mt-1">SKU: {product.sku}</div>
                                    </div>
                                    <p className="mt-3">{product.description}</p>

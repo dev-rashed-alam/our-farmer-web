@@ -26,10 +26,10 @@ const NavMenu = () => {
                                     About us
                                 </Link>
                                 <Link
-                                    href={'/consumer/myaccount'}
+                                    href={'/sign-up'}
                                     className="text-decoration-none text-body-secondary top-menu"
                                 >
-                                    My Account
+                                    Sell on Our Farmer
                                 </Link>
                             </Nav>
                         </Col>

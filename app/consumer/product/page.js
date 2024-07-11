@@ -4,6 +4,7 @@ import {Container, Row, Col, Card, Button, Image} from 'react-bootstrap';
 import {useSearchParams} from 'next/navigation'
 import {useSelector, useDispatch} from 'react-redux';
 import {addToCart} from "@/app/store/cartAction";
+import Link from "next/link";
 
 export default function Page(request) {
     const dispatch = useDispatch();
@@ -113,7 +114,7 @@ export default function Page(request) {
                                         }
                                         <Card.Img variant="top" className="p-3" src={`${product.image}`}/>
                                         <Card.Body>
-                                            <Card.Text className="p">{product.name}</Card.Text>
+                                            <Card.Text className="p"><Link href={'/consumer/product/' + `${product.slug}`} className="text-decoration-none text-body-secondary fw-bold">{product.name} {product.nameBn ? '(' + product.nameBn + ')' : ''} </Link></Card.Text>
                                             <Card.Text className="fw-bolder h5"><span
                                                 className="text-danger">Tk </span>{product.price}</Card.Text>
                                             {

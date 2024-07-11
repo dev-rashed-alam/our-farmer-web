@@ -7,6 +7,8 @@ import {doLogin} from "@/app/service/authService";
 import {toast} from "react-toastify";
 import {saveUserInfoInStorage} from "@/app/config/utils";
 import Cookies from 'js-cookie';
+import Link from "next/link";
+import Image from "next/image";
 
 const Login = () => {
     const [inputData, setInputData] = useState({});
@@ -63,6 +65,17 @@ const Login = () => {
         <div className="auth-wrapper">
             <div className="auth-inner">
                 <form onSubmit={handleSubmit} autoComplete="off">
+                    <div className="text-center">
+                        <Link href={'/'}>
+                            <Image
+                                src="/images/logo-transparent.png"
+                                width={100}
+                                height={100}
+                                alt="Our Farmer"
+                                className='logo-icon'
+                            />
+                        </Link>
+                    </div>
                     <h3>Sign In</h3>
                     <div className="mb-3">
                         <label htmlFor="phoneNumber">
@@ -105,6 +118,8 @@ const Login = () => {
                         <p onClick={() => router.push("/sign-up")} className="paragraph cursor-pointer">Don&apos;t have
                             an account?
                             Sign up</p>
+
+                        <p onClick={() => router.push("/")} className="paragraph cursor-pointer text-center text-success">Back to Home</p>
                     </div>
                 </form>
             </div>
