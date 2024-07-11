@@ -1,10 +1,8 @@
 "use client"
 import React from "react";
-import {MdDelete} from "react-icons/md";
 import {updateOrder} from "@/app/service/orderService";
 import {useRouter} from "next/navigation"
 import {toast} from "react-toastify";
-import {IoMdCheckmark} from "react-icons/io";
 
 const UpdateOrder = ({order}) => {
     const router = useRouter();
@@ -19,8 +17,8 @@ const UpdateOrder = ({order}) => {
     }
 
     return (
-        <span onClick={() => updateOrderStatus(order.id)} className="clickable text-body-secondary common-sytle p-2">
-             <IoMdCheckmark />Click to Delivered
+        <span onClick={() => updateOrderStatus(order.id)} className="btn btn-primary custom-btn mb-2 deliver-btn">
+             Click to Delivered
         </span>
     )
 }
